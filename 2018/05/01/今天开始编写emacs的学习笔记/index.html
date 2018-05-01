@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next muse use-motion" lang="zh-Hans">
+<html class="theme-next muse use-motion" lang="">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 (defun my:flymake-google-in">
+<meta name="description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入‘’’(defun my:flymake-google-">
 <meta property="og:type" content="article">
 <meta property="og:title" content="今天开始编写emacs的学习笔记">
 <meta property="og:url" content="http://yoursite.com/2018/05/01/今天开始编写emacs的学习笔记/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 (defun my:flymake-google-in">
-<meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-01T14:26:29.114Z">
+<meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入‘’’(defun my:flymake-google-">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-01T14:28:56.998Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="今天开始编写emacs的学习笔记">
-<meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 (defun my:flymake-google-in">
+<meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入‘’’(defun my:flymake-google-">
 
 
 
@@ -105,7 +105,7 @@
     motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: '博主'
+      author: 'Author'
     },
     algolia: {
       applicationID: '',
@@ -137,7 +137,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+<body itemscope itemtype="http://schema.org/WebPage" lang="default">
 
   
   
@@ -185,7 +185,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            首页
+            Home
           </a>
         </li>
       
@@ -195,7 +195,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            归档
+            Archives
           </a>
         </li>
       
@@ -259,9 +259,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">发表于</span>
+                <span class="post-meta-item-text">Posted on</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T22:03:01+08:00">
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-01T22:03:01+08:00">
                 2018-05-01
               </time>
             
@@ -302,9 +302,7 @@
         <p>博客来源于：<a href="http://www.cnblogs.com/sunhang09/p/5023220.html" target="_blank" rel="noopener">http://www.cnblogs.com/sunhang09/p/5023220.html</a></p>
 <p>2015-12-21 22:43———————————————————————</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
-<p>在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入</p>
-<p>(defun my:flymake-google-init ()<br>  (require ‘flymake-google-cpplint)<br>  (flymake-google-cpplint-load)<br>  )<br>(add-hook ‘c-mode-hook ‘my:flymake-google-init)<br>(add-hook ‘c++-mode-hook ‘my:flymake-google-init)</p>
-<p>然后在终端中输入pip search cpplint，终端提示pip:command not found。所以需要安装pip，安装pip的方式是，我用wget命令获取get-pip.py，</p>
+<p>在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入<br>‘’’<br>(defun my:flymake-google-init ()<br>  (require ‘flymake-google-cpplint)<br>  (flymake-google-cpplint-load)<br>  )<br>(add-hook ‘c-mode-hook ‘my:flymake-google-init)<br>(add-hook ‘c++-mode-hook ‘my:flymake-google-init)<br>‘’’<br>然后在终端中输入pip search cpplint，终端提示pip:command not found。所以需要安装pip，安装pip的方式是，我用wget命令获取get-pip.py，</p>
 <p>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>然后使用如下命令来安装pip<br>sudo python get-pip.py</p>
 <p>然后，敲入命令sudo pip search cpplint，此时terminal会显示对cpplint的介绍。</p>
 <p>然后，敲入命令sudo pip install cpplint，进行安装cpplint</p>
@@ -454,7 +452,7 @@
                 <a href="/archives/">
               
                   <span class="site-state-item-count">7</span>
-                  <span class="site-state-item-name">日志</span>
+                  <span class="site-state-item-name">posts</span>
                 </a>
               </div>
             
@@ -504,7 +502,7 @@
 </div>
 
 
-  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+  <div class="powered-by">Powered by <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a></div>
 
 
 
@@ -512,7 +510,7 @@
 
 
 
-  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
+  <div class="theme-info">Theme &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a> v5.1.4</div>
 
 
 
