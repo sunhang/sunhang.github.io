@@ -86,7 +86,7 @@
 <meta property="og:site_name" content="程序员小航">
 <meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入123456(defun my:flymake-goog">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-01T14:36:00.376Z">
+<meta property="og:updated_time" content="2018-05-01T14:40:28.838Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="今天开始编写emacs的学习笔记">
 <meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入123456(defun my:flymake-goog">
@@ -303,39 +303,32 @@
 <p>2015-12-21 22:43———————————————————————</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
 <p>在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">(defun my:flymake-google-init ()</span><br><span class="line">  (require &apos;flymake-google-cpplint)</span><br><span class="line">  (flymake-google-cpplint-load)</span><br><span class="line">  )</span><br><span class="line">(add-hook &apos;c-mode-hook &apos;my:flymake-google-init)</span><br><span class="line">(add-hook &apos;c++-mode-hook &apos;my:flymake-google-init)</span><br></pre></td></tr></table></figure></p>
-<p>然后在终端中输入pip search cpplint，终端提示pip:command not found。所以需要安装pip，安装pip的方式是，我用wget命令获取get-pip.py，</p>
-<p>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>然后使用如下命令来安装pip<br>sudo python get-pip.py</p>
+<p>然后在终端中输入pip search cpplint，终端提示pip:command not found。所以需要安装pip，安装pip的方式是，我用wget命令获取get-pip.py，<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://bootstrap.pypa.io/get-pip.py</span><br></pre></td></tr></table></figure></p>
+<p>然后使用如下命令来安装pip<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo python get-pip.py</span><br></pre></td></tr></table></figure></p>
 <p>然后，敲入命令sudo pip search cpplint，此时terminal会显示对cpplint的介绍。</p>
 <p>然后，敲入命令sudo pip install cpplint，进行安装cpplint</p>
 <p>But…特么的cpplint安装到哪里了，机器也不告诉我！！！</p>
-<p>突然想起了which命令，终于找到cpplint的安装路径了，于是在.emacs中函数my:flymake-google-init中添加语句</p>
-<p>(custom-set-variables<br> ‘(flymake-google-cpplint-command “/usr/local/bin/cpplint”))</p>
+<p>突然想起了which命令，终于找到cpplint的安装路径了，于是在.emacs中函数my:flymake-google-init中添加语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(custom-set-variables</span><br><span class="line"> &apos;(flymake-google-cpplint-command &quot;/usr/local/bin/cpplint&quot;))</span><br></pre></td></tr></table></figure></p>
 <p>2015-12-16 23:55———————————————————————–</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
-<p>不甘心，决定再尝试一下emacs的c/c++配置。于是，在事先下载好了yasnippet和autocomplete时，在.emacs中添加函数</p>
-<p>(defun my:ac-c-header-init ()<br>  (require ‘auto-complete-c-headers)<br>  (add-to-list ‘ac-sources ‘ac-source-c-headers)<br>  (add-to-list ‘achead:include-directories ‘“ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include”))</p>
-<p>其中类库的地址是通过如下命令得到<br>gcc -xc++ -E -v -</p>
-<p>然后还需要加入hook</p>
-<p>(add-hook ‘c++-mode-hook ‘my:ac-c-header-init)<br>(add-hook ‘c-mode-hook ‘my:ac-c-header-init)</p>
+<p>不甘心，决定再尝试一下emacs的c/c++配置。于是，在事先下载好了yasnippet和autocomplete时，在.emacs中添加函数<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">(defun my:ac-c-header-init ()</span><br><span class="line">  (require &apos;auto-complete-c-headers)</span><br><span class="line">  (add-to-list &apos;ac-sources &apos;ac-source-c-headers)</span><br><span class="line">  (add-to-list &apos;achead:include-directories &apos;&quot; /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include&quot;))</span><br></pre></td></tr></table></figure></p>
+<p>其中类库的地址是通过如下命令得到<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gcc -xc++ -E -v -</span><br></pre></td></tr></table></figure></p>
+<p>然后还需要加入hook<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">(add-hook &apos;c++-mode-hook &apos;my:ac-c-header-init)</span><br><span class="line">(add-hook &apos;c-mode-hook &apos;my:ac-c-header-init)</span><br></pre></td></tr></table></figure></p>
 <p>于是，我打开c文件，输入include和表达式，它果然可以显灵了。</p>
-<p>然后，我又再elpa中加载了iedit，在.emacs中添加</p>
-<p>;; fix iedit bug in Mac<br>(define-key global-map (kbd “C-c ;”) ‘iedit-mode)</p>
+<p>然后，我又再elpa中加载了iedit，在.emacs中添加<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">;; fix iedit bug in Mac</span><br><span class="line">(define-key global-map (kbd &quot;C-c ;&quot;) &apos;iedit-mode)</span><br></pre></td></tr></table></figure></p>
 <p>之后，我就可以在c文件中，把光标移动到一个变量上时，输入命令C-c ;，编辑窗口会高亮显示在所有地方的该变量。再输入C-c ;取消高亮。</p>
 <p>2015-12-15 21:48———————————————————————–</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
-<p>每次修改.emacs文件后，要重启emacs才能使它生效。现在找到一个好方法。</p>
-<p>You can use the command load-file (M-x load-file, then press return twice to accept the default filename, which is the current file being edited).</p>
-<p>You can also just move the point to the end of any sexp and press C-x C-e to execute just that sexp. Usually it’s not necessary to reload the whole file if you’re just changing a line or two.</p>
+<p>每次修改.emacs文件后，要重启emacs才能使它生效。现在找到一个好方法。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">You can use the command load-file (M-x load-file, then press return twice to accept the default filename, which is the current file being edited).</span><br><span class="line"></span><br><span class="line">You can also just move the point to the end of any sexp and press C-x C-e to execute just that sexp. Usually it&apos;s not necessary to reload the whole file if you&apos;re just changing a line or two.</span><br></pre></td></tr></table></figure></p>
 <p>2015-12-12 11:51————————————————————————</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
-<p>在.emacs中添加语句<br>(setq jde-help-remote-file-exists-function ‘(“beanshell”))<br>确实解决了找不到wget的问题，然后emacs提示“Package sregex is obsolete!”。</p>
+<p>在.emacs中添加语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(setq jde-help-remote-file-exists-function &apos;(&quot;beanshell&quot;))</span><br></pre></td></tr></table></figure></p>
+<p>确实解决了找不到wget的问题，然后emacs提示“Package sregex is obsolete!”。</p>
 <p>特么的我是不是要单独写个日记来记录怎么配置jdee呀，看来碰到的问题太特么多了，又特么不知道提示的是什么意思?</p>
 <p>2015-12-12 11:22————————————————————————-</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
-<p>fuck!当我把jdee放到~/.emacs.d/中后，在.emacs中添加了以下语句<br>;; jdee</p>
-<p>(add-to-list ‘load-path “~/.emacs.d/jdee-2.4.1/lisp”)</p>
-<p>(load “jde”)</p>
-<p>但是，启动emacs时，提示<br>error: Cannot find wget. You might want to use the beanshell resolver instead.</p>
+<p>fuck!当我把jdee放到~/.emacs.d/中后，在.emacs中添加了以下语句<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">;; jdee</span><br><span class="line"></span><br><span class="line">(add-to-list &apos;load-path &quot;~/.emacs.d/jdee-2.4.1/lisp&quot;)</span><br><span class="line"></span><br><span class="line">(load &quot;jde&quot;)</span><br></pre></td></tr></table></figure></p>
+<p>但是，启动emacs时，提示<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">error: Cannot find wget. You might want to use the beanshell resolver instead.</span><br></pre></td></tr></table></figure></p>
 <p>然后我用brew install wget命令，安装wget成功（控制台显示：/usr/local/Cellar/wget/1.16.3: 9 files, 1.5M）。</p>
 <p>但是重启emacs后，依然提示cannot find wget。</p>
 <p>2015-12-12 10:49————————————————————————–</p>
@@ -343,11 +336,9 @@
 <p>2015-12-11 ——————————————————————————–</p>
 <p>今天我去往emacs24中添加cedet，但是查看emacswiki时，上面解释说：In Emacs 23.2, CEDET was merged into the main Emacs distribution</p>
 <p>而且上面给出提示：TODO: please explain what code you need to load the most useful IDE tools provided by CEDET</p>
-<p>于是我在.emacs中添加了基础配置：<br>(global-ede-mode 1)<br>(require ‘semantic/sb)<br>(semantic-mode 1)</p>
+<p>于是我在.emacs中添加了基础配置：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">(global-ede-mode 1)</span><br><span class="line">(require &apos;semantic/sb)</span><br><span class="line">(semantic-mode 1)</span><br></pre></td></tr></table></figure></p>
 <p>2015-12-11之前————————————————————————-</p>
-<p><em>scratch</em>是草稿缓冲区，你可以在其中乱写东西，但不会被保存</p>
-<p>;; —————————–<br>;; 屏幕一行一行滚动光标不动<br>(global-set-key [(meta down)] (lambda (&amp;optional n) (interactive “p”)<br>(scroll-up (or n 1))))</p>
-<p>(global-set-key [(meta up)] (lambda (&amp;optional n) (interactive “p”)<br>(scroll-down (or n 1))))</p>
+<p><em>scratch</em>是草稿缓冲区，你可以在其中乱写东西，但不会被保存<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">;; ----------------------------- </span><br><span class="line">;; 屏幕一行一行滚动光标不动 </span><br><span class="line">(global-set-key [(meta down)] (lambda (&amp;optional n) (interactive &quot;p&quot;) </span><br><span class="line">(scroll-up (or n 1))))</span><br><span class="line"></span><br><span class="line">(global-set-key [(meta up)] (lambda (&amp;optional n) (interactive &quot;p&quot;) </span><br><span class="line">(scroll-down (or n 1))))</span><br></pre></td></tr></table></figure></p>
 
       
     </div>
