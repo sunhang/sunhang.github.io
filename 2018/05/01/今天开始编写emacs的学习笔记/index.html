@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 \’\’\’(defun my:flymake-goo">
+<meta name="description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’’ lisp(defun my:flymake-g">
 <meta property="og:type" content="article">
 <meta property="og:title" content="今天开始编写emacs的学习笔记">
 <meta property="og:url" content="http://yoursite.com/2018/05/01/今天开始编写emacs的学习笔记/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 \’\’\’(defun my:flymake-goo">
+<meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’’ lisp(defun my:flymake-g">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-01T14:17:28.876Z">
+<meta property="og:updated_time" content="2018-05-01T14:22:20.234Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="今天开始编写emacs的学习笔记">
-<meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 \’\’\’(defun my:flymake-goo">
+<meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’’ lisp(defun my:flymake-g">
 
 
 
@@ -303,7 +303,7 @@
 <p>2015-12-21 22:43———————————————————————</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
 <p>在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入</p>
-<p>\’\’\’<br>(defun my:flymake-google-init ()<br>  (require ‘flymake-google-cpplint)<br>  (flymake-google-cpplint-load)<br>  )<br>(add-hook ‘c-mode-hook ‘my:flymake-google-init)<br>(add-hook ‘c++-mode-hook ‘my:flymake-google-init)<br>\’\’\’</p>
+<p>‘’’ lisp<br>(defun my:flymake-google-init ()<br>  (require ‘flymake-google-cpplint)<br>  (flymake-google-cpplint-load)<br>  )<br>(add-hook ‘c-mode-hook ‘my:flymake-google-init)<br>(add-hook ‘c++-mode-hook ‘my:flymake-google-init)<br>‘’’</p>
 <p>然后在终端中输入pip search cpplint，终端提示pip:command not found。所以需要安装pip，安装pip的方式是，我用wget命令获取get-pip.py，</p>
 <p>‘’’<br>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>‘’’<br>然后使用如下命令来安装pip</p>
 <p>‘’’<br>sudo python get-pip.py<br>‘’’<br>然后，敲入命令sudo pip search cpplint，此时terminal会显示对cpplint的介绍。</p>
