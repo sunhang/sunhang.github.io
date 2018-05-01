@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’‘(defun my:flymake-google">
+<meta name="description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’’(defun my:flymake-google">
 <meta property="og:type" content="article">
 <meta property="og:title" content="今天开始编写emacs的学习笔记">
 <meta property="og:url" content="http://yoursite.com/2018/05/01/今天开始编写emacs的学习笔记/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’‘(defun my:flymake-google">
+<meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’’(defun my:flymake-google">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-01T14:08:20.322Z">
+<meta property="og:updated_time" content="2018-05-01T14:14:36.226Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="今天开始编写emacs的学习笔记">
-<meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’‘(defun my:flymake-google">
+<meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/5023220.html 2015-12-21 22:43——————————————————————— (os x 10.10.5 emacs24.5.1) 在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入 ‘’’(defun my:flymake-google">
 
 
 
@@ -303,21 +303,21 @@
 <p>2015-12-21 22:43———————————————————————</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
 <p>在软件包库中搜索flymake-google-cpplint,并且下载安装它。然后在.emacs中输入</p>
-<p>‘’‘<br>(defun my:flymake-google-init ()<br>  (require ‘flymake-google-cpplint)<br>  (flymake-google-cpplint-load)<br>  )<br>(add-hook ‘c-mode-hook ‘my:flymake-google-init)<br>(add-hook ‘c++-mode-hook ‘my:flymake-google-init)<br>’‘’</p>
+<p>‘’’<br>(defun my:flymake-google-init ()<br>  (require ‘flymake-google-cpplint)<br>  (flymake-google-cpplint-load)<br>  )<br>(add-hook ‘c-mode-hook ‘my:flymake-google-init)<br>(add-hook ‘c++-mode-hook ‘my:flymake-google-init)<br>‘’’</p>
 <p>然后在终端中输入pip search cpplint，终端提示pip:command not found。所以需要安装pip，安装pip的方式是，我用wget命令获取get-pip.py，</p>
-<p>‘’‘<br>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>’‘’<br>然后使用如下命令来安装pip</p>
-<p>‘’‘<br>sudo python get-pip.py<br>’‘’<br>然后，敲入命令sudo pip search cpplint，此时terminal会显示对cpplint的介绍。</p>
+<p>‘’’<br>wget <a href="https://bootstrap.pypa.io/get-pip.py" target="_blank" rel="noopener">https://bootstrap.pypa.io/get-pip.py</a><br>‘’’<br>然后使用如下命令来安装pip</p>
+<p>‘’’<br>sudo python get-pip.py<br>‘’’<br>然后，敲入命令sudo pip search cpplint，此时terminal会显示对cpplint的介绍。</p>
 <p>然后，敲入命令sudo pip install cpplint，进行安装cpplint</p>
 <p>But…特么的cpplint安装到哪里了，机器也不告诉我！！！</p>
 <p>突然想起了which命令，终于找到cpplint的安装路径了，于是在.emacs中函数my:flymake-google-init中添加语句</p>
-<p>‘’‘<br>(custom-set-variables</p>
-<p> ‘(flymake-google-cpplint-command “/usr/local/bin/cpplint”))<br>’‘’</p>
+<p>‘’’<br>(custom-set-variables</p>
+<p> ‘(flymake-google-cpplint-command “/usr/local/bin/cpplint”))<br>‘’’</p>
 <p>2015-12-16 23:55———————————————————————–</p>
 <p>(os x 10.10.5 emacs24.5.1)</p>
 <p>不甘心，决定再尝试一下emacs的c/c++配置。于是，在事先下载好了yasnippet和autocomplete时，在.emacs中添加函数</p>
-<p>‘’‘<br>(defun my:ac-c-header-init ()<br>  (require ‘auto-complete-c-headers)<br>  (add-to-list ‘ac-sources ‘ac-source-c-headers)<br>  (add-to-list ‘achead:include-directories ‘“ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include”))<br>’‘’</p>
-<p>其中类库的地址是通过如下命令得到<br>‘’‘<br>gcc -xc++ -E -v -<br>’‘’<br>然后还需要加入hook</p>
-<p>‘’‘<br>(add-hook ‘c++-mode-hook ‘my:ac-c-header-init)<br>(add-hook ‘c-mode-hook ‘my:ac-c-header-init)<br>‘’’<br>于是，我打开c文件，输入include和表达式，它果然可以显灵了。</p>
+<p>‘’’<br>(defun my:ac-c-header-init ()<br>  (require ‘auto-complete-c-headers)<br>  (add-to-list ‘ac-sources ‘ac-source-c-headers)<br>  (add-to-list ‘achead:include-directories ‘“ /Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include”))<br>‘’’</p>
+<p>其中类库的地址是通过如下命令得到<br>‘’’<br>gcc -xc++ -E -v -<br>‘’’<br>然后还需要加入hook</p>
+<p>‘’’<br>(add-hook ‘c++-mode-hook ‘my:ac-c-header-init)<br>(add-hook ‘c-mode-hook ‘my:ac-c-header-init)<br>‘’’<br>于是，我打开c文件，输入include和表达式，它果然可以显灵了。</p>
 <p>然后，我又再elpa中加载了iedit，在.emacs中添加</p>
 <p>‘’’<br>;; fix iedit bug in Mac<br>(define-key global-map (kbd “C-c ;”) ‘iedit-mode)<br>‘’’<br>之后，我就可以在c文件中，把光标移动到一个变量上时，输入命令C-c ;，编辑窗口会高亮显示在所有地方的该变量。再输入C-c ;取消高亮。</p>
 <p>2015-12-15 21:48———————————————————————–</p>
