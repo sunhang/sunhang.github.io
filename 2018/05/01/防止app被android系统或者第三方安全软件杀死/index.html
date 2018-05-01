@@ -5,15 +5,19 @@
   
 
   
-  <title>Archives | Hexo</title>
+  <title>防止app被android系统或者第三方安全软件杀死 | Hexo</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="http://yoursite.com/archives/index.html">
+  <meta name="description" content="想到的方法如下： 1，使用双进程守护这个技术。在jni层，创建两个进程，父进程使用信号量监控子进程，子进程使用轮询或者使用通信通道监控父进程； 2，使用alarm技术。设置一个周期，通过广播接收进行轮询； 3，使用前台Service。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="防止app被android系统或者第三方安全软件杀死">
+<meta property="og:url" content="http://yoursite.com/2018/05/01/防止app被android系统或者第三方安全软件杀死/index.html">
 <meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="想到的方法如下： 1，使用双进程守护这个技术。在jni层，创建两个进程，父进程使用信号量监控子进程，子进程使用轮询或者使用通信通道监控父进程； 2，使用alarm技术。设置一个周期，通过广播接收进行轮询； 3，使用前台Service。">
 <meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-05-01T13:10:43.660Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Hexo">
+<meta name="twitter:title" content="防止app被android系统或者第三方安全软件杀死">
+<meta name="twitter:description" content="想到的方法如下： 1，使用双进程守护这个技术。在jni层，创建两个进程，父进程使用信号量监控子进程，子进程使用轮询或者使用通信通道监控父进程； 2，使用alarm技术。设置一个周期，通过广播接收进行轮询； 3，使用前台Service。">
   
     <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
   
@@ -60,59 +64,55 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2018" class="archive-year">2018</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/01/防止app被android系统或者第三方安全软件杀死/" class="archive-article-date">
-  <time datetime="2018-05-01T13:10:19.000Z" itemprop="datePublished">May 1</time>
+        <section id="main"><article id="post-防止app被android系统或者第三方安全软件杀死" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/01/防止app被android系统或者第三方安全软件杀死/" class="article-date">
+  <time datetime="2018-05-01T13:10:19.000Z" itemprop="datePublished">2018-05-01</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/01/防止app被android系统或者第三方安全软件杀死/">防止app被android系统或者第三方安全软件杀死</a>
+    <h1 class="article-title" itemprop="name">
+      防止app被android系统或者第三方安全软件杀死
     </h1>
   
 
-    </header>
-  </div>
-</article>
-  
+      </header>
     
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2018/05/01/hello-world/" class="archive-article-date">
-  <time datetime="2018-05-01T06:57:33.003Z" itemprop="datePublished">May 1</time>
-</a>
+    <div class="article-entry" itemprop="articleBody">
       
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2018/05/01/hello-world/">Hello World</a>
-    </h1>
-  
+        <p>想到的方法如下：</p>
+<p>1，使用双进程守护这个技术。在jni层，创建两个进程，父进程使用信号量监控子进程，子进程使用轮询或者使用通信通道监控父进程；</p>
+<p>2，使用alarm技术。设置一个周期，通过广播接收进行轮询；</p>
+<p>3，使用前台Service。</p>
 
-    </header>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/05/01/防止app被android系统或者第三方安全软件杀死/" data-id="cjgnoymr100002gs6bb5zi8re" class="article-share-link">Share</a>
+      
+      
+    </footer>
   </div>
-</article>
+  
+    
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/05/01/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Hello World</div>
+    </a>
   
+</nav>
 
+  
+</article>
 
 </section>
         
