@@ -391,8 +391,7 @@
   
     <div class="comments" id="comments">
       
-        <div onclick="showGitment()" id="gitment-display-button">显示 Gitment 评论</div>
-        <div id="gitment-container" style="display:none"></div>
+        <div id="gitment-container"></div>
       
     </div>
 
@@ -660,7 +659,7 @@
         var gitment = new Gitmint({
             id: window.location.pathname, 
             owner: 'sunhang# MUST HAVE, Your Github ID',
-            repo: 'gitment-comments# MUST HAVE, The repo you use to store Gitment comments',
+            repo: 'sunhang.github.io# MUST HAVE, The repo you use to store Gitment comments',
             
             lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
             
@@ -675,11 +674,7 @@
       }
 
       
-      function showGitment(){
-        document.getElementById("gitment-display-button").style.display = "none";
-        document.getElementById("gitment-container").style.display = "block";
-        renderGitment();
-      }
+      renderGitment();
       
       </script>
     
