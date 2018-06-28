@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="20180528在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成12345class MyShadow &amp;#123;    boolean state0;    boolean state1;    // ...&amp;#125; 如何维护两个状态呢？两个布尔值形成了4种状态，如果三个布尔值的话，会形成8种状态。假如这种1维的思维去思考一个类的设计，">
+<meta name="description" content="20180608今天发现俩很好的命令，可以查看设备的宽高和密度adb shell wm size和adb shell wm density 20180528在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成12345class MyShadow &amp;#123;    boolean state0;    boolean state1;    //">
 <meta property="og:type" content="article">
 <meta property="og:title" content="思绪来得快走得也快，就在这里记下来吧">
 <meta property="og:url" content="http://yoursite.com/2018/05/28/思绪来得快走得也快，就在这里记下来吧/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="20180528在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成12345class MyShadow &amp;#123;    boolean state0;    boolean state1;    // ...&amp;#125; 如何维护两个状态呢？两个布尔值形成了4种状态，如果三个布尔值的话，会形成8种状态。假如这种1维的思维去思考一个类的设计，">
+<meta property="og:description" content="20180608今天发现俩很好的命令，可以查看设备的宽高和密度adb shell wm size和adb shell wm density 20180528在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成12345class MyShadow &amp;#123;    boolean state0;    boolean state1;    //">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-28T03:24:51.047Z">
+<meta property="og:updated_time" content="2018-06-08T04:09:41.022Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="思绪来得快走得也快，就在这里记下来吧">
-<meta name="twitter:description" content="20180528在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成12345class MyShadow &amp;#123;    boolean state0;    boolean state1;    // ...&amp;#125; 如何维护两个状态呢？两个布尔值形成了4种状态，如果三个布尔值的话，会形成8种状态。假如这种1维的思维去思考一个类的设计，">
+<meta name="twitter:description" content="20180608今天发现俩很好的命令，可以查看设备的宽高和密度adb shell wm size和adb shell wm density 20180528在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成12345class MyShadow &amp;#123;    boolean state0;    boolean state1;    //">
 
 
 
@@ -319,7 +319,8 @@
       
 
       
-        <h1 id="20180528"><a href="#20180528" class="headerlink" title="20180528"></a>20180528</h1><p>在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class MyShadow &#123;</span><br><span class="line">    boolean state0;</span><br><span class="line">    boolean state1;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+        <h2 id="20180608"><a href="#20180608" class="headerlink" title="20180608"></a>20180608</h2><p>今天发现俩很好的命令，可以查看设备的宽高和密度<br><code>adb shell wm size</code>和<code>adb shell wm density</code></p>
+<h2 id="20180528"><a href="#20180528" class="headerlink" title="20180528"></a>20180528</h2><p>在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class MyShadow &#123;</span><br><span class="line">    boolean state0;</span><br><span class="line">    boolean state1;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如何维护两个状态呢？两个布尔值形成了4种状态，如果三个布尔值的话，会形成8种状态。假如这种1维的思维去思考一个类的设计，会觉得繁琐。有没有更好的办法，假如说两种布尔值之间是有联系的呢，会不会把一维的思维的升到二维的思维的去考虑，会不会简单一些？又该怎么去实施呢？</p>
 
       
@@ -487,7 +488,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#20180528"><span class="nav-number">1.</span> <span class="nav-text">20180528</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#20180608"><span class="nav-number">1.</span> <span class="nav-text">20180608</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20180528"><span class="nav-number">2.</span> <span class="nav-text">20180528</span></a></li></ol></div>
             
 
           </div>
