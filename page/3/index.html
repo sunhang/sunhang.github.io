@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="c++,c," />
+  <meta name="keywords" content="Hexo, NexT" />
 
 
 
@@ -79,18 +79,13 @@
 
 
 
-<meta name="description" content="20180628在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，https://www.cnblogs.com/liuliqianxiao/p/7253116.html这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如1void func const&amp;#123;&amp;#">
-<meta name="keywords" content="c++,c">
-<meta property="og:type" content="article">
-<meta property="og:title" content="CPP和C学习笔记">
-<meta property="og:url" content="http://yoursite.com/2018/06/07/CPP和C学习笔记/index.html">
+<meta property="og:type" content="website">
+<meta property="og:title" content="程序员小航">
+<meta property="og:url" content="http://yoursite.com/page/3/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="20180628在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，https://www.cnblogs.com/liuliqianxiao/p/7253116.html这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如1void func const&amp;#123;&amp;#">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T05:16:36.410Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="CPP和C学习笔记">
-<meta name="twitter:description" content="20180628在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，https://www.cnblogs.com/liuliqianxiao/p/7253116.html这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如1void func const&amp;#123;&amp;#">
+<meta name="twitter:title" content="程序员小航">
 
 
 
@@ -120,13 +115,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/06/07/CPP和C学习笔记/"/>
+  <link rel="canonical" href="http://yoursite.com/page/3/"/>
 
 
 
 
 
-  <title>CPP和C学习笔记 | 程序员小航</title>
+  <title>程序员小航</title>
   
 
 
@@ -145,7 +140,8 @@
     
   
 
-  <div class="container sidebar-position-left page-post-detail">
+  <div class="container sidebar-position-left 
+  page-home">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -228,9 +224,9 @@
         <div class="content-wrap">
           <div id="content" class="content">
             
-
-  <div id="posts" class="posts-expand">
+  <section id="posts" class="posts-expand">
     
+      
 
   
 
@@ -243,7 +239,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/06/07/CPP和C学习笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sunhang">
@@ -260,7 +256,9 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">CPP和C学习笔记</h1>
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/05/01/hello-world/" itemprop="url">Hello World</a></h1>
         
 
         <div class="post-meta">
@@ -272,8 +270,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-06-07T10:47:18+08:00">
-                2018-06-07
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T14:57:33+08:00">
+                2018-05-01
               </time>
             
 
@@ -285,16 +283,6 @@
           
 
           
-            
-              <span class="post-comments-count">
-                <span class="post-meta-divider">|</span>
-                <span class="post-meta-item-icon">
-                  <i class="fa fa-comment-o"></i>
-                </span>
-                <a href="/2018/06/07/CPP和C学习笔记/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/06/07/CPP和C学习笔记/" itemprop="commentsCount"></span>
-                </a>
-              </span>
             
           
 
@@ -320,11 +308,20 @@
       
 
       
-        <h3 id="20180628"><a href="#20180628" class="headerlink" title="20180628"></a>20180628</h3><p>在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，<a href="https://www.cnblogs.com/liuliqianxiao/p/7253116.html" target="_blank" rel="noopener">https://www.cnblogs.com/liuliqianxiao/p/7253116.html</a>这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> func <span class="keyword">const</span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
-<p>看到一篇文章上说，“若将类成员函数声明为const，则该函数不允许修改类的数据成员”</p>
-<h3 id="20180607"><a href="#20180607" class="headerlink" title="20180607"></a>20180607</h3><p>C++的语言有一些很怪异的，不知道为什么委员会要这么设计，比如函数指针<code>void (*ptr) (void)</code>，比如函数指针数组<code>void (*ptr[]) (void)</code>，还有C11中的_Generic泛型，<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> cbrt(X) _Generic((X), \</span></span><br><span class="line">              <span class="keyword">long</span> <span class="keyword">double</span>: cbrtl, \</span><br><span class="line">                  <span class="keyword">default</span>: cbrt,  \</span><br><span class="line">                    <span class="keyword">float</span>: cbrtf  \</span><br><span class="line">)(X)</span><br></pre></td></tr></table></figure></p>
-<p>为什么(X)是一个assignment expression呢，或者为什么它是个controlling expression呢？</p>
+        
+          
+            <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
+<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">"My New Post"</span></span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
+<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
+<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
+<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="noopener">Deployment</a></p>
 
+          
+        
       
     </div>
     
@@ -339,42 +336,14 @@
 
     <footer class="post-footer">
       
-        <div class="post-tags">
-          
-            <a href="/tags/c/" rel="tag"># c++</a>
-          
-            <a href="/tags/c/" rel="tag"># c</a>
-          
-        </div>
+
+      
+
       
 
       
       
-      
-
-      
-        <div class="post-nav">
-          <div class="post-nav-next post-nav-item">
-            
-              <a href="/2018/05/28/思绪来得快走得也快，就在这里记下来吧/" rel="next" title="思绪来得快走得也快，就在这里记下来吧">
-                <i class="fa fa-chevron-left"></i> 思绪来得快走得也快，就在这里记下来吧
-              </a>
-            
-          </div>
-
-          <span class="post-nav-divider"></span>
-
-          <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/11/我为什么这么着迷大逃杀游戏/" rel="prev" title="我为什么这么着迷大逃杀游戏">
-                我为什么这么着迷大逃杀游戏 <i class="fa fa-chevron-right"></i>
-              </a>
-            
-          </div>
-        </div>
-      
-
-      
+        <div class="post-eof"></div>
       
     </footer>
   </div>
@@ -384,11 +353,14 @@
   </article>
 
 
+    
+  </section>
 
-    <div class="post-spread">
-      
-    </div>
-  </div>
+  
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span>
+  </nav>
+
 
 
           </div>
@@ -396,17 +368,6 @@
 
 
           
-
-  
-    <div class="comments" id="comments">
-      
-        <div id="gitment-container"></div>
-      
-    </div>
-
-  
-
-
 
         </div>
         
@@ -427,17 +388,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -488,22 +440,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#20180628"><span class="nav-number">1.</span> <span class="nav-text">20180628</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20180607"><span class="nav-number">2.</span> <span class="nav-text">20180607</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
@@ -637,10 +573,6 @@
   
 
   
-  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
-<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
-
-
 
   
 
@@ -687,30 +619,6 @@
 
     
 
-    
-      <script type="text/javascript">
-      function renderGitment(){
-        var gitment = new Gitmint({
-            id: decodeURI(window.location.pathname), 
-            owner: 'sunhang',
-            repo: 'gitment-comments',
-            
-            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
-            
-            oauth: {
-            
-            
-                client_secret: 'b5c89c64dda977ef6bf6326d91407b0ee1998b61',
-            
-                client_id: '2427d0174bf6c6be392e'
-            }});
-        gitment.render('gitment-container');
-      }
-
-      
-      renderGitment();
-      
-      </script>
     
 
 
