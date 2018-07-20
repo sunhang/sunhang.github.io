@@ -314,49 +314,63 @@
 <li>C-c,C-c    编译并装载光标所在的整个Lisp Form</li>
 <li>C-c,C-k    编译并装载当前缓冲区中的整个源文件</li>
 </ul>
-<h3 id="transpose-frame"><a href="#transpose-frame" class="headerlink" title="transpose-frame"></a>transpose-frame</h3><h4 id="‘transpose-frame’-…-Swap-x-direction-and-y-direction"><a href="#‘transpose-frame’-…-Swap-x-direction-and-y-direction" class="headerlink" title="‘transpose-frame’ … Swap x-direction and y-direction"></a>‘transpose-frame’ … Swap x-direction and y-direction</h4><pre><code>+------------+------------+      +----------------+--------+
+<h3 id="transpose-frame"><a href="#transpose-frame" class="headerlink" title="transpose-frame"></a>transpose-frame</h3><ul>
+<li><p>‘transpose-frame’ … Swap x-direction and y-direction</p>
+<pre><code>+------------+------------+      +----------------+--------+
 |            |     B      |      |        A       |        |
 |     A      +------------+      |                |        |
 |            |     C      |  =&gt;  +--------+-------+   D    |
 +------------+------------+      |   B    |   C   |        |
 |            D            |      |        |       |        |
 +-------------------------+      +--------+-------+--------+
-</code></pre><h4 id="‘flip-frame’-…-Flip-vertically"><a href="#‘flip-frame’-…-Flip-vertically" class="headerlink" title="‘flip-frame’ … Flip vertically"></a>‘flip-frame’ … Flip vertically</h4><pre><code>+------------+------------+      +------------+------------+
+</code></pre></li>
+<li><p>‘flip-frame’ … Flip vertically</p>
+<pre><code>+------------+------------+      +------------+------------+
 |            |     B      |      |            D            |
 |     A      +------------+      +------------+------------+
 |            |     C      |  =&gt;  |            |     C      |
 +------------+------------+      |     A      +------------+
 |            D            |      |            |     B      |
 +-------------------------+      +------------+------------+
-</code></pre><h4 id="‘flop-frame’-…-Flop-horizontally"><a href="#‘flop-frame’-…-Flop-horizontally" class="headerlink" title="‘flop-frame’ … Flop horizontally"></a>‘flop-frame’ … Flop horizontally</h4><pre><code>+------------+------------+      +------------+------------+
+</code></pre></li>
+<li><p>‘flop-frame’ … Flop horizontally</p>
+<pre><code>+------------+------------+      +------------+------------+
 |            |     B      |      |     B      |            |
 |     A      +------------+      +------------+     A      |
 |            |     C      |  =&gt;  |     C      |            |
 +------------+------------+      +------------+------------+
 |            D            |      |            D            |
 +-------------------------+      +-------------------------+
-</code></pre><h4 id="‘rotate-frame’-…-Rotate-180-degrees"><a href="#‘rotate-frame’-…-Rotate-180-degrees" class="headerlink" title="‘rotate-frame’ … Rotate 180 degrees"></a>‘rotate-frame’ … Rotate 180 degrees</h4><pre><code>+------------+------------+      +-------------------------+
+</code></pre></li>
+<li><p>‘rotate-frame’ … Rotate 180 degrees</p>
+<pre><code>+------------+------------+      +-------------------------+
 |            |     B      |      |            D            |
 |     A      +------------+      +------------+------------+
 |            |     C      |  =&gt;  |     C      |            |
 +------------+------------+      +------------+     A      |
 |            D            |      |     B      |            |
 +-------------------------+      +------------+------------+
-</code></pre><h4 id="‘rotate-frame-clockwise’-…-Rotate-90-degrees-clockwise"><a href="#‘rotate-frame-clockwise’-…-Rotate-90-degrees-clockwise" class="headerlink" title="‘rotate-frame-clockwise’ … Rotate 90 degrees clockwise"></a>‘rotate-frame-clockwise’ … Rotate 90 degrees clockwise</h4><pre><code>+------------+------------+      +-------+-----------------+
+</code></pre></li>
+<li><p>‘rotate-frame-clockwise’ … Rotate 90 degrees clockwise</p>
+<pre><code>+------------+------------+      +-------+-----------------+
 |            |     B      |      |       |        A        |
 |     A      +------------+      |       |                 |
 |            |     C      |  =&gt;  |   D   +--------+--------+
 +------------+------------+      |       |   B    |   C    |
 |            D            |      |       |        |        |
 +-------------------------+      +-------+--------+--------+
-</code></pre><h4 id="‘rotate-frame-anti-clockwise’-…-Rotate-90-degrees-anti-clockwise"><a href="#‘rotate-frame-anti-clockwise’-…-Rotate-90-degrees-anti-clockwise" class="headerlink" title="‘rotate-frame-anti-clockwise’ … Rotate 90 degrees anti-clockwise"></a>‘rotate-frame-anti-clockwise’ … Rotate 90 degrees anti-clockwise</h4><pre><code>+------------+------------+      +--------+--------+-------+
+</code></pre></li>
+<li><p>‘rotate-frame-anti-clockwise’ … Rotate 90 degrees anti-clockwise</p>
+<pre><code>+------------+------------+      +--------+--------+-------+
 |            |     B      |      |   B    |   C    |       |
 |     A      +------------+      |        |        |       |
 |            |     C      |  =&gt;  +--------+--------+   D   |
 +------------+------------+      |        A        |       |
 |            D            |      |                 |       |
 +-------------------------+      +-----------------+-------+
-</code></pre>
+</code></pre></li>
+</ul>
+
           
         
       
