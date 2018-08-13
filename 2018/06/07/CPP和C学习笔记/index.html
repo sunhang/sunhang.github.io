@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="20180628在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，https://www.cnblogs.com/liuliqianxiao/p/7253116.html这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如1void func const&amp;#123;&amp;#">
+<meta name="description" content="20180813  C++的auto和decltype的学习 auto是C++11中声明变量时自动推测类型的 decltype也是C++11中声明变量时自动推测类型的 decltype和auto的语法不同，decltype可以使用表达式，该表达式在编译器不提前求值而是推测类型使用 其次decltype和auto的区别还在于引用的声明时该总结来源自https://www.cnblogs.com/Ku">
 <meta name="keywords" content="c++,c">
 <meta property="og:type" content="article">
 <meta property="og:title" content="CPP和C学习笔记">
 <meta property="og:url" content="http://yoursite.com/2018/06/07/CPP和C学习笔记/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="20180628在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，https://www.cnblogs.com/liuliqianxiao/p/7253116.html这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如1void func const&amp;#123;&amp;#">
+<meta property="og:description" content="20180813  C++的auto和decltype的学习 auto是C++11中声明变量时自动推测类型的 decltype也是C++11中声明变量时自动推测类型的 decltype和auto的语法不同，decltype可以使用表达式，该表达式在编译器不提前求值而是推测类型使用 其次decltype和auto的区别还在于引用的声明时该总结来源自https://www.cnblogs.com/Ku">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-28T05:16:36.410Z">
+<meta property="og:updated_time" content="2018-08-13T06:34:50.670Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPP和C学习笔记">
-<meta name="twitter:description" content="20180628在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，https://www.cnblogs.com/liuliqianxiao/p/7253116.html这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如1void func const&amp;#123;&amp;#">
+<meta name="twitter:description" content="20180813  C++的auto和decltype的学习 auto是C++11中声明变量时自动推测类型的 decltype也是C++11中声明变量时自动推测类型的 decltype和auto的语法不同，decltype可以使用表达式，该表达式在编译器不提前求值而是推测类型使用 其次decltype和auto的区别还在于引用的声明时该总结来源自https://www.cnblogs.com/Ku">
 
 
 
@@ -320,7 +320,13 @@
       
 
       
-        <h3 id="20180628"><a href="#20180628" class="headerlink" title="20180628"></a>20180628</h3><p>在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，<a href="https://www.cnblogs.com/liuliqianxiao/p/7253116.html" target="_blank" rel="noopener">https://www.cnblogs.com/liuliqianxiao/p/7253116.html</a>这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> func <span class="keyword">const</span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
+        <h3 id="20180813-C-的auto和decltype的学习"><a href="#20180813-C-的auto和decltype的学习" class="headerlink" title="20180813  C++的auto和decltype的学习"></a>20180813  C++的auto和decltype的学习</h3><ul>
+<li>auto是C++11中声明变量时自动推测类型的</li>
+<li>decltype也是C++11中声明变量时自动推测类型的</li>
+<li>decltype和auto的语法不同，decltype可以使用表达式，该表达式在编译器不提前求值而是推测类型使用</li>
+<li>其次decltype和auto的区别还在于引用的声明时<br>该总结来源自<a href="https://www.cnblogs.com/KunLunSu/p/7861330.html" target="_blank" rel="noopener">https://www.cnblogs.com/KunLunSu/p/7861330.html</a>和<a href="https://blog.csdn.net/u012439416/article/details/53053178" target="_blank" rel="noopener">https://blog.csdn.net/u012439416/article/details/53053178</a></li>
+</ul>
+<h3 id="20180628"><a href="#20180628" class="headerlink" title="20180628"></a>20180628</h3><p>在C++的函数名后面有个const，在kotlin中也有const，那么它们分别的意义是什么呢？首先看一下kotlin中的const，<a href="https://www.cnblogs.com/liuliqianxiao/p/7253116.html" target="_blank" rel="noopener">https://www.cnblogs.com/liuliqianxiao/p/7253116.html</a>这篇文章讲述了kotlin中的const，非常清晰。那么什么是C++函数名后面加const呢，比如<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> func <span class="keyword">const</span>&#123;&#125;</span><br></pre></td></tr></table></figure></p>
 <p>看到一篇文章上说，“若将类成员函数声明为const，则该函数不允许修改类的数据成员”</p>
 <h3 id="20180607"><a href="#20180607" class="headerlink" title="20180607"></a>20180607</h3><p>C++的语言有一些很怪异的，不知道为什么委员会要这么设计，比如函数指针<code>void (*ptr) (void)</code>，比如函数指针数组<code>void (*ptr[]) (void)</code>，还有C11中的_Generic泛型，<br><figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> cbrt(X) _Generic((X), \</span></span><br><span class="line">              <span class="keyword">long</span> <span class="keyword">double</span>: cbrtl, \</span><br><span class="line">                  <span class="keyword">default</span>: cbrt,  \</span><br><span class="line">                    <span class="keyword">float</span>: cbrtf  \</span><br><span class="line">)(X)</span><br></pre></td></tr></table></figure></p>
 <p>为什么(X)是一个assignment expression呢，或者为什么它是个controlling expression呢？</p>
@@ -498,7 +504,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#20180628"><span class="nav-number">1.</span> <span class="nav-text">20180628</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20180607"><span class="nav-number">2.</span> <span class="nav-text">20180607</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#20180813-C-的auto和decltype的学习"><span class="nav-number">1.</span> <span class="nav-text">20180813  C++的auto和decltype的学习</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20180628"><span class="nav-number">2.</span> <span class="nav-text">20180628</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#20180607"><span class="nav-number">3.</span> <span class="nav-text">20180607</span></a></li></ol></div>
             
 
           </div>
