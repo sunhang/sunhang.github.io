@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/4259682.html 作为一个程序员，有时候感到很抓狂！不是因为bug，而是因为活儿多得干不完。理论上，我觉得写程序是一件好快乐好快乐的事情，现实中，写程序有时候变成了一件苦逼被人使唤的事情。 在电脑上安装了ubuntu系统，计划在ubuntu上开发android app。ubuntu有好多恼人的事情，有时候不小">
+<meta name="description" content="今天在网上看了HandlerThread的文章，又想起自己设计的输入法引擎的是否有哪些缺陷还修补的地方。HandlerThread就不介绍了，直接贴个链接吧https://www.jianshu.com/p/de2ff82b37b3 我自己设计的输入法引擎也是工作在work thread中，这个work thread在运行的过程中，创建looper实例和handler实例，该handler会通过接">
 <meta property="og:type" content="article">
-<meta property="og:title" content="年底了，还这么忙">
-<meta property="og:url" content="http://yoursite.com/2018/05/01/年底了，还这么忙/index.html">
+<meta property="og:title" content="由HandlerThread引起的输入法引擎的思考">
+<meta property="og:url" content="http://yoursite.com/2018/09/11/由HandlerThread引起的输入法引擎的思考/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/4259682.html 作为一个程序员，有时候感到很抓狂！不是因为bug，而是因为活儿多得干不完。理论上，我觉得写程序是一件好快乐好快乐的事情，现实中，写程序有时候变成了一件苦逼被人使唤的事情。 在电脑上安装了ubuntu系统，计划在ubuntu上开发android app。ubuntu有好多恼人的事情，有时候不小">
+<meta property="og:description" content="今天在网上看了HandlerThread的文章，又想起自己设计的输入法引擎的是否有哪些缺陷还修补的地方。HandlerThread就不介绍了，直接贴个链接吧https://www.jianshu.com/p/de2ff82b37b3 我自己设计的输入法引擎也是工作在work thread中，这个work thread在运行的过程中，创建looper实例和handler实例，该handler会通过接">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-01T13:23:32.283Z">
+<meta property="og:updated_time" content="2018-09-11T03:55:49.401Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="年底了，还这么忙">
-<meta name="twitter:description" content="博客来源于：http://www.cnblogs.com/sunhang09/p/4259682.html 作为一个程序员，有时候感到很抓狂！不是因为bug，而是因为活儿多得干不完。理论上，我觉得写程序是一件好快乐好快乐的事情，现实中，写程序有时候变成了一件苦逼被人使唤的事情。 在电脑上安装了ubuntu系统，计划在ubuntu上开发android app。ubuntu有好多恼人的事情，有时候不小">
+<meta name="twitter:title" content="由HandlerThread引起的输入法引擎的思考">
+<meta name="twitter:description" content="今天在网上看了HandlerThread的文章，又想起自己设计的输入法引擎的是否有哪些缺陷还修补的地方。HandlerThread就不介绍了，直接贴个链接吧https://www.jianshu.com/p/de2ff82b37b3 我自己设计的输入法引擎也是工作在work thread中，这个work thread在运行的过程中，创建looper实例和handler实例，该handler会通过接">
 
 
 
@@ -119,13 +119,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/01/年底了，还这么忙/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/11/由HandlerThread引起的输入法引擎的思考/"/>
 
 
 
 
 
-  <title>年底了，还这么忙 | 程序员小航</title>
+  <title>由HandlerThread引起的输入法引擎的思考 | 程序员小航</title>
   
 
 
@@ -252,7 +252,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/01/年底了，还这么忙/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/11/由HandlerThread引起的输入法引擎的思考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sunhang">
@@ -269,7 +269,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">年底了，还这么忙</h1>
+          <h1 class="post-title" itemprop="name headline">由HandlerThread引起的输入法引擎的思考</h1>
         
 
         <div class="post-meta">
@@ -281,8 +281,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-01T21:22:45+08:00">
-                2018-05-01
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-11T11:09:26+08:00">
+                2018-09-11
               </time>
             
 
@@ -300,8 +300,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/01/年底了，还这么忙/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/05/01/年底了，还这么忙/" itemprop="commentsCount"></span>
+                <a href="/2018/09/11/由HandlerThread引起的输入法引擎的思考/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/11/由HandlerThread引起的输入法引擎的思考/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -329,15 +329,12 @@
       
 
       
-        <p>博客来源于：<a href="http://www.cnblogs.com/sunhang09/p/4259682.html" target="_blank" rel="noopener">http://www.cnblogs.com/sunhang09/p/4259682.html</a></p>
-<p>作为一个程序员，有时候感到很抓狂！不是因为bug，而是因为活儿多得干不完。理论上，我觉得写程序是一件好快乐好快乐的事情，现实中，写程序有时候变成了一件苦逼被人使唤的事情。</p>
-<p>在电脑上安装了ubuntu系统，计划在ubuntu上开发android app。ubuntu有好多恼人的事情，有时候不小心做了什么操作，就不能启动，不能进入图形界面。作为ubuntu小白，一旦碰到这样的事情，没辙了就重装ubuntu，导致在ubuntu上安装了开发工具等都需要重新安装。我想了一下，我需要了解linux的启动原理，ubuntu的图形界面原理，争取能掌控住ubuntu系统。</p>
-<p>碰到过几个闹人的问题：</p>
-<p>ubuntu从12.04升级14.04时，重启时，在grub2界面选择ubuntu一项之后，无法进入ubuntu系统，连命令行模式也无法进入；</p>
-<p>在ubuntu上安装了某一个软件，重启时，无法进入ubuntu的unity系统。有时也不知是不是环境变量的原因；</p>
-<p>在ubuntu上安装官方的显卡驱动时，在提示时进行build module，重启时，在grub2界面选择ubuntu一项之后，无法进入ubuntu系统，连命令行模式也无法进入；</p>
-<p>在ubuntu上安装官方的显卡驱动时，然后再更新软件，发现安装的官方的显卡驱动会失效。</p>
-<p>这几个问题，困扰我好久，不知什么原因。我想，是时候对grub2、unity、显卡驱动进行个通彻的了解了。</p>
+        <p>今天在网上看了HandlerThread的文章，又想起自己设计的输入法引擎的是否有哪些缺陷还修补的地方。HandlerThread就不介绍了，直接贴个链接吧<a href="https://www.jianshu.com/p/de2ff82b37b3" target="_blank" rel="noopener">https://www.jianshu.com/p/de2ff82b37b3</a></p>
+<p>我自己设计的输入法引擎也是工作在work thread中，这个work thread在运行的过程中，创建looper实例和handler实例，该handler会通过接口publish出去。UI层的按键消息是通过该handler传递给work thread。</p>
+<p>但是当时项目上线后，发现了很多crash，当时分析后，觉得是输入法UI键盘弹出来后，引擎所在的work thread还没有开始运行，那么当UI发送按键消息时，会得到关于work thread的handler的空指针异常。于是用空对象模式来解决这个问题，就是在work thread还未运行时，先把该handler引用一个空对象（NullHandler），这样就避免了空指针异常，同时把该handler设置成volatile(使它被重新赋值时更快的发布出去)。代码如下所示<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LogicThread</span> <span class="keyword">extends</span> <span class="title">Thread</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Looper looper;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">volatile</span> LogicHandler handler = <span class="keyword">new</span> NullLogicHandler();</span><br><span class="line">    <span class="keyword">private</span> PyLogicStateContext pyLogicStateContext;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">LogicThread</span><span class="params">(PyLogicStateContext pyLogicStateContext)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">this</span>.pyLogicStateContext = pyLogicStateContext;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> LogicHandler <span class="title">getHandler</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> handler;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">run</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        Looper.prepare();</span><br><span class="line"></span><br><span class="line">        looper = Looper.myLooper();</span><br><span class="line">        handler = <span class="keyword">new</span> LogicHandler(looper, pyLogicStateContext);</span><br><span class="line">        Looper.loop();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">exit</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (looper != <span class="keyword">null</span>) &#123;</span><br><span class="line">            looper.quit();</span><br><span class="line">            looper = <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>但是我发了时间设计了这个类，为什么不直接用HandlerThread呢？HandlerThread还提供了锁操作，可以让main thread和work thread保持线程同步。如果用HandlerThread，main thread中可能会添加锁和wait操作，来等待HandlerThread中的looper实例化。临时想到的main thread中的一个设计模型，如下<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 首先前提保证handler Thread已经被start了</span></span><br><span class="line"><span class="comment">// 代码运行在main thread中</span></span><br><span class="line"><span class="keyword">synchronized</span> (handlerThread) &#123;</span><br><span class="line">    <span class="keyword">while</span> (handlerThread.getLooper() == <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            handlerThread.wait();</span><br><span class="line">        &#125; <span class="keyword">catch</span> (InterruptedException e) &#123;</span><br><span class="line">            e.printStackTrace();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//创建 work thread 的handler</span></span><br><span class="line">Handler handler = <span class="keyword">new</span> Handler(handlerThread.getLooper());</span><br></pre></td></tr></table></figure></p>
+<p>该方法的一个瑕疵是理论上需要在main thread中进行等待（不提倡在main thread中有等待操作。。。），但是如果做一个普通app的话，这种程度上的方法应该是可以了。</p>
+<p>追求极致的话，在想另外一个方案，大致方向是，当检测到work thread还未运行或者looper还未创建，那么就把main thread中的按键消息都临时add到一个线程安全的队列中，该队列的message会在work thread一切都准备好后消费掉。</p>
 
       
     </div>
@@ -362,8 +359,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/01/防止app被android系统或者第三方安全软件杀死/" rel="next" title="防止app被android系统或者第三方安全软件杀死">
-                <i class="fa fa-chevron-left"></i> 防止app被android系统或者第三方安全软件杀死
+              <a href="/2018/07/20/emacs及插件使用指南/" rel="next" title="emacs及插件使用指南">
+                <i class="fa fa-chevron-left"></i> emacs及插件使用指南
               </a>
             
           </div>
@@ -371,10 +368,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/01/hexo博客配置笔记/" rel="prev" title="hexo博客配置笔记">
-                hexo博客配置笔记 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
