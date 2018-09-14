@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="程序员小航">
 <meta property="og:description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，又发现了语句1typedef struct __jmp_buf_tag jmp_buf[1]; 那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法1">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-14T03:55:09.541Z">
+<meta property="og:updated_time" content="2018-09-14T11:42:23.276Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="jmp_buf是什么">
 <meta name="twitter:description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，又发现了语句1typedef struct __jmp_buf_tag jmp_buf[1]; 那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法1">
@@ -355,8 +355,8 @@
         <p>看书时发现一个语句<code>jmp_buf kansa;</code>这个jmp_buf是什么呢？搜到这篇文章<a href="https://blog.csdn.net/freezlz/article/details/50812293" target="_blank" rel="noopener">https://blog.csdn.net/freezlz/article/details/50812293</a>。看这篇文章中，又发现了语句<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> __<span class="title">jmp_buf_tag</span> <span class="title">jmp_buf</span>[1];</span></span><br></pre></td></tr></table></figure></p>
 <p>那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SomeStruct</span> <span class="title">someName</span>[1]</span></span><br></pre></td></tr></table></figure></p>
 <p>是什么意思呢？于是写代码顺着编译器出错提示进行修改，了解到这是设定了一个数组的别名。代码如下<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">A</span> <span class="title">B</span>[5];</span> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	B b; <span class="comment">// 一个长度是5的数组，每一项的类型是A</span></span><br><span class="line">	b[<span class="number">4</span>].i = <span class="number">50</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; b[<span class="number">0</span>].i &lt;&lt; <span class="string">" "</span> &lt;&lt; b[<span class="number">4</span>].i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>于是了解到jmp_buf是一个可以用来定义一个长度为1的数组，数组类型是__jmp_buf_tag<br>jmp_buf是用来干什么的呢？</p>
-<h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h1>
+<p>于是了解到jmp_buf是一个可以用来定义一个长度为1的数组，数组类型是__jmp_buf_tag<br>jmp_buf是用来干什么的呢？继续看资料，看了这篇文章<a href="https://www.cnblogs.com/hbiner/p/3261437.html" target="_blank" rel="noopener">https://www.cnblogs.com/hbiner/p/3261437.html</a>后，总结如下：<br>1，jmp_buf通常是作为参数用在setjmp和longjmp函数中；<br>2，setjmp函数用缓冲区envbuf保存系统堆栈的内容，以便后续的longjmp函数使用。setjmp函数初次启用时返回0值；<br>3，longjmp函数中的参数envbuf是由setjmp函数所保存的堆栈环境，参数val设置setjmp函数的返回值；<br>4，通常它们用在异常处理，有点类似于java的try catch。</p>
+
       
     </div>
     
@@ -455,17 +455,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -525,22 +516,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#未完待续"><span class="nav-number">1.</span> <span class="nav-text">未完待续</span></a></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
