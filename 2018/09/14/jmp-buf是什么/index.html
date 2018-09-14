@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="c++,c," />
 
 
 
@@ -79,19 +79,18 @@
 
 
 
-<meta name="description" content="最近痴迷大逃杀类型的有，比如开始的终结者、荒野行动，再到后来的刺激战场和全军出击。今天走在路上想了想，有以下这些原因：1，逃避现实，对现实失望。曾经中学时我的视力急剧下降，打击太大，精神上崩了。到现在了，精神上还没有好转，羡慕不戴眼镜的人，羡慕有好视力的人，以至于疑神疑鬼草木皆兵，任何环境的变动都害怕对视力再次伤害。2，朋友们都在玩，通过微信一拉就拉上来了。同学们很多玩刺激战场，还有发小们也在玩，">
+<meta name="description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，有发现了语句typedef struct __jmp_buf_tag jmp_buf[1];那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法typ">
+<meta name="keywords" content="c++,c">
 <meta property="og:type" content="article">
-<meta property="og:title" content="我为什么这么着迷大逃杀游戏">
-<meta property="og:url" content="http://yoursite.com/2018/07/11/我为什么这么着迷大逃杀游戏/index.html">
+<meta property="og:title" content="jmp_buf是什么">
+<meta property="og:url" content="http://yoursite.com/2018/09/14/jmp-buf是什么/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="最近痴迷大逃杀类型的有，比如开始的终结者、荒野行动，再到后来的刺激战场和全军出击。今天走在路上想了想，有以下这些原因：1，逃避现实，对现实失望。曾经中学时我的视力急剧下降，打击太大，精神上崩了。到现在了，精神上还没有好转，羡慕不戴眼镜的人，羡慕有好视力的人，以至于疑神疑鬼草木皆兵，任何环境的变动都害怕对视力再次伤害。2，朋友们都在玩，通过微信一拉就拉上来了。同学们很多玩刺激战场，还有发小们也在玩，">
+<meta property="og:description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，有发现了语句typedef struct __jmp_buf_tag jmp_buf[1];那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法typ">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://yoursite.com/images/my/quanjunchuji.jpeg">
-<meta property="og:updated_time" content="2018-08-31T03:32:59.264Z">
+<meta property="og:updated_time" content="2018-09-14T03:46:56.704Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="我为什么这么着迷大逃杀游戏">
-<meta name="twitter:description" content="最近痴迷大逃杀类型的有，比如开始的终结者、荒野行动，再到后来的刺激战场和全军出击。今天走在路上想了想，有以下这些原因：1，逃避现实，对现实失望。曾经中学时我的视力急剧下降，打击太大，精神上崩了。到现在了，精神上还没有好转，羡慕不戴眼镜的人，羡慕有好视力的人，以至于疑神疑鬼草木皆兵，任何环境的变动都害怕对视力再次伤害。2，朋友们都在玩，通过微信一拉就拉上来了。同学们很多玩刺激战场，还有发小们也在玩，">
-<meta name="twitter:image" content="http://yoursite.com/images/my/quanjunchuji.jpeg">
+<meta name="twitter:title" content="jmp_buf是什么">
+<meta name="twitter:description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，有发现了语句typedef struct __jmp_buf_tag jmp_buf[1];那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法typ">
 
 
 
@@ -121,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/07/11/我为什么这么着迷大逃杀游戏/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/14/jmp-buf是什么/"/>
 
 
 
 
 
-  <title>我为什么这么着迷大逃杀游戏 | 程序员小航</title>
+  <title>jmp_buf是什么 | 程序员小航</title>
   
 
 
@@ -254,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/07/11/我为什么这么着迷大逃杀游戏/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/jmp-buf是什么/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sunhang">
@@ -271,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">我为什么这么着迷大逃杀游戏</h1>
+          <h1 class="post-title" itemprop="name headline">jmp_buf是什么</h1>
         
 
         <div class="post-meta">
@@ -283,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-07-11T10:35:21+08:00">
-                2018-07-11
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-14T11:32:55+08:00">
+                2018-09-14
               </time>
             
 
@@ -306,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活感悟/" itemprop="url" rel="index">
-                    <span itemprop="name">生活感悟</span>
+                  <a href="/categories/c-c-学习笔记/" itemprop="url" rel="index">
+                    <span itemprop="name">c/c++学习笔记</span>
                   </a>
                 </span>
 
@@ -324,8 +323,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/07/11/我为什么这么着迷大逃杀游戏/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/07/11/我为什么这么着迷大逃杀游戏/" itemprop="commentsCount"></span>
+                <a href="/2018/09/14/jmp-buf是什么/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/14/jmp-buf是什么/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -353,8 +352,9 @@
       
 
       
-        <p>最近痴迷大逃杀类型的有，比如开始的终结者、荒野行动，再到后来的刺激战场和全军出击。今天走在路上想了想，有以下这些原因：<br>1，逃避现实，对现实失望。曾经中学时我的视力急剧下降，打击太大，精神上崩了。到现在了，精神上还没有好转，羡慕不戴眼镜的人，羡慕有好视力的人，以至于疑神疑鬼草木皆兵，任何环境的变动都害怕对视力再次伤害。<br>2，朋友们都在玩，通过微信一拉就拉上来了。同学们很多玩刺激战场，还有发小们也在玩，当你一打开游戏本来就是想观看一会儿别人的游戏（里边可以观看别人玩），而朋友们已拉就把你拉到游戏里了。一玩就至少一小时（一局大概半小时）。<br>3，我骨子里有追求旷野之息的潜意识（也许，很多男的都有这种潜意识），而大逃杀的游戏给了灾难逃亡、荒野、孤独、荒凉、猎杀、对抗、狙击、拾荒、采集等体验。这些都满足了潜意识里的追求。我觉得人是被两部分控制的，一部分是大脑，一部分是你的基因（你的骨子里的东西），它们而在还在斗争。<br><img src="/images/my/quanjunchuji.jpeg" alt="quanjunchuji"></p>
-
+        <p>看书时发现一个语句<code>jmp_buf kansa;</code>这个jmp_buf是什么呢？搜到这篇文章<a href="https://blog.csdn.net/freezlz/article/details/50812293" target="_blank" rel="noopener">https://blog.csdn.net/freezlz/article/details/50812293</a>。看这篇文章中，有发现了语句<code>typedef struct __jmp_buf_tag jmp_buf[1];</code>那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法<code>typedef struct SomeStruct someName[1]</code>是什么意思呢？于是写代码顺着编译器出错提示进行修改，了解到这是设定了一个数组的别名。代码如下<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">A</span> <span class="title">B</span>[5];</span> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	B b; <span class="comment">// 一个长度是5的数组，每一项的类型是A</span></span><br><span class="line">	b[<span class="number">4</span>].i = <span class="number">50</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; b[<span class="number">0</span>].i &lt;&lt; <span class="string">" "</span> &lt;&lt; b[<span class="number">4</span>].i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>于是了解到jmp_buf是一个可以用来定义一个长度为1的数组，数组类型是__jmp_buf_tag<br>jmp_buf是用来干什么的呢？</p>
+<h1 id="未完待续"><a href="#未完待续" class="headerlink" title="未完待续"></a>未完待续</h1>
       
     </div>
     
@@ -369,6 +369,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/c/" rel="tag"># c++</a>
+          
+            <a href="/tags/c/" rel="tag"># c</a>
+          
+        </div>
+      
 
       
       
@@ -378,8 +386,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/06/07/CPP和C学习笔记/" rel="next" title="CPP和C学习笔记">
-                <i class="fa fa-chevron-left"></i> CPP和C学习笔记
+              <a href="/2018/09/13/07年买的一本cpp书籍/" rel="next" title="07年买的一本cpp书籍">
+                <i class="fa fa-chevron-left"></i> 07年买的一本cpp书籍
               </a>
             
           </div>
@@ -387,10 +395,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/07/20/emacs及插件使用指南/" rel="prev" title="emacs及插件使用指南">
-                emacs及插件使用指南 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -449,8 +453,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -510,6 +523,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#未完待续"><span class="nav-number">1.</span> <span class="nav-text">未完待续</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
