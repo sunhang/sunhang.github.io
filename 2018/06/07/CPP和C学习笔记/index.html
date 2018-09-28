@@ -87,10 +87,12 @@
 <meta property="og:site_name" content="程序员小航">
 <meta property="og:description" content="20180926 12:37gcc和g++的区别：GCC就代表 the GNU Compiler Collection，所以表示一堆编译器的合集。 g++则是GCC的c++编译器。https://www.zhihu.com/question/20940822 今天看到C语言的一段代码123456789#include&amp;lt;stdio.h&amp;gt;int main(int argc, char* a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-28T02:43:18.881Z">
+<meta property="og:image" content="http://yoursite.com/images/my/char_pointer_convert.png">
+<meta property="og:updated_time" content="2018-09-28T03:24:36.796Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPP和C学习笔记">
 <meta name="twitter:description" content="20180926 12:37gcc和g++的区别：GCC就代表 the GNU Compiler Collection，所以表示一堆编译器的合集。 g++则是GCC的c++编译器。https://www.zhihu.com/question/20940822 今天看到C语言的一段代码123456789#include&amp;lt;stdio.h&amp;gt;int main(int argc, char* a">
+<meta name="twitter:image" content="http://yoursite.com/images/my/char_pointer_convert.png">
 
 
 
@@ -365,13 +367,14 @@
 <p>孙航 2018/09/27 下午12:07<br>扫噶</p>
 <p>孙航 2018/09/27 下午12:07<br>扫戴斯乃</p>
 <p>孙航 2018/09/27 下午12:09<br>总结一下是：<code>char * argv[]</code> 是指针数组，<code>char*</code>是个char类型的指针，上面小程序是，把指针数组的地址赋值给了char类型的指针</p>
-<p>杨锋 2018/09/27 下午12:10<br>argv这个数组名的含义你了解了就好了。它是指向内存中这堆char的第一个char的地址，类型为数组类型，数组元 素类型是char*指针类型。这句能理解吗？</p>
+<p>杨锋 2018/09/27 下午12:10<br>argv这个数组名的含义你了解了就好了。它是指向内存中这堆char的第一个char的地址，类型为数组类型，数组元素类型是<code>char*</code>指针类型。这句能理解吗？</p>
 <p>孙航 2018/09/27 下午12:11<br>确认能理解</p>
 <p>杨锋 2018/09/27 下午12:13<br>程序里调用函数的时候，把这个地址做为参数传进去，printString函数的参数名string指到这个地址</p>
 <p>杨锋 2018/09/27 下午12:15<br>然后函数里把这个地址开始往后按照char*指针来用了。</p>
 <p>孙航 2018/09/27 下午12:15<br>锋哥讲的，整个过程大脑里过了一遍</p>
 <p>孙航 2018/09/27 下午12:16<br>确实想通了</p>
 </blockquote>
+<p>但是后来我调试后想了下，argv它是指向内存中这堆<code>char*</code>的第一个的地址，类型为数组类型，数组元素类型是<code>char*</code>指针类型，而每个<code>char*</code>又指向一堆char。如果调用上述的sprintf，那么argv所指向的指针数组里的值会发生改变。<br><img src="/images/my/char_pointer_convert.png" alt="cpointerconvert"></p>
 <h3 id="20180831-11-13"><a href="#20180831-11-13" class="headerlink" title="20180831 11:13"></a>20180831 11:13</h3><p>在网上看到了如下代码，那么<code>friend ostream&amp; operator&lt;&lt;(ostream &amp;os, Complex const &amp;that)</code>是怎么理解呢？<br><code>Complex const &amp;that</code>中的const怎么理解呢？<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Complex</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    Complex(<span class="keyword">double</span> r = <span class="number">0</span>, <span class="keyword">double</span> i = <span class="number">0</span>) :m_r(r), m_i(i)&#123;&#125;</span><br><span class="line">    <span class="keyword">friend</span> ostream&amp; <span class="keyword">operator</span>&lt;&lt;(ostream &amp;os, Complex <span class="keyword">const</span> &amp;that)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> os &lt;&lt; that.m_r &lt;&lt; <span class="string">"+"</span>&lt;&lt;that.m_i &lt;&lt; <span class="string">"i"</span> ;</span><br><span class="line">    &#125;</span><br><span class="line">    Complex(Complex <span class="keyword">const</span> &amp;that) :m_r(that.m_r), m_i(that.m_i)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">cout</span> &lt;&lt; <span class="string">"拷贝构造函数"</span> &lt;&lt; &amp;that &lt;&lt; <span class="string">"-&gt;"</span> &lt;&lt; <span class="keyword">this</span> &lt;&lt; <span class="built_in">endl</span>;</span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="keyword">double</span> m_r, m_i;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure></p>
 <h3 id="20180831"><a href="#20180831" class="headerlink" title="20180831"></a>20180831</h3><p>C++中include时，有的带.h，有的不带，我上网查了一下原因。<br>统一C++各种后缀名，如.h、.hpp、.hxx等。标准化之前的头文件就是带后缀名的文<br>件，标准化后的头文件就是不带后缀名的文件。C++ 98 规定用户应使用新版头文件，对旧<br>版本头文件不在进行强制规范，但大多数编译器厂商依然提供旧版本头文件，以求向下兼<br>容。</p>
 <p>另外，为了和C语言兼容，C++标准化过程中，原有C语言头文件标准化后，头文件名前带个<br>c字母，如cstdio、cstring、ctime、ctype等等</p>
