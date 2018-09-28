@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="程序员小航">
 <meta property="og:description" content="20180926 12:37gcc和g++的区别：GCC就代表 the GNU Compiler Collection，所以表示一堆编译器的合集。 g++则是GCC的c++编译器。https://www.zhihu.com/question/20940822 今天看到C语言的一段代码123456789#include&amp;lt;stdio.h&amp;gt;int main(int argc, char* a">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-28T02:37:45.891Z">
+<meta property="og:updated_time" content="2018-09-28T02:43:18.881Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="CPP和C学习笔记">
 <meta name="twitter:description" content="20180926 12:37gcc和g++的区别：GCC就代表 the GNU Compiler Collection，所以表示一堆编译器的合集。 g++则是GCC的c++编译器。https://www.zhihu.com/question/20940822 今天看到C语言的一段代码123456789#include&amp;lt;stdio.h&amp;gt;int main(int argc, char* a">
@@ -361,11 +361,11 @@
 <p>关于brew update卡住的问题，网上有人说更换一下brew的源就可以了，不过我还没有试，暂时先不管它。<br>按照网上教程，我用brew下载了gdb之后，同时也给gdb配置了证书。这个时候debug C代码时，eclipse提示<code>Failed to execute MI command:</code>。我只是想写个c程序然后调试，但是eclipse配置不给力，还要google一大堆贴文，于是我武断地放弃eclipse，用xcode写c程序调试吧，不要忘了我的初衷只是调试c程序（而不是学习如何配置和使用eclipse）。</p>
 <p>回到上边最初的问题，为什么<code>char* []</code>类型可以转化为<code>char*</code>类型。大概是这么理解的。</p>
 <blockquote>
-<p>杨锋 2018/09/27 下午12:05<br>char <em> argv[]  是说argv是一个数组，数组每个元素是char</em>（其实应是一串char)</p>
+<p>杨锋 2018/09/27 下午12:05<br><code>char * argv[]</code>  是说argv是一个数组，数组每个元素是<code>char*</code>（其实应是一串char)</p>
 <p>孙航 2018/09/27 下午12:07<br>扫噶</p>
 <p>孙航 2018/09/27 下午12:07<br>扫戴斯乃</p>
-<p>孙航 2018/09/27 下午12:09<br>总结一下是：char <em> argv[] 是指针数组，char</em>是个char类型的指针，上面小程序是，把指针数组的地址赋值给了&gt;&gt; char类型的指针</p>
-<p>杨锋 2018/09/27 下午12:10<br>argv这个数组名的含义你了解了就好了。它是指向内存中这堆char的第一个char的地址，类型为数组类型，数组元&gt;&gt; 素类型是char*指针类型。这句能理解吗？</p>
+<p>孙航 2018/09/27 下午12:09<br>总结一下是：<code>char * argv[]</code> 是指针数组，<code>char*</code>是个char类型的指针，上面小程序是，把指针数组的地址赋值给了char类型的指针</p>
+<p>杨锋 2018/09/27 下午12:10<br>argv这个数组名的含义你了解了就好了。它是指向内存中这堆char的第一个char的地址，类型为数组类型，数组元 素类型是char*指针类型。这句能理解吗？</p>
 <p>孙航 2018/09/27 下午12:11<br>确认能理解</p>
 <p>杨锋 2018/09/27 下午12:13<br>程序里调用函数的时候，把这个地址做为参数传进去，printString函数的参数名string指到这个地址</p>
 <p>杨锋 2018/09/27 下午12:15<br>然后函数里把这个地址开始往后按照char*指针来用了。</p>
