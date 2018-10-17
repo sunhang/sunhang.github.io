@@ -79,17 +79,17 @@
 
 
 
-<meta name="description" content="20181015  kotlin中我发现这样写代码也没问题，但是为什么呢？1234567891011121314151617181920212223242526// 注意，runnable并没有加private val，但是它被私有属性runnableWapper调用，这是为什么？class MyHandler(runnable: Runnable) : Handler() &amp;#123;    p">
+<meta name="description" content="##20181017今天在研究kotlin中如何延迟给val赋值时，突然发现DSL很好玩啊 20181015  kotlin中我发现这样写代码也没问题，但是为什么呢？1234567891011121314151617181920212223242526// 注意，runnable并没有加private val，但是它被私有属性runnableWapper调用，这是为什么？class MyHandl">
 <meta property="og:type" content="article">
 <meta property="og:title" content="思绪来得快走得也快，就在这里记下来吧">
 <meta property="og:url" content="http://yoursite.com/2018/05/28/思绪来得快走得也快，就在这里记下来吧/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="20181015  kotlin中我发现这样写代码也没问题，但是为什么呢？1234567891011121314151617181920212223242526// 注意，runnable并没有加private val，但是它被私有属性runnableWapper调用，这是为什么？class MyHandler(runnable: Runnable) : Handler() &amp;#123;    p">
+<meta property="og:description" content="##20181017今天在研究kotlin中如何延迟给val赋值时，突然发现DSL很好玩啊 20181015  kotlin中我发现这样写代码也没问题，但是为什么呢？1234567891011121314151617181920212223242526// 注意，runnable并没有加private val，但是它被私有属性runnableWapper调用，这是为什么？class MyHandl">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-15T10:11:46.692Z">
+<meta property="og:updated_time" content="2018-10-17T04:53:16.946Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="思绪来得快走得也快，就在这里记下来吧">
-<meta name="twitter:description" content="20181015  kotlin中我发现这样写代码也没问题，但是为什么呢？1234567891011121314151617181920212223242526// 注意，runnable并没有加private val，但是它被私有属性runnableWapper调用，这是为什么？class MyHandler(runnable: Runnable) : Handler() &amp;#123;    p">
+<meta name="twitter:description" content="##20181017今天在研究kotlin中如何延迟给val赋值时，突然发现DSL很好玩啊 20181015  kotlin中我发现这样写代码也没问题，但是为什么呢？1234567891011121314151617181920212223242526// 注意，runnable并没有加private val，但是它被私有属性runnableWapper调用，这是为什么？class MyHandl">
 
 
 
@@ -329,7 +329,8 @@
       
 
       
-        <h2 id="20181015"><a href="#20181015" class="headerlink" title="20181015"></a>20181015</h2><ul>
+        <p>##20181017<br>今天在研究kotlin中如何延迟给val赋值时，突然发现DSL很好玩啊</p>
+<h2 id="20181015"><a href="#20181015" class="headerlink" title="20181015"></a>20181015</h2><ul>
 <li style="list-style: none"><input type="checkbox"> kotlin中我发现这样写代码也没问题，但是为什么呢？<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 注意，runnable并没有加private val，但是它被私有属性runnableWapper调用，这是为什么？</span></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span></span>(runnable: Runnable) : Handler() &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">var</span> runnableIsPosted: <span class="built_in">Boolean</span> = <span class="literal">false</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> runnableWapper = Runnable &#123;</span><br><span class="line">        runnable.run()</span><br><span class="line">        runnableIsPosted = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">invokePostDelayed</span><span class="params">(delayMillis: <span class="type">Long</span>)</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (runnableIsPosted) &#123;</span><br><span class="line">            removeCallbacks(runnable) <span class="comment">// 这里会报错</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        postDelayed(runnable, delayMillis) <span class="comment">// 这里会报错</span></span><br><span class="line">        runnableIsPosted = <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">fun</span> <span class="title">invokeRemoveCallbacks</span><span class="params">()</span></span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (runnableIsPosted) &#123;</span><br><span class="line">            removeCallbacks(runnable) <span class="comment">// 这里会报错</span></span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        runnableIsPosted = <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
 </ul>
