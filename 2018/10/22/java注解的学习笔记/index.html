@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="kotlin,java," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。 摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leade">
+<meta name="description" content="kotlin中注解的定义是annotation class XXXX，而java中是public @interface XXXX kotlin中的注解的retention是@Retention(AnnotationRetention.SOURCE)，而java中是@Retention(RetentionPolicy.SOURCE) 试了下方法返回KClass，那么KClass和java的clas">
+<meta name="keywords" content="kotlin,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="今天我走在路上的思考">
-<meta property="og:url" content="http://yoursite.com/2018/10/10/今天我走在路上的思考/index.html">
+<meta property="og:title" content="java和kotlin注解的学习笔记">
+<meta property="og:url" content="http://yoursite.com/2018/10/22/java注解的学习笔记/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。 摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leade">
+<meta property="og:description" content="kotlin中注解的定义是annotation class XXXX，而java中是public @interface XXXX kotlin中的注解的retention是@Retention(AnnotationRetention.SOURCE)，而java中是@Retention(RetentionPolicy.SOURCE) 试了下方法返回KClass，那么KClass和java的clas">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-10T02:57:26.033Z">
+<meta property="og:updated_time" content="2018-10-22T07:25:32.905Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="今天我走在路上的思考">
-<meta name="twitter:description" content="如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。 摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leade">
+<meta name="twitter:title" content="java和kotlin注解的学习笔记">
+<meta name="twitter:description" content="kotlin中注解的定义是annotation class XXXX，而java中是public @interface XXXX kotlin中的注解的retention是@Retention(AnnotationRetention.SOURCE)，而java中是@Retention(RetentionPolicy.SOURCE) 试了下方法返回KClass，那么KClass和java的clas">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/10/今天我走在路上的思考/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/10/22/java注解的学习笔记/"/>
 
 
 
 
 
-  <title>今天我走在路上的思考 | 程序员小航</title>
+  <title>java和kotlin注解的学习笔记 | 程序员小航</title>
   
 
 
@@ -252,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/今天我走在路上的思考/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/22/java注解的学习笔记/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sunhang">
@@ -269,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">今天我走在路上的思考</h1>
+          <h1 class="post-title" itemprop="name headline">java和kotlin注解的学习笔记</h1>
         
 
         <div class="post-meta">
@@ -281,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T10:27:40+08:00">
-                2018-10-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-22T14:02:41+08:00">
+                2018-10-22
               </time>
             
 
@@ -304,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活感悟/" itemprop="url" rel="index">
-                    <span itemprop="name">生活感悟</span>
+                  <a href="/categories/java和kotlin/" itemprop="url" rel="index">
+                    <span itemprop="name">java和kotlin</span>
                   </a>
                 </span>
 
@@ -322,8 +323,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/10/今天我走在路上的思考/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/10/今天我走在路上的思考/" itemprop="commentsCount"></span>
+                <a href="/2018/10/22/java注解的学习笔记/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/22/java注解的学习笔记/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -351,13 +352,11 @@
       
 
       
-        <p>如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。</p>
-<p>摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leader我个人觉得目前条件还不成熟。继续做技术的话就不要考虑再在android应用层做重复工作了（1年的经验用了几年是没有前途的）。</p>
-<p>“白天生存，晚上充电”。这句话又摆在了眼前。</p>
-<p>我做了android 8年开发，很大时间是在做重复使用经验，因为个人性格还有别的原因，没有做到管理，这是最尴尬最糟糕的职业经历了。但是回顾过去8年，前3年是在网秦做了很多业务磨砺了自己的任性的性格，后来接近5年时间是在搜狗做技术，5年内从模块设计、技术积累等方面也成长了很多。总体上10分的话给自己打5分。</p>
-<p>接下来，我计划个人时间内折腾android操作系统（framework+linux），以及学习算法，学习算法是为了做AI而铺路。为什么要折腾framework呢，假如要做一个百万级DAU的app的话，每天会有搜集上报来的疑难杂症和framework层的调用栈有关，另外一个理由是android系统在不断升级完善，google会折腾出新花样我需要去了解探索它。那为什么要搞linux呢，后面再说。至于算法和AI，我有一些自己的点子从来没有实现过，用AI做画，拍摄一张照片，可以把该照片转化成一幅美术画（用户可以选择自己喜欢的风格的，比如水彩、素描、国画、油画等）。</p>
-<p>至于学习折腾linux，因为现在很多设备都是运行在linux上，首先就是android。我想了想，假如以后自己努力往户外扩展，地质勘探等方向发展的话，我就可以往机器人和设备制作方面发展，而这些都可能需要linux做基础。我有的时候想长期坐在办公室闷得慌，假如考虑职业跳转的话，可以考虑户外、地质考察等方向发展。</p>
-<p>这些都是我天马行空的想象，总之不能够再做android app层的开发了，这样迟早一天自己会被互联网行业淘汰的。</p>
+        <ul>
+<li>kotlin中注解的定义是<code>annotation class XXXX</code>，而java中是<code>public @interface XXXX</code></li>
+<li><del>kotlin中的注解的retention是<code>@Retention(AnnotationRetention.SOURCE)</code>，而java中是<code>@Retention(RetentionPolicy.SOURCE)</code></del></li>
+<li>试了下方法返回KClass，那么KClass和java的class是什么区别呢？</li>
+</ul>
 
       
     </div>
@@ -373,6 +372,14 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
 
       
       
@@ -382,8 +389,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/14/jmp-buf是什么/" rel="next" title="jmp_buf是什么">
-                <i class="fa fa-chevron-left"></i> jmp_buf是什么
+              <a href="/2018/10/22/configs-sorts/" rel="next" title="">
+                <i class="fa fa-chevron-left"></i> 
               </a>
             
           </div>
@@ -391,10 +398,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/11/今天走在上班的路上想到的几个点子/" rel="prev" title="今天走在上班的路上想到的几个点子">
-                今天走在上班的路上想到的几个点子 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
