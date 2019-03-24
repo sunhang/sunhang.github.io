@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="java垃圾回收机制是对无用信息对象进行检索，并且回收它们所占用的内存空间，使该部分空间可被再次使用。垃圾回收是不定时的发生。 判断对象是否为垃圾的算法垃圾回收算法包含引用计数算法（Reference Counting Collector）、根搜索算法（Tracing Collector） 引用计数算法堆中每个对象都对应一个引用计数器。  当该对象被创建后首次赋值时，该引用值设置为1。 一个新的地">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对java虚拟机垃圾回收的学习的总结">
+<meta property="og:url" content="http://yoursite.com/2019/03/24/对java虚拟机垃圾回收的学习的总结/index.html">
+<meta property="og:site_name" content="程序员小航">
+<meta property="og:description" content="java垃圾回收机制是对无用信息对象进行检索，并且回收它们所占用的内存空间，使该部分空间可被再次使用。垃圾回收是不定时的发生。 判断对象是否为垃圾的算法垃圾回收算法包含引用计数算法（Reference Counting Collector）、根搜索算法（Tracing Collector） 引用计数算法堆中每个对象都对应一个引用计数器。  当该对象被创建后首次赋值时，该引用值设置为1。 一个新的地">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/16830f55dece437e?w=584&h=211&f=webp&s=12104">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/168315e6882f3bf3?w=596&h=476&f=webp&s=8952">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/168316527c48ea54?w=575&h=588&f=webp&s=11850">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/1683172ddd7afebf?w=606&h=323&f=webp&s=5706">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/10/16835bccdaf1e629?w=582&h=317&f=webp&s=11130">
+<meta property="og:updated_time" content="2019-03-24T13:01:57.221Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对java虚拟机垃圾回收的学习的总结">
+<meta name="twitter:description" content="java垃圾回收机制是对无用信息对象进行检索，并且回收它们所占用的内存空间，使该部分空间可被再次使用。垃圾回收是不定时的发生。 判断对象是否为垃圾的算法垃圾回收算法包含引用计数算法（Reference Counting Collector）、根搜索算法（Tracing Collector） 引用计数算法堆中每个对象都对应一个引用计数器。  当该对象被创建后首次赋值时，该引用值设置为1。 一个新的地">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/1/9/16830f55dece437e?w=584&h=211&f=webp&s=12104">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/03/24/对java虚拟机垃圾回收的学习的总结/"/>
+
+
+
+
+
+  <title>对java虚拟机垃圾回收的学习的总结 | 程序员小航</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员小航</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乐在行走</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          <a href="/categories/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-th"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/03/24/对java虚拟机垃圾回收的学习的总结/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sunhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员小航">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对java虚拟机垃圾回收的学习的总结</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-03-24T21:00:44+08:00">
+                2019-03-24
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+            <span class="post-category" >
+            
+              <span class="post-meta-divider">|</span>
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">分类于</span>
+              
+              
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/java/" itemprop="url" rel="index">
+                    <span itemprop="name">java</span>
+                  </a>
+                </span>
+
+                
+                
+              
+            </span>
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/03/24/对java虚拟机垃圾回收的学习的总结/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/03/24/对java虚拟机垃圾回收的学习的总结/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>java垃圾回收机制是对无用信息对象进行检索，并且回收它们所占用的内存空间，使该部分空间可被再次使用。垃圾回收是不定时的发生。</p>
+<h1 id="判断对象是否为垃圾的算法"><a href="#判断对象是否为垃圾的算法" class="headerlink" title="判断对象是否为垃圾的算法"></a>判断对象是否为垃圾的算法</h1><p>垃圾回收算法包含引用计数算法（Reference Counting Collector）、根搜索算法（Tracing Collector）</p>
+<h2 id="引用计数算法"><a href="#引用计数算法" class="headerlink" title="引用计数算法"></a>引用计数算法</h2><p>堆中每个对象都对应一个引用计数器。</p>
+<ul>
+<li>当该对象被创建后首次赋值时，该引用值设置为1。</li>
+<li>一个新的地方要引用该对象时，引用值加1。</li>
+<li>当该对象的一个引用值被置为null或者超过了其生命周期或者引用别的对象时，引用值减1。</li>
+<li>当一个对象对应的引用值为0时，它将被等待回收。当它被回收后，它所引用的对象的引用计数器值都减1。</li>
+</ul>
+<p>它的优缺点如下：</p>
+<ol>
+<li>优点是速度快，可以在不打断程序运行的情况下交至运行，判断效率高；</li>
+<li>缺点是难以检测出循环引用的对象。引用计数器增加程序运行的开销。</li>
+</ol>
+<h2 id="根搜索算法"><a href="#根搜索算法" class="headerlink" title="根搜索算法"></a>根搜索算法</h2><p>从一系列GC Root出发，来对引用节点进行遍历，凡是不可到达的对象（它和GC Root没有任何引用链）都是无用信息对象，标记它们使之等待回收。</p>
+<p>GC根对象包含如下：</p>
+<ul>
+<li>虚拟机栈中的引用对象（栈帧中的引用变量表）</li>
+<li>方法区的类的静态属性引用的对象</li>
+<li>方法区的常量引用的对象（这个还不没搞清楚，后续继续分析..）</li>
+<li>本地方法栈中引用的对象（这个还不没搞清楚，后续继续分析..）</li>
+<li>活跃线程</li>
+</ul>
+<p>该算法是从离散数学的图论引入的。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/16830f55dece437e?w=584&amp;h=211&amp;f=webp&amp;s=12104" alt=""></p>
+<h2 id="标记回收对象的关键点分析"><a href="#标记回收对象的关键点分析" class="headerlink" title="标记回收对象的关键点分析"></a>标记回收对象的关键点分析</h2><p>当判断是否为回收对象的算法开始运行时，如果此时采用的是根搜索算法，java程序将会被暂停（Stop the world， STW），这个情况被称为安全点（Safe Point）。在把查找到的无用信息对象进行回收之前，如果检测到部分对象重写了finalize方法并且还没有被执行过，则把这部分对象保存到一个F-Queue中。然后在一低优先级的线程中对该队列中的对象进行遍历来执行它们的finalize。此时若出现这种情况，一个对象的finalize方法被执行时，把该对象重新和引用链上某一对象建立关联，那么这个对象将通过这种自救的方式避免被回收。不然的话，它将被回收掉。</p>
+<h1 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h1><h2 id="Tracing算法（Tracing-Collector）-或-标记—清除算法"><a href="#Tracing算法（Tracing-Collector）-或-标记—清除算法" class="headerlink" title="Tracing算法（Tracing Collector） 或 标记—清除算法"></a>Tracing算法（Tracing Collector） 或 标记—清除算法</h2><p>对象被标记后将被回收，回收后会留下来内存碎片。未被标记的活动对象将不受影响。但是要额外维护一个空闲列表来记录空闲区域和大小，而且产生的内存碎片会妨碍后续的内存分配。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/168315e6882f3bf3?w=596&amp;h=476&amp;f=webp&amp;s=8952" alt=""></p>
+<h2 id="Compacting算法（Compacting-Collector）-或-标记—整理算法"><a href="#Compacting算法（Compacting-Collector）-或-标记—整理算法" class="headerlink" title="Compacting算法（Compacting Collector） 或 标记—整理算法"></a>Compacting算法（Compacting Collector） 或 标记—整理算法</h2><p>对象被标记后不是被清除掉，而是把所有未标记的活动对象向内存中的一端进行移动，端边界以外的内存将被清理掉，避免内存碎片。但是移动对象和更新引用地址将会导致GC增加执行时间。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/168316527c48ea54?w=575&amp;h=588&amp;f=webp&amp;s=11850" alt=""></p>
+<h2 id="Copying算法（Copying-Collector）"><a href="#Copying算法（Copying-Collector）" class="headerlink" title="Copying算法（Copying Collector）"></a>Copying算法（Copying Collector）</h2><p>建立两个面（对象面、空闲面），当对象面内存用完时，就把活动对象都copy到空闲面上，然后清理原来对象面的内存，把它变成新的空闲面，然后原来的空闲面变为新的对象面。</p>
+<p>它有很多优点，比如标记阶段和copy阶段可以同时进行，只移动栈顶指针的位置即可，每次只copy一次内存所以高效，避免内存碎片。但是需要额外的一份相同大小的内存，所以整体上一次性分配的内存缩小了一半。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/1683172ddd7afebf?w=606&amp;h=323&amp;f=webp&amp;s=5706" alt=""></p>
+<h2 id="Adaptive算法（Adaptive-Collector）"><a href="#Adaptive算法（Adaptive-Collector）" class="headerlink" title="Adaptive算法（Adaptive Collector）"></a>Adaptive算法（Adaptive Collector）</h2><p>根据当前堆的使用情况来分析要采用哪种垃圾收集器算法</p>
+<h1 id="java堆"><a href="#java堆" class="headerlink" title="java堆"></a>java堆</h1><p>java堆基于Generation算法（Generational Collector）划分为新生代、年老代，持久代。这个划分主要基于一个事实：不同的对象具有不同的生命周期。不同的代存储不同生命周期的对象，采用的垃圾回收算法也不同。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/1/10/16835bccdaf1e629?w=582&amp;h=317&amp;f=webp&amp;s=11130" alt=""></p>
+<h2 id="新生代（Young-Generation）"><a href="#新生代（Young-Generation）" class="headerlink" title="新生代（Young Generation）"></a>新生代（Young Generation）</h2><p>新创建的对象都将放到新生代内存中，新生代内存包含eden区和survivor区，survivor区又将包含survivor0和survivor1两个区。新创建的对象都将放入到eden区，若eden区满了之后，则把对象copy到survivor0区，若survivor0区也满了，就把对象copy到survivor1区，此时survivor1区变为新的survivor0，原来的survivor0变为新的survivor1。若对象在survivor区存活时间比较久，则该对象讲移入到年老代内存中。</p>
+<h2 id="年老代（Old-Generation）"><a href="#年老代（Old-Generation）" class="headerlink" title="年老代（Old Generation）"></a>年老代（Old Generation）</h2><p>年老代的堆主要存储生命期长的对象和一些占用大内存的对象。当在新生代中的survivor的对象躲过一次GC，其年龄加1岁，若年龄增加到15岁，则该对象从新生代转移到年老代。</p>
+<h2 id="持久代（Permanent-Generation）"><a href="#持久代（Permanent-Generation）" class="headerlink" title="持久代（Permanent Generation）"></a>持久代（Permanent Generation）</h2><p>持久代的堆主要存储静态文件（类和方法）和常量。在java8中采用了元空间（MetaSpace）取代了持久代。</p>
+<h1 id="android垃圾回收所采用的算法"><a href="#android垃圾回收所采用的算法" class="headerlink" title="android垃圾回收所采用的算法"></a>android垃圾回收所采用的算法</h1><blockquote>
+<p>待续</p>
+</blockquote>
+<h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1><ul>
+<li><strong>虚引用</strong>为一个对象设置虚引用关联的唯一目的是希望能在这个对象被收集器回收时收到一个系统通知。那么这是如何做到的呢？</li>
+<li>离散数学的图论</li>
+<li>指针碰撞（Pointer Bumping）是什么</li>
+<li>java回收中提到的句柄是什么</li>
+<li>新生代内存为什么是按照8:1:1，具体机制是什么</li>
+</ul>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/03/24/android消息机制/" rel="next" title="android消息机制">
+                <i class="fa fa-chevron-left"></i> android消息机制
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sunhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                <a href="/categories/index.html">
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#判断对象是否为垃圾的算法"><span class="nav-number">1.</span> <span class="nav-text">判断对象是否为垃圾的算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#引用计数算法"><span class="nav-number">1.1.</span> <span class="nav-text">引用计数算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#根搜索算法"><span class="nav-number">1.2.</span> <span class="nav-text">根搜索算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#标记回收对象的关键点分析"><span class="nav-number">1.3.</span> <span class="nav-text">标记回收对象的关键点分析</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#垃圾回收算法"><span class="nav-number">2.</span> <span class="nav-text">垃圾回收算法</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Tracing算法（Tracing-Collector）-或-标记—清除算法"><span class="nav-number">2.1.</span> <span class="nav-text">Tracing算法（Tracing Collector） 或 标记—清除算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Compacting算法（Compacting-Collector）-或-标记—整理算法"><span class="nav-number">2.2.</span> <span class="nav-text">Compacting算法（Compacting Collector） 或 标记—整理算法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Copying算法（Copying-Collector）"><span class="nav-number">2.3.</span> <span class="nav-text">Copying算法（Copying Collector）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Adaptive算法（Adaptive-Collector）"><span class="nav-number">2.4.</span> <span class="nav-text">Adaptive算法（Adaptive Collector）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#java堆"><span class="nav-number">3.</span> <span class="nav-text">java堆</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#新生代（Young-Generation）"><span class="nav-number">3.1.</span> <span class="nav-text">新生代（Young Generation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#年老代（Old-Generation）"><span class="nav-number">3.2.</span> <span class="nav-text">年老代（Old Generation）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#持久代（Permanent-Generation）"><span class="nav-number">3.3.</span> <span class="nav-text">持久代（Permanent Generation）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#android垃圾回收所采用的算法"><span class="nav-number">4.</span> <span class="nav-text">android垃圾回收所采用的算法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进阶"><span class="nav-number">5.</span> <span class="nav-text">进阶</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: decodeURI(window.location.pathname), 
+            owner: 'sunhang',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b5c89c64dda977ef6bf6326d91407b0ee1998b61',
+            
+                client_id: '2427d0174bf6c6be392e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
