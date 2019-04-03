@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="c++,c," />
+  <meta name="keywords" content="android,java," />
 
 
 
@@ -79,18 +79,18 @@
 
 
 
-<meta name="description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，又发现了语句1typedef struct __jmp_buf_tag jmp_buf[1]; 那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法1">
-<meta name="keywords" content="c++,c">
+<meta name="description" content="在看java和android的类加载机制，途中有一些疑惑，就先记下来。 jdk和jre是什么区别？ JDK就是Java Development Kit.简单的说JDK是面向开发人员使用的SDK，它提供了Java的开发环境和运行环境。SDK是Software Development Kit 一般指软件开发包，可以包括函数库、编译程序等。JRE是Java Runtime Enviroment是指Jav">
+<meta name="keywords" content="android,java">
 <meta property="og:type" content="article">
-<meta property="og:title" content="jmp_buf是什么">
-<meta property="og:url" content="http://yoursite.com/2018/09/14/jmp-buf是什么/index.html">
+<meta property="og:title" content="java类加载机制">
+<meta property="og:url" content="http://yoursite.com/2019/04/03/java类加载机制/index.html">
 <meta property="og:site_name" content="程序员小航">
-<meta property="og:description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，又发现了语句1typedef struct __jmp_buf_tag jmp_buf[1]; 那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法1">
+<meta property="og:description" content="在看java和android的类加载机制，途中有一些疑惑，就先记下来。 jdk和jre是什么区别？ JDK就是Java Development Kit.简单的说JDK是面向开发人员使用的SDK，它提供了Java的开发环境和运行环境。SDK是Software Development Kit 一般指软件开发包，可以包括函数库、编译程序等。JRE是Java Runtime Enviroment是指Jav">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-09-15T02:52:15.667Z">
+<meta property="og:updated_time" content="2019-04-03T07:17:26.936Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="jmp_buf是什么">
-<meta name="twitter:description" content="看书时发现一个语句jmp_buf kansa;这个jmp_buf是什么呢？搜到这篇文章https://blog.csdn.net/freezlz/article/details/50812293。看这篇文章中，又发现了语句1typedef struct __jmp_buf_tag jmp_buf[1]; 那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法1">
+<meta name="twitter:title" content="java类加载机制">
+<meta name="twitter:description" content="在看java和android的类加载机制，途中有一些疑惑，就先记下来。 jdk和jre是什么区别？ JDK就是Java Development Kit.简单的说JDK是面向开发人员使用的SDK，它提供了Java的开发环境和运行环境。SDK是Software Development Kit 一般指软件开发包，可以包括函数库、编译程序等。JRE是Java Runtime Enviroment是指Jav">
 
 
 
@@ -120,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/09/14/jmp-buf是什么/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/04/03/java类加载机制/"/>
 
 
 
 
 
-  <title>jmp_buf是什么 | 程序员小航</title>
+  <title>java类加载机制 | 程序员小航</title>
   
 
 
@@ -253,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/14/jmp-buf是什么/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/04/03/java类加载机制/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sunhang">
@@ -270,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">jmp_buf是什么</h1>
+          <h1 class="post-title" itemprop="name headline">java类加载机制</h1>
         
 
         <div class="post-meta">
@@ -282,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-14T11:32:55+08:00">
-                2018-09-14
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-04-03T15:14:27+08:00">
+                2019-04-03
               </time>
             
 
@@ -305,8 +305,8 @@
               
               
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/c-c-学习笔记/" itemprop="url" rel="index">
-                    <span itemprop="name">c/c++学习笔记</span>
+                  <a href="/categories/android/" itemprop="url" rel="index">
+                    <span itemprop="name">android</span>
                   </a>
                 </span>
 
@@ -323,8 +323,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/09/14/jmp-buf是什么/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/09/14/jmp-buf是什么/" itemprop="commentsCount"></span>
+                <a href="/2019/04/03/java类加载机制/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/04/03/java类加载机制/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -352,10 +352,34 @@
       
 
       
-        <p>看书时发现一个语句<code>jmp_buf kansa;</code>这个jmp_buf是什么呢？搜到这篇文章<a href="https://blog.csdn.net/freezlz/article/details/50812293" target="_blank" rel="noopener">https://blog.csdn.net/freezlz/article/details/50812293</a>。看这篇文章中，又发现了语句<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> __<span class="title">jmp_buf_tag</span> <span class="title">jmp_buf</span>[1];</span></span><br></pre></td></tr></table></figure></p>
-<p>那么这是个啥呢，发现__jmp_buf_tag是个struct，下一个疑问是类似于这样的语法<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">SomeStruct</span> <span class="title">someName</span>[1]</span></span><br></pre></td></tr></table></figure></p>
-<p>是什么意思呢？于是写代码顺着编译器出错提示进行修改，了解到这是设定了一个数组的别名。代码如下<br><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">A</span> &#123;</span></span><br><span class="line">	<span class="keyword">int</span> i;</span><br><span class="line">&#125;;</span><br><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span> <span class="title">A</span> <span class="title">B</span>[5];</span> </span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">	B b; <span class="comment">// 一个长度是5的数组，每一项的类型是A</span></span><br><span class="line">	b[<span class="number">4</span>].i = <span class="number">50</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">cout</span> &lt;&lt; b[<span class="number">0</span>].i &lt;&lt; <span class="string">" "</span> &lt;&lt; b[<span class="number">4</span>].i &lt;&lt; <span class="built_in">std</span>::<span class="built_in">endl</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>于是了解到jmp_buf是一个可以用来定义一个长度为1的数组，数组类型是__jmp_buf_tag<br>jmp_buf是用来干什么的呢？继续看资料，看了这篇文章<a href="https://www.cnblogs.com/hbiner/p/3261437.html" target="_blank" rel="noopener">https://www.cnblogs.com/hbiner/p/3261437.html</a>后，总结如下：<br>1，jmp_buf通常是作为参数用在setjmp和longjmp函数中；<br>2，setjmp函数用缓冲区envbuf保存系统堆栈的内容，以便后续的longjmp函数使用。setjmp函数初次启用时返回0值；<br>3，longjmp函数中的参数envbuf是由setjmp函数所保存的堆栈环境，参数val设置setjmp函数的返回值；<br>4，通常它们用在异常处理，有点类似于java的try catch;<br>5，C++中longjmp()调出某个作用域时，它不会调用对象的析构函数。C++标准中也讲使用longjmp()跳出某个作用域而且这个作用域的栈中有某个对象需要析构时，程序行为是不确定的。</p>
+        <p>在看java和android的类加载机制，途中有一些疑惑，就先记下来。</p>
+<p><strong>jdk和jre是什么区别？</strong> JDK就是Java Development Kit.简单的说JDK是面向开发人员使用的SDK，它提供了Java的开发环境和运行环境。SDK是Software Development Kit 一般指软件开发包，可以包括函数库、编译程序等。JRE是Java Runtime Enviroment是指Java的运行环境，是面向Java程序的使用者，而不是开发者。</p>
+<p><strong>rt.jar、dt.jar、tools.jar是什么？</strong> rt.jar这个文件是极为重要的一个文件，rt是runtime的缩写，即运行时的意思。是java程序在运行时必不可少的文件。里面包含了java程序员常用的包，如java.lang，java.util，java.io，java.net,java.applet等；dt.jar是关于运行环境的类库，主要是swing的包，你要用到swing时最好加上；tools.jar 是系统用来编译一个类的时候用到的，也就是javac的时候用到 。</p>
+<p><strong><code>lib/</code>和<code>jre/lib</code>的区别是什么？</strong> JDK下的lib包括java开发环境的jar包，是给JDK用的，例如JDK下有一些工具，可能要用该目录中的文件。例如，编译器等；JDK下的JRE下的lib是开发环境中，运行时需要的jar包。最典型的就是导入的外部驱动jar包。</p>
+<h3 id="jvm中的类加载器"><a href="#jvm中的类加载器" class="headerlink" title="jvm中的类加载器"></a>jvm中的类加载器</h3><h4 id="启动类加载器（Bootstrap-Class-Loader）"><a href="#启动类加载器（Bootstrap-Class-Loader）" class="headerlink" title="启动类加载器（Bootstrap Class Loader）"></a>启动类加载器（Bootstrap Class Loader）</h4><p>主要负责加载jdk中的核心类库，比如rt.jar和其它在jre/lib中的核心类。Bootstrap Class Loader是所有classloader的父加载器。它是有native代码实现的</p>
+<blockquote>
+<p>It’s mainly responsible for loading JDK internal classes, typically rt.jar and other core libraries located in $JAVA_HOME/jre/lib directory. Additionally, Bootstrap class loader serves as a parent of all the other ClassLoader instances.</p>
+<p>This bootstrap class loader is part of the core JVM and is written in native code. Different platforms might have different implementations of this particular class loader.</p>
+</blockquote>
+<h4 id="扩展类加载器（Extension-Class-Loader）"><a href="#扩展类加载器（Extension-Class-Loader）" class="headerlink" title="扩展类加载器（Extension Class Loader）"></a>扩展类加载器（Extension Class Loader）</h4><p>扩展类加载器是由Sun的ExtClassLoader（sun.misc.Launcher$ExtClassLoader）实现的，它负责将 <code>&lt;JAVA_HOME &gt;/lib/ext</code>或者由系统变量<code>-Djava.ext.dir</code>指定位置中的类库 加载到内存中。开发者可以直接使用标准扩展类加载器。</p>
+<h4 id="系统类加载器（System-Class-Loader）"><a href="#系统类加载器（System-Class-Loader）" class="headerlink" title="系统类加载器（System Class Loader）"></a>系统类加载器（System Class Loader）</h4><p>系统类加载器是由 Sun 的 AppClassLoader（sun.misc.Launcher$AppClassLoader）实现的，它负责将用户类路径(java -classpath或-Djava.class.path变量所指的目录，即当前类所在路径及其引用的第三方类库的路径，加载到内存中。开发者可以直接使用系统类加载器。</p>
+<blockquote>
+<p> The system or application class loader, on the other hand, takes care of loading all the application level classes into the JVM. It loads files found in the classpath environment variable, -classpath or -cp command line option. Also, it’s a child of Extensions classloader.</p>
+</blockquote>
+<blockquote>
+<p> The extension class loader is a child of the bootstrap class loader and takes care of loading the extensions of the standard core Java classes so that it’s available to all applications running on the platform.</p>
+<p>Extension class loader loads from the JDK extensions directory, usually $JAVA_HOME/lib/ext directory or any other directory mentioned in the java.ext.dirs system property.</p>
+</blockquote>
+<h4 id="举个例子"><a href="#举个例子" class="headerlink" title="举个例子"></a>举个例子</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">printClassLoaders</span><span class="params">()</span> <span class="keyword">throws</span> ClassNotFoundException </span>&#123;</span><br><span class="line"> </span><br><span class="line">    System.out.println(<span class="string">"Classloader of this class:"</span></span><br><span class="line">        + PrintClassLoader.class.getClassLoader());</span><br><span class="line"> </span><br><span class="line">    System.out.println(<span class="string">"Classloader of Logging:"</span></span><br><span class="line">        + Logging.class.getClassLoader());</span><br><span class="line"> </span><br><span class="line">    System.out.println(<span class="string">"Classloader of ArrayList:"</span></span><br><span class="line">        + ArrayList.class.getClassLoader());</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果是</p>
+<blockquote>
+<p>Class loader of this class:sun.misc.Launcher$AppClassLoader@18b4aac2<br>Class loader of Logging:sun.misc.Launcher$ExtClassLoader@3caeaf62<br>Class loader of ArrayList:null</p>
+</blockquote>
+<h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3><p>JVM在加载类时默认采用的是双亲委派机制。通俗的讲，就是某个特定的类加载器在接到加载类的请求时，首先将加载任务委托给父类加载器，依次递归 (本质上就是loadClass函数的递归调用)。因此，所有的加载请求最终都应该传送到顶层的启动类加载器中。如果父类加载器可以完成这个类加载请求，就成功返回；只有当父类加载器无法完成此加载请求时，子加载器才会尝试自己去加载。事实上，大多数情况下，越基础的类由越上层的加载器进行加载。</p>
+<h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
+<li><a href="https://blog.csdn.net/justloveyou_/article/details/72217806" target="_blank" rel="noopener">https://blog.csdn.net/justloveyou_/article/details/72217806</a></li>
+<li><a href="https://www.baeldung.com/java-classloaders" target="_blank" rel="noopener">https://www.baeldung.com/java-classloaders</a></li>
+</ul>
 
       
     </div>
@@ -373,9 +397,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/c/" rel="tag"># c++</a>
+            <a href="/tags/android/" rel="tag"># android</a>
           
-            <a href="/tags/c/" rel="tag"># c</a>
+            <a href="/tags/java/" rel="tag"># java</a>
           
         </div>
       
@@ -388,8 +412,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/13/07年买的一本cpp书籍/" rel="next" title="07年买的一本cpp书籍">
-                <i class="fa fa-chevron-left"></i> 07年买的一本cpp书籍
+              <a href="/2019/03/24/对java虚拟机垃圾回收的学习的总结/" rel="next" title="对java虚拟机垃圾回收的学习的总结">
+                <i class="fa fa-chevron-left"></i> 对java虚拟机垃圾回收的学习的总结
               </a>
             
           </div>
@@ -397,10 +421,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/10/今天我走在路上的思考/" rel="prev" title="今天我走在路上的思考">
-                今天我走在路上的思考 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -459,8 +479,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -520,6 +549,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#jvm中的类加载器"><span class="nav-number">1.</span> <span class="nav-text">jvm中的类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#启动类加载器（Bootstrap-Class-Loader）"><span class="nav-number">1.1.</span> <span class="nav-text">启动类加载器（Bootstrap Class Loader）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#扩展类加载器（Extension-Class-Loader）"><span class="nav-number">1.2.</span> <span class="nav-text">扩展类加载器（Extension Class Loader）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#系统类加载器（System-Class-Loader）"><span class="nav-number">1.3.</span> <span class="nav-text">系统类加载器（System Class Loader）</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#举个例子"><span class="nav-number">1.4.</span> <span class="nav-text">举个例子</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#双亲委派机制"><span class="nav-number">2.</span> <span class="nav-text">双亲委派机制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#参考"><span class="nav-number">3.</span> <span class="nav-text">参考</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
