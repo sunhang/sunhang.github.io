@@ -386,8 +386,7 @@
 <blockquote>
 <p>Class loader of this class:sun.misc.Launcher$AppClassLoader@18b4aac2<br>Class loader of Logging:sun.misc.Launcher$ExtClassLoader@3caeaf62<br>Class loader of ArrayList:null</p>
 </blockquote>
-<h3 id="classloader的类的继承关系"><a href="#classloader的类的继承关系" class="headerlink" title="classloader的类的继承关系"></a>classloader的类的继承关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">Object &lt;|-- ClassLoader</span><br><span class="line">ClassLoader &lt;|-- SecureClassLoader</span><br><span class="line">SecureClassLoader &lt;|-- URLClassLoader</span><br><span class="line">URLClassLoader &lt;|-- ExtClassLoader</span><br><span class="line">URLClassLoader &lt;|-- AppClassLoader</span><br><span class="line">BootStrapClassLoader &lt;-- ExtClassLoader</span><br><span class="line">ExtClassLoader &lt;-- AppClassLoader</span><br><span class="line">AppClassLoader &lt;-- ClassLoaderA</span><br><span class="line">AppClassLoader &lt;-- ClassLoaderB</span><br></pre></td></tr></table></figure>
-<p>其中，ExtClassLoader属于Extension Class Loader，AppClassLoader属于System Class Loader。</p>
+<h3 id="classloader的类的继承关系"><a href="#classloader的类的继承关系" class="headerlink" title="classloader的类的继承关系"></a>classloader的类的继承关系</h3><p><pre class="mermaid">classDiagram<br>Object &lt;|– ClassLoader<br>ClassLoader &lt;|– SecureClassLoader<br>SecureClassLoader &lt;|– URLClassLoader<br>URLClassLoader &lt;|– ExtClassLoader<br>URLClassLoader &lt;|– AppClassLoader<br>BootStrapClassLoader &lt;– ExtClassLoader<br>ExtClassLoader &lt;– AppClassLoader<br>AppClassLoader &lt;– ClassLoaderA<br>AppClassLoader &lt;– ClassLoaderB</pre><br>其中，ExtClassLoader属于Extension Class Loader，AppClassLoader属于System Class Loader。</p>
 <h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3><p>JVM在加载类时默认采用的是双亲委派机制。通俗的讲，就是某个特定的类加载器在接到加载类的请求时，首先将加载任务委托给父类加载器，依次递归 (本质上就是loadClass函数的递归调用)。因此，所有的加载请求最终都应该传送到顶层的启动类加载器中。如果父类加载器可以完成这个类加载请求，就成功返回；只有当父类加载器无法完成此加载请求时，子加载器才会尝试自己去加载。事实上，大多数情况下，越基础的类由越上层的加载器进行加载。</p>
 <p>加载过程如下：</p>
 <ol>
@@ -399,8 +398,7 @@
 <li>依此类推，直到源 ClassLoader。</li>
 <li>源 ClassLoader 尝试从其对应的类路径下寻找 class 字节码文件并载入。如果载入成功，则直接返回 Class，如果载入失败，源 ClassLoader 不会再委托其子类加载器，而是抛出异常。</li>
 </ol>
-<h3 id="android的class-loader"><a href="#android的class-loader" class="headerlink" title="android的class loader"></a>android的class loader</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">Object &lt;|-- ClassLoader</span><br><span class="line">ClassLoader &lt;|-- BaseDexClassLoader</span><br><span class="line">ClassLoader &lt;|-- SecureClassLoader</span><br><span class="line">SecureClassLoader &lt;|-- URLClassLoader</span><br><span class="line">BaseDexClassLoader &lt;|-- PathClassLoader</span><br><span class="line">BaseDexClassLoader &lt;|-- DexClassLoader</span><br><span class="line">BaseDexClassLoader &lt;|-- InMemoryDexClassLoader</span><br><span class="line">ClassLoader &lt;|-- BootClassLoader</span><br><span class="line">BootClassLoader &lt;-- PathClassLoader</span><br></pre></td></tr></table></figure>
-<p>几个知识点</p>
+<h3 id="android的class-loader"><a href="#android的class-loader" class="headerlink" title="android的class loader"></a>android的class loader</h3><p><pre class="mermaid">classDiagram<br>Object &lt;|– ClassLoader<br>ClassLoader &lt;|– BaseDexClassLoader<br>ClassLoader &lt;|– SecureClassLoader<br>SecureClassLoader &lt;|– URLClassLoader<br>BaseDexClassLoader &lt;|– PathClassLoader<br>BaseDexClassLoader &lt;|– DexClassLoader<br>BaseDexClassLoader &lt;|– InMemoryDexClassLoader<br>ClassLoader &lt;|– BootClassLoader<br>BootClassLoader &lt;– PathClassLoader</pre><br>几个知识点</p>
 <ol>
 <li>在 Android 中，App 安装到手机后，apk 里面的 class.dex 中的 class 均是通过 PathClassLoader 来加载的。</li>
 <li>对比 PathClassLoader 只能加载已经安装应用的 dex 或 apk 文件，DexClassLoader 则没有此限制，可以从 SD 卡上加载包含 class.dex 的 .jar 和 .apk 文件，这也是插件化和热修复的基础，在不需要安装应用的情况下，完成需要使用的 dex 的加载。<code>A class loader that loads classes from .jar and .apk filescontaining a classes.dex entry. This can be used to execute code notinstalled as part of an application.</code></li>
@@ -639,6 +637,15 @@
   <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
 
 
+
+
+
+  <script src='https://unpkg.com/mermaid@<%= theme.mermaid.version %>/dist/mermaid.min.js'></script>
+  <script>
+    if (window.mermaid) {
+      mermaid.initialize({theme: 'forest'});
+    }
+  </script>
 
 
         
