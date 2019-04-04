@@ -87,10 +87,13 @@
 <meta property="og:site_name" content="程序员孙航">
 <meta property="og:description" content="在看java和android的类加载机制，途中有一些疑惑，就先记下来。 一些概念的理解jdk和jre是什么区别？ JDK就是Java Development Kit.简单的说JDK是面向开发人员使用的SDK，它提供了Java的开发环境和运行环境。SDK是Software Development Kit 一般指软件开发包，可以包括函数库、编译程序等。JRE是Java Runtime Envirome">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-04-03T12:09:44.600Z">
+<meta property="og:image" content="http://yoursite.com/images/my/classloader01.png">
+<meta property="og:image" content="http://yoursite.com/images/my/classloader02.png">
+<meta property="og:updated_time" content="2019-04-04T02:41:42.230Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java类加载机制">
 <meta name="twitter:description" content="在看java和android的类加载机制，途中有一些疑惑，就先记下来。 一些概念的理解jdk和jre是什么区别？ JDK就是Java Development Kit.简单的说JDK是面向开发人员使用的SDK，它提供了Java的开发环境和运行环境。SDK是Software Development Kit 一般指软件开发包，可以包括函数库、编译程序等。JRE是Java Runtime Envirome">
+<meta name="twitter:image" content="http://yoursite.com/images/my/classloader01.png">
 
 
 
@@ -386,7 +389,8 @@
 <blockquote>
 <p>Class loader of this class:sun.misc.Launcher$AppClassLoader@18b4aac2<br>Class loader of Logging:sun.misc.Launcher$ExtClassLoader@3caeaf62<br>Class loader of ArrayList:null</p>
 </blockquote>
-<h3 id="classloader的类的继承关系"><a href="#classloader的类的继承关系" class="headerlink" title="classloader的类的继承关系"></a>classloader的类的继承关系</h3><p><pre class="mermaid">classDiagram<br>Object &lt;|– ClassLoader<br>ClassLoader &lt;|– SecureClassLoader<br>SecureClassLoader &lt;|– URLClassLoader<br>URLClassLoader &lt;|– ExtClassLoader<br>URLClassLoader &lt;|– AppClassLoader<br>BootStrapClassLoader &lt;– ExtClassLoader<br>ExtClassLoader &lt;– AppClassLoader<br>AppClassLoader &lt;– ClassLoaderA<br>AppClassLoader &lt;– ClassLoaderB</pre><br>其中，ExtClassLoader属于Extension Class Loader，AppClassLoader属于System Class Loader。</p>
+<h3 id="classloader的类的继承关系"><a href="#classloader的类的继承关系" class="headerlink" title="classloader的类的继承关系"></a>classloader的类的继承关系</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">Object &lt;|-- ClassLoader</span><br><span class="line">ClassLoader &lt;|-- SecureClassLoader</span><br><span class="line">SecureClassLoader &lt;|-- URLClassLoader</span><br><span class="line">URLClassLoader &lt;|-- ExtClassLoader</span><br><span class="line">URLClassLoader &lt;|-- AppClassLoader</span><br><span class="line">BootStrapClassLoader &lt;-- ExtClassLoader</span><br><span class="line">ExtClassLoader &lt;-- AppClassLoader</span><br><span class="line">AppClassLoader &lt;-- ClassLoaderA</span><br><span class="line">AppClassLoader &lt;-- ClassLoaderB</span><br></pre></td></tr></table></figure>
+<p><img src="/images/my/classloader01.png" alt="classloader01"><br>其中，ExtClassLoader属于Extension Class Loader，AppClassLoader属于System Class Loader。</p>
 <h3 id="双亲委派机制"><a href="#双亲委派机制" class="headerlink" title="双亲委派机制"></a>双亲委派机制</h3><p>JVM在加载类时默认采用的是双亲委派机制。通俗的讲，就是某个特定的类加载器在接到加载类的请求时，首先将加载任务委托给父类加载器，依次递归 (本质上就是loadClass函数的递归调用)。因此，所有的加载请求最终都应该传送到顶层的启动类加载器中。如果父类加载器可以完成这个类加载请求，就成功返回；只有当父类加载器无法完成此加载请求时，子加载器才会尝试自己去加载。事实上，大多数情况下，越基础的类由越上层的加载器进行加载。</p>
 <p>加载过程如下：</p>
 <ol>
@@ -398,7 +402,8 @@
 <li>依此类推，直到源 ClassLoader。</li>
 <li>源 ClassLoader 尝试从其对应的类路径下寻找 class 字节码文件并载入。如果载入成功，则直接返回 Class，如果载入失败，源 ClassLoader 不会再委托其子类加载器，而是抛出异常。</li>
 </ol>
-<h3 id="android的class-loader"><a href="#android的class-loader" class="headerlink" title="android的class loader"></a>android的class loader</h3><p><pre class="mermaid">classDiagram<br>Object &lt;|– ClassLoader<br>ClassLoader &lt;|– BaseDexClassLoader<br>ClassLoader &lt;|– SecureClassLoader<br>SecureClassLoader &lt;|– URLClassLoader<br>BaseDexClassLoader &lt;|– PathClassLoader<br>BaseDexClassLoader &lt;|– DexClassLoader<br>BaseDexClassLoader &lt;|– InMemoryDexClassLoader<br>ClassLoader &lt;|– BootClassLoader<br>BootClassLoader &lt;– PathClassLoader</pre><br>几个知识点</p>
+<h3 id="android的class-loader"><a href="#android的class-loader" class="headerlink" title="android的class loader"></a>android的class loader</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">classDiagram</span><br><span class="line">Object &lt;|-- ClassLoader</span><br><span class="line">ClassLoader &lt;|-- BaseDexClassLoader</span><br><span class="line">ClassLoader &lt;|-- SecureClassLoader</span><br><span class="line">SecureClassLoader &lt;|-- URLClassLoader</span><br><span class="line">BaseDexClassLoader &lt;|-- PathClassLoader</span><br><span class="line">BaseDexClassLoader &lt;|-- DexClassLoader</span><br><span class="line">BaseDexClassLoader &lt;|-- InMemoryDexClassLoader</span><br><span class="line">ClassLoader &lt;|-- BootClassLoader</span><br><span class="line">BootClassLoader &lt;-- PathClassLoader</span><br></pre></td></tr></table></figure>
+<p><img src="/images/my/classloader02.png" alt="classloader02"><br>几个知识点</p>
 <ol>
 <li>在 Android 中，App 安装到手机后，apk 里面的 class.dex 中的 class 均是通过 PathClassLoader 来加载的。</li>
 <li>对比 PathClassLoader 只能加载已经安装应用的 dex 或 apk 文件，DexClassLoader 则没有此限制，可以从 SD 卡上加载包含 class.dex 的 .jar 和 .apk 文件，这也是插件化和热修复的基础，在不需要安装应用的情况下，完成需要使用的 dex 的加载。<code>A class loader that loads classes from .jar and .apk filescontaining a classes.dex entry. This can be used to execute code notinstalled as part of an application.</code></li>
@@ -408,10 +413,10 @@
 </ol>
 <h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>SystemServer进程中创建了PathClassLoader，Zygote进程中创建了BootClassLoader，因为app进程是靠Zygote进程fork出来的，那么app进程中的PathClassLoader是在哪里创建的？</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
-<li><a href="https://blog.csdn.net/justloveyou_/article/details/72217806">https://blog.csdn.net/justloveyou_/article/details/72217806</a></li>
-<li><a href="https://www.baeldung.com/java-classloaders">https://www.baeldung.com/java-classloaders</a></li>
-<li><a href="https://jaeger.itscoder.com/android/2016/08/27/android-classloader.html">https://jaeger.itscoder.com/android/2016/08/27/android-classloader.html</a></li>
-<li><a href="https://juejin.im/post/5bf22bb5e51d454cdc56cbd5">https://juejin.im/post/5bf22bb5e51d454cdc56cbd5</a></li>
+<li><a href="https://blog.csdn.net/justloveyou_/article/details/72217806" target="_blank" rel="noopener">https://blog.csdn.net/justloveyou_/article/details/72217806</a></li>
+<li><a href="https://www.baeldung.com/java-classloaders" target="_blank" rel="noopener">https://www.baeldung.com/java-classloaders</a></li>
+<li><a href="https://jaeger.itscoder.com/android/2016/08/27/android-classloader.html" target="_blank" rel="noopener">https://jaeger.itscoder.com/android/2016/08/27/android-classloader.html</a></li>
+<li><a href="https://juejin.im/post/5bf22bb5e51d454cdc56cbd5" target="_blank" rel="noopener">https://juejin.im/post/5bf22bb5e51d454cdc56cbd5</a></li>
 </ul>
 
       
