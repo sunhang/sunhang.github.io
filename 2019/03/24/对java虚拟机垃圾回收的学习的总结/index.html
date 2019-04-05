@@ -87,16 +87,16 @@
 <meta property="og:site_name" content="程序员孙航">
 <meta property="og:description" content="java垃圾回收机制是对无用信息对象进行检索，并且回收它们所占用的内存空间，使该部分空间可被再次使用。垃圾回收是不定时的发生。 判断对象是否为垃圾的算法垃圾回收算法包含引用计数算法（Reference Counting Collector）、根搜索算法（Tracing Collector） 引用计数算法堆中每个对象都对应一个引用计数器。  当该对象被创建后首次赋值时，该引用值设置为1。 一个新的地">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/16830f55dece437e?w=584&h=211&f=webp&s=12104">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/168315e6882f3bf3?w=596&h=476&f=webp&s=8952">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/168316527c48ea54?w=575&h=588&f=webp&s=11850">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/9/1683172ddd7afebf?w=606&h=323&f=webp&s=5706">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/10/16835bccdaf1e629?w=582&h=317&f=webp&s=11130">
-<meta property="og:updated_time" content="2019-03-24T13:01:57.221Z">
+<meta property="og:image" content="http://yoursite.com/images/my/1.webp">
+<meta property="og:image" content="http://yoursite.com/images/my/2.webp">
+<meta property="og:image" content="http://yoursite.com/images/my/3.webp">
+<meta property="og:image" content="http://yoursite.com/images/my/4.webp">
+<meta property="og:image" content="http://yoursite.com/images/my/5.webp">
+<meta property="og:updated_time" content="2019-04-05T05:59:41.493Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对java虚拟机垃圾回收的学习的总结">
 <meta name="twitter:description" content="java垃圾回收机制是对无用信息对象进行检索，并且回收它们所占用的内存空间，使该部分空间可被再次使用。垃圾回收是不定时的发生。 判断对象是否为垃圾的算法垃圾回收算法包含引用计数算法（Reference Counting Collector）、根搜索算法（Tracing Collector） 引用计数算法堆中每个对象都对应一个引用计数器。  当该对象被创建后首次赋值时，该引用值设置为1。 一个新的地">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/1/9/16830f55dece437e?w=584&h=211&f=webp&s=12104">
+<meta name="twitter:image" content="http://yoursite.com/images/my/1.webp">
 
 
 
@@ -392,18 +392,18 @@
 <li>活跃线程</li>
 </ul>
 <p>该算法是从离散数学的图论引入的。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/16830f55dece437e?w=584&amp;h=211&amp;f=webp&amp;s=12104" alt=""></p>
+<p><img src="/images/my/1.webp" alt=""></p>
 <h2 id="标记回收对象的关键点分析"><a href="#标记回收对象的关键点分析" class="headerlink" title="标记回收对象的关键点分析"></a>标记回收对象的关键点分析</h2><p>当判断是否为回收对象的算法开始运行时，如果此时采用的是根搜索算法，java程序将会被暂停（Stop the world， STW），这个情况被称为安全点（Safe Point）。在把查找到的无用信息对象进行回收之前，如果检测到部分对象重写了finalize方法并且还没有被执行过，则把这部分对象保存到一个F-Queue中。然后在一低优先级的线程中对该队列中的对象进行遍历来执行它们的finalize。此时若出现这种情况，一个对象的finalize方法被执行时，把该对象重新和引用链上某一对象建立关联，那么这个对象将通过这种自救的方式避免被回收。不然的话，它将被回收掉。</p>
 <h1 id="垃圾回收算法"><a href="#垃圾回收算法" class="headerlink" title="垃圾回收算法"></a>垃圾回收算法</h1><h2 id="Tracing算法（Tracing-Collector）-或-标记—清除算法"><a href="#Tracing算法（Tracing-Collector）-或-标记—清除算法" class="headerlink" title="Tracing算法（Tracing Collector） 或 标记—清除算法"></a>Tracing算法（Tracing Collector） 或 标记—清除算法</h2><p>对象被标记后将被回收，回收后会留下来内存碎片。未被标记的活动对象将不受影响。但是要额外维护一个空闲列表来记录空闲区域和大小，而且产生的内存碎片会妨碍后续的内存分配。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/168315e6882f3bf3?w=596&amp;h=476&amp;f=webp&amp;s=8952" alt=""></p>
+<p><img src="/images/my/2.webp" alt=""></p>
 <h2 id="Compacting算法（Compacting-Collector）-或-标记—整理算法"><a href="#Compacting算法（Compacting-Collector）-或-标记—整理算法" class="headerlink" title="Compacting算法（Compacting Collector） 或 标记—整理算法"></a>Compacting算法（Compacting Collector） 或 标记—整理算法</h2><p>对象被标记后不是被清除掉，而是把所有未标记的活动对象向内存中的一端进行移动，端边界以外的内存将被清理掉，避免内存碎片。但是移动对象和更新引用地址将会导致GC增加执行时间。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/168316527c48ea54?w=575&amp;h=588&amp;f=webp&amp;s=11850" alt=""></p>
+<p><img src="/images/my/3.webp" alt=""></p>
 <h2 id="Copying算法（Copying-Collector）"><a href="#Copying算法（Copying-Collector）" class="headerlink" title="Copying算法（Copying Collector）"></a>Copying算法（Copying Collector）</h2><p>建立两个面（对象面、空闲面），当对象面内存用完时，就把活动对象都copy到空闲面上，然后清理原来对象面的内存，把它变成新的空闲面，然后原来的空闲面变为新的对象面。</p>
 <p>它有很多优点，比如标记阶段和copy阶段可以同时进行，只移动栈顶指针的位置即可，每次只copy一次内存所以高效，避免内存碎片。但是需要额外的一份相同大小的内存，所以整体上一次性分配的内存缩小了一半。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/9/1683172ddd7afebf?w=606&amp;h=323&amp;f=webp&amp;s=5706" alt=""></p>
+<p><img src="/images/my/4.webp" alt=""></p>
 <h2 id="Adaptive算法（Adaptive-Collector）"><a href="#Adaptive算法（Adaptive-Collector）" class="headerlink" title="Adaptive算法（Adaptive Collector）"></a>Adaptive算法（Adaptive Collector）</h2><p>根据当前堆的使用情况来分析要采用哪种垃圾收集器算法</p>
 <h1 id="java堆"><a href="#java堆" class="headerlink" title="java堆"></a>java堆</h1><p>java堆基于Generation算法（Generational Collector）划分为新生代、年老代，持久代。这个划分主要基于一个事实：不同的对象具有不同的生命周期。不同的代存储不同生命周期的对象，采用的垃圾回收算法也不同。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/10/16835bccdaf1e629?w=582&amp;h=317&amp;f=webp&amp;s=11130" alt=""></p>
+<p><img src="/images/my/5.webp" alt=""></p>
 <h2 id="新生代（Young-Generation）"><a href="#新生代（Young-Generation）" class="headerlink" title="新生代（Young Generation）"></a>新生代（Young Generation）</h2><p>新创建的对象都将放到新生代内存中，新生代内存包含eden区和survivor区，survivor区又将包含survivor0和survivor1两个区。新创建的对象都将放入到eden区，若eden区满了之后，则把对象copy到survivor0区，若survivor0区也满了，就把对象copy到survivor1区，此时survivor1区变为新的survivor0，原来的survivor0变为新的survivor1。若对象在survivor区存活时间比较久，则该对象讲移入到年老代内存中。</p>
 <h2 id="年老代（Old-Generation）"><a href="#年老代（Old-Generation）" class="headerlink" title="年老代（Old Generation）"></a>年老代（Old Generation）</h2><p>年老代的堆主要存储生命期长的对象和一些占用大内存的对象。当在新生代中的survivor的对象躲过一次GC，其年龄加1岁，若年龄增加到15岁，则该对象从新生代转移到年老代。</p>
 <h2 id="持久代（Permanent-Generation）"><a href="#持久代（Permanent-Generation）" class="headerlink" title="持久代（Permanent Generation）"></a>持久代（Permanent Generation）</h2><p>持久代的堆主要存储静态文件（类和方法）和常量。在java8中采用了元空间（MetaSpace）取代了持久代。</p>
