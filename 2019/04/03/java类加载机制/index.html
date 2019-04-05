@@ -89,7 +89,9 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://yoursite.com/images/my/classloader01.png">
 <meta property="og:image" content="http://yoursite.com/images/my/classloader02.png">
-<meta property="og:updated_time" content="2019-04-04T02:41:42.230Z">
+<meta property="og:image" content="http://yoursite.com/images/my/pathclassloader_create.png">
+<meta property="og:image" content="http://yoursite.com/images/my/bindapp.png">
+<meta property="og:updated_time" content="2019-04-05T12:15:03.010Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="java类加载机制">
 <meta name="twitter:description" content="在看java和android的类加载机制，途中有一些疑惑，就先记下来。 一些概念的理解jdk和jre是什么区别？ JDK就是Java Development Kit.简单的说JDK是面向开发人员使用的SDK，它提供了Java的开发环境和运行环境。SDK是Software Development Kit 一般指软件开发包，可以包括函数库、编译程序等。JRE是Java Runtime Envirome">
@@ -412,6 +414,13 @@
 <li>BootClassLoader是在Zygote进程的入口方法中创建的，PathClassLoader则是在Zygote进程创建SystemServer进程时创建的。</li>
 </ol>
 <h3 id="疑惑"><a href="#疑惑" class="headerlink" title="疑惑"></a>疑惑</h3><p>SystemServer进程中创建了PathClassLoader，Zygote进程中创建了BootClassLoader，因为app进程是靠Zygote进程fork出来的，那么app进程中的PathClassLoader是在哪里创建的？</p>
+<p>SystemServer进程中创建了PathClassLoader，Zygote进程中创建了BootClassLoader，因为app进程是靠Zygote进程fork出来的，那么app进程中的PathClassLoader是在哪里创建的？</p>
+<p>于是带着这个问题又研究了一下android api-level 为28的源代码，把app中的PathClassLoader的创建过程用时序图描述出来。<br><img src="/images/my/pathclassloader_create.png" alt=""></p>
+<p>在ActivityThread中ApplicationThread的bindApplication方法中发送消息BIND_APPLICATION给H，H也是ActivityThread的内部类，它继承了Handler，然后H调用ActivityThread的handleBindApplicationf方法，然后ActivityThread处理该消息时经过层层调用，最后返回了PathClassLoader。</p>
+<p>那么ActivityThread中的ApplicationThread的bindApplication是在什么时候被谁调用的呢？调用关系如下描述：<br><img src="/images/my/bindapp.png" alt=""></p>
+<p>可以看到ActivityThread有个静态main方法，它经过层层调用并且经过IActivityManager这个IPC操作，调用到了AMS的一些方法，然后AMS再经过IApplicationThread这个IPC操作，调用到了ActivityThread的ApplicationThread的bindApplication方法。</p>
+<p>IActivityManager对应的是AMS，IApplicationThread对应的是ActivityThread的ApplicationThread。</p>
+<p>ActivityThread的这个静态main方法是Zygote fork出来app这个子进程后，子进程调用到的。</p>
 <h3 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h3><ul>
 <li><a href="https://blog.csdn.net/justloveyou_/article/details/72217806" target="_blank" rel="noopener">https://blog.csdn.net/justloveyou_/article/details/72217806</a></li>
 <li><a href="https://www.baeldung.com/java-classloaders" target="_blank" rel="noopener">https://www.baeldung.com/java-classloaders</a></li>
