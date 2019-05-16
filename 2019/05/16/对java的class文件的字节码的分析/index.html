@@ -102,7 +102,7 @@
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf3e78c21e0f6?w=1096&h=306&f=png&s=51386">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf480dc9cd996?w=1216&h=338&f=png&s=235909">
 <meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf69f9e3876e6?w=1026&h=164&f=png&s=27349">
-<meta property="og:updated_time" content="2019-05-16T07:21:08.905Z">
+<meta property="og:updated_time" content="2019-05-16T07:23:08.253Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对java的class文件的字节码的分析">
 <meta name="twitter:description" content="最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。 先写了一个简单的java类MyClass，代码如下：1234567public class MyClass &amp;#123;    private int i;    public void inc() &amp;#123;        i++;    &amp;#125;&amp;#125; 然后分析它的class文件。找到">
@@ -501,7 +501,53 @@
 <p>其中<code>00 0a00 0000 0a00 0200 0000 0500 0a00 06</code>对应的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LineNumberTable_attribute &#123;</span><br><span class="line">    u2 attribute_name_index; // 00 0a</span><br><span class="line">    u4 attribute_length;    //  00 00 00 0a</span><br><span class="line">    u2 line_number_table_length; // 00 02</span><br><span class="line">    </span><br><span class="line">    // 这里line_number_table数组长是2,分别是[ &#123;00 00, 00 05&#125;,&#123;00 0a, 00 06&#125;]</span><br><span class="line">    &#123;   u2 start_pc;</span><br><span class="line">        u2 line_number; </span><br><span class="line">    &#125; line_number_table[line_number_table_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>上边内容已经分析过它的含义，这里不再分析。</p>
 <p>其中<code>00 0b00 0000 0c00 0100 0000 0b00 0c00 0d00 00</code>对应的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LocalVariableTable_attribute &#123;</span><br><span class="line">    u2 attribute_name_index;    // 00 0b，常量池索引</span><br><span class="line">    u4 attribute_length; // 00 00 00 0c</span><br><span class="line">    </span><br><span class="line">    // 这里应该也是在描述this这个变量</span><br><span class="line">    u2 local_variable_table_length; // 00 01</span><br><span class="line">    &#123;   u2 start_pc; // 00 00</span><br><span class="line">        u2 length; // 00 0b 字节码中的作用域范围</span><br><span class="line">        u2 name_index; // 00 0c</span><br><span class="line">        u2 descriptor_index; // 00 0d</span><br><span class="line">        u2 index; // 00 00</span><br><span class="line">    &#125; local_variable_table[local_variable_table_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
-<p>注意，注意，其中关键的code码指令<code>2a59 b400 0204 60b5 0002 b1</code>，我们没有分析。<br>|code码|指令|描述|<br>|——|——|——|<br>|2a|aload_0|第0个Slot中为reference类型的本地变量（通常是this）推送到操作数栈顶|<br>|59|dup|复制栈顶。相当于把操作数栈顶元素pop出来，再把它push进去2次|<br>|b4 00 02|getfield|获取对象的字段，将其值压入栈顶|<br>|04|iconst_1|int型常量1进栈|<br>|60|iadd|加法|<br>|b5 00 02|putfield|给对象的字段赋值|<br>|b1|return|返回此方法，并且返回值为void|</p>
+<p>注意，注意，其中关键的code码指令<code>2a59 b400 0204 60b5 0002 b1</code>，我们没有分析。</p>
+<table>
+<thead>
+<tr>
+<th>code码</th>
+<th>指令</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>2a</td>
+<td>aload_0</td>
+<td>第0个Slot中为reference类型的本地变量（通常是this）推送到操作数栈顶</td>
+</tr>
+<tr>
+<td>59</td>
+<td>dup</td>
+<td>复制栈顶。相当于把操作数栈顶元素pop出来，再把它push进去2次</td>
+</tr>
+<tr>
+<td>b4 00 02</td>
+<td>getfield</td>
+<td>获取对象的字段，将其值压入栈顶</td>
+</tr>
+<tr>
+<td>04</td>
+<td>iconst_1</td>
+<td>int型常量1进栈</td>
+</tr>
+<tr>
+<td>60</td>
+<td>iadd</td>
+<td>加法</td>
+</tr>
+<tr>
+<td>b5 00 02</td>
+<td>putfield</td>
+<td>给对象的字段赋值</td>
+</tr>
+<tr>
+<td>b1</td>
+<td>return</td>
+<td>返回此方法，并且返回值为void</td>
+</tr>
+</tbody>
+</table>
 <h3 id="最后边的字节码"><a href="#最后边的字节码" class="headerlink" title="最后边的字节码"></a>最后边的字节码</h3><p><code>00 0100 0f00 0000 0200 10</code>表示什么含义呢？</p>
 <p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abf69f9e3876e6?w=1026&amp;h=164&amp;f=png&amp;s=27349" alt=""></p>
 <p><strong>00 01</strong> 表示attribute count为1</p>
