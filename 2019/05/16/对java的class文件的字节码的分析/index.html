@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next mist use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="java," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。 先写了一个简单的java类MyClass，代码如下：1234567public class MyClass &amp;#123;        private int i;	    public void inc() &amp;#123;		        i++;			    &amp;#125;&amp;#125; 然后分析它的">
+<meta name="keywords" content="java">
+<meta property="og:type" content="article">
+<meta property="og:title" content="对java的class文件的字节码的分析">
+<meta property="og:url" content="http://yoursite.com/2019/05/16/对java的class文件的字节码的分析/index.html">
+<meta property="og:site_name" content="程序员孙航">
+<meta property="og:description" content="最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。 先写了一个简单的java类MyClass，代码如下：1234567public class MyClass &amp;#123;        private int i;	    public void inc() &amp;#123;		        i++;			    &amp;#125;&amp;#125; 然后分析它的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab96ce54453722?w=1364&h=1074&f=png&s=145346">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab96f366ada8f8?w=1364&h=1074&f=png&s=232716">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab982c249bc5aa?w=964&h=496&f=png&s=121539">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cbb02dccc29?w=1270&h=942&f=png&s=233211">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cd41c80e7bb?w=1050&h=716&f=png&s=135184">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16aba9498f0c488b?w=1014&h=724&f=png&s=912713">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16aba9967ce57a8b?w=1440&h=938&f=png&s=1595213">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abec3f92e5391e?w=1008&h=196&f=png&s=47402">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abed5328d1bdfd?w=1040&h=294&f=png&s=64159">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abee270bd267cc?w=1204&h=324&f=png&s=277225">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abef12918f9c77?w=1232&h=614&f=png&s=145471">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abef5db8e5b625?w=800&h=504&f=png&s=72156">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf3e78c21e0f6?w=1096&h=306&f=png&s=51386">
+<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf480dc9cd996?w=1216&h=338&f=png&s=235909">
+<meta property="og:updated_time" content="2019-05-16T07:11:52.754Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="对java的class文件的字节码的分析">
+<meta name="twitter:description" content="最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。 先写了一个简单的java类MyClass，代码如下：1234567public class MyClass &amp;#123;        private int i;	    public void inc() &amp;#123;		        i++;			    &amp;#125;&amp;#125; 然后分析它的">
+<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab96ce54453722?w=1364&h=1074&f=png&s=145346">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Mist',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2019/05/16/对java的class文件的字节码的分析/"/>
+
+
+
+
+
+  <title>对java的class文件的字节码的分析 | 程序员孙航</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员孙航</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乐在行走</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/05/16/对java的class文件的字节码的分析/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sunhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员孙航">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">对java的class文件的字节码的分析</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-16T15:10:31+08:00">
+                2019-05-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+                <span class="post-meta-divider">|</span>
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-comment-o"></i>
+                </span>
+                <a href="/2019/05/16/对java的class文件的字节码的分析/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/05/16/对java的class文件的字节码的分析/" itemprop="commentsCount"></span>
+                </a>
+              </span>
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。</p>
+<p>先写了一个简单的java类MyClass，代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">	    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		        i++;</span><br><span class="line">			    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>然后分析它的class文件。找到生成的MyClass.class之后，用<code>vim -b MyClass.class</code>打开。打开后，是这样的，一脸懵逼。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab96ce54453722?w=1364&amp;h=1074&amp;f=png&amp;s=145346" alt=""></p>
+<p>不要紧，在vim中输入命令<code>:%! xxd</code>，展现这样的内容：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab96f366ada8f8?w=1364&amp;h=1074&amp;f=png&amp;s=232716" alt=""></p>
+<p>把字节码取出来，逐个分析。</p>
+<h3 id="cafe-babe"><a href="#cafe-babe" class="headerlink" title="cafe babe"></a>cafe babe</h3><p>每个Class文件的头四个字节称为魔数，它的唯一作用是用来确定该文件是否为一个能被虚拟机接受的Class文件</p>
+<h3 id="0000-0035"><a href="#0000-0035" class="headerlink" title="0000 0035"></a>0000 0035</h3><p>对应java class的版本号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2 minor_version;//次版本号</span><br><span class="line"> u2 major_version;//主版本号</span><br></pre></td></tr></table></figure></p>
+<p>  次版本号在前，主版本号在后。minor_version是0，major_version是16进制的35。</p>
+<h3 id="0015"><a href="#0015" class="headerlink" title="0015"></a>0015</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">u2  constant_pool_count;//常量池容量计数</span><br></pre></td></tr></table></figure>
+<p>换算成10进制，常量的个数是21，这就代表常量池中有20项常量，索引值范围为1～20。（计数从1开始，其他计数从0开始，因为0有其他作用）</p>
+<p>选中部分既是常量池。<br><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab982c249bc5aa?w=964&amp;h=496&amp;f=png&amp;s=121539" alt=""></p>
+<p>分析常量池得出以下几项<br><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cbb02dccc29?w=1270&amp;h=942&amp;f=png&amp;s=233211" alt=""></p>
+<p>如果用<code>javap -p -v MyClass.class</code>看，则是</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cd41c80e7bb?w=1050&amp;h=716&amp;f=png&amp;s=135184" alt=""></p>
+<p>接下来分析一下每一项的含义</p>
+<h3 id="0a-00-04-00-11"><a href="#0a-00-04-00-11" class="headerlink" title="0a 00 04 00 11"></a>0a 00 04 00 11</h3><p>该常量类型是<code>CONSTANT_Methodref_info</code><br>它的结构体是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CONSTANT_Methodref_info &#123;</span><br><span class="line">        u1 tag;</span><br><span class="line">	    u2 class_index;</span><br><span class="line">	        u2 name_and_type_index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<table>
+<thead>
+<tr>
+<th>items</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>tag</td>
+<td>CONSTANT_Methodref_info结构的tag值为10</td>
+</tr>
+<tr>
+<td>class_index</td>
+<td>CONSTANT_Methodref_info结构的class_index必须是一个类类型，而不是接口类型</td>
+</tr>
+<tr>
+<td>name_and_type_index</td>
+<td>name_and_type_index的值必须是constant_pool表中的一个有效索引；这索引值上的对应的常量池条目（The constant_pool entry）也一定是CONSTANT_NameAndType_info结构；这个条目也是具有字段或方法作为成员的类或接口类型</td>
+</tr>
+</tbody>
+</table>
+<p>它的class_index为4，对应的是第四项，它的name_and_type_index是17。我们先分析下第四项是什么。</p>
+<h4 id="07-00-14"><a href="#07-00-14" class="headerlink" title="07 00 14"></a>07 00 14</h4><p>这是第4项，07代表CONSTANT_class，它的结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">CONSTANT_Class_info &#123;</span><br><span class="line">        u1 tag;</span><br><span class="line">	    u2 index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>index为14，代表的是索引值是20的那一项，我们再顺着分析下第20项。</p>
+<p>第20项是CONSTANT_Utf8\info，tag是1，它的结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CONSTANT_Utf8_info &#123;</span><br><span class="line">        u1 tag;</span><br><span class="line">	    u2 length;</span><br><span class="line">	        u1 bytes[length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>第20项的值是<code>01 00 10 6a 61 76 61 2f 6c 61 6e 67 2f 4f 62 6a 65 63 74</code>,其中tag是1，length是16，bytes是<code>java/lang/Object</code>(表示的字符串是 java/lang/Object)</p>
+<p>回过头来我们分析下第17项的name_and_type_index</p>
+<h4 id="0c-00-07-00-08"><a href="#0c-00-07-00-08" class="headerlink" title="0c 00 07 00 08"></a>0c 00 07 00 08</h4><p>这是第17项，它的结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CONSTANT_Name_AndType_info &#123;</span><br><span class="line">        u1 tag;     // 值是12</span><br><span class="line">	    u2 index;   // 指向该字段或方法名称常量项的索引</span><br><span class="line">	        u2 index;   // 指向该字段或方法描述符常量项的索引</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这里，两个index分别是7和8，于是我们又转向第7项和第8项，第7项和第8项可以看出来，他们的值分别是<code>01 00 06 3c 69 6e 69 74 3e</code>和<code>01 00 03 28 29 56</code>。它们又都是CONSTANT_Utf8_info结构，字符串分别是<code>&lt;init&gt;</code>和<code>()V</code>。</p>
+<p>方法名称<code>&lt;init&gt;</code>和方法描述符<code>()V</code>指的是什么呢？指的是一个实例初始方法，没有参数，返回类型也一定是 void。</p>
+<p>回过头来我理一下它们的关联，用图来表示如下。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16aba9498f0c488b?w=1014&amp;h=724&amp;f=png&amp;s=912713" alt=""><br>所以#1 Methodref表示的含义是<code>java/lang/Object.&quot;&lt;init&gt;&quot;:()V</code></p>
+<h3 id="09-00-03-00-12"><a href="#09-00-03-00-12" class="headerlink" title="09 00 03 00 12"></a>09 00 03 00 12</h3><p>同样道理，分析第2项是。用图来表示如下。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16aba9967ce57a8b?w=1440&amp;h=938&amp;f=png&amp;s=1595213" alt=""><br>所以#2 Fieldref表示的含义是<code>MyClass.i:I</code>，MyClass类的字段i，类型是整型。</p>
+<p>至于别的常量，后边再分析。</p>
+<h3 id="常量池后边的00-21"><a href="#常量池后边的00-21" class="headerlink" title="常量池后边的00 21"></a>常量池后边的00 21</h3><p>MyClass是一个普通Java类，不是接口、枚举或者注解，被public关键字修饰但没有被声明为final和abstract，并且它使用了JDK 1.2之后的编译器进行编译，因此它的ACC_PUBLIC、ACC_SUPER标志应当为真，而ACC_FINAL、ACC_INTERFACE、ACC_ABSTRACT、ACC_SYNTHETIC、ACC_ANNOTATION、CC_ENUM这6个标志应当为假，因此它的access_flags的值应为：0x0001|0x0020=0x0021。</p>
+<h3 id="类索引、父类索引与接口索引集合"><a href="#类索引、父类索引与接口索引集合" class="headerlink" title="类索引、父类索引与接口索引集合"></a>类索引、父类索引与接口索引集合</h3><p><code>00 21</code>之后就是<code>00 03 00 04</code>，<code>00 03</code>代表上边常量池中的第3项MyClass，这是类索引，<code>00 04</code>代表上边常量池中第4项java/lang/Object，这是父类索引。</p>
+<p>紧接着是<code>00 00</code>表示接口索引的个数。因为MyClass没有实现接口，所以个数是0。</p>
+<h3 id="field"><a href="#field" class="headerlink" title="field"></a>field</h3><h4 id="field-count"><a href="#field-count" class="headerlink" title="field count"></a>field count</h4><p>紧接着是字段个数 <code>00 01</code>，表示有一个字段。那当然是i了，接下来看字段i在字节码中是如何表示的。</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abec3f92e5391e?w=1008&amp;h=196&amp;f=png&amp;s=47402" alt=""></p>
+<h4 id="field-结构"><a href="#field-结构" class="headerlink" title="field 结构"></a>field 结构</h4><p>这8个字节表示的结构是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">field_info &#123;</span><br><span class="line">        u2             access_flags;            // 2</span><br><span class="line">	    u2             name_index;              // 5</span><br><span class="line">	        u2             descriptor_index;        // 6</span><br><span class="line">		    u2             attributes_count;        // 0</span><br><span class="line">		        attribute_info attributes[attributes_count];        // null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>access_flags是2,表示ACC_PRIVATE，私有成员。name_index是5，是常量池中的第5项i，descriptor_index是6，是常量池中的第6项，I，代表整型。</p>
+<p><strong>留下来个问题，attributes_count为什么是0，attribute_info在这里是什么含义？</strong></p>
+<h3 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h3><p>接下来的字节码存储的是java的方法</p>
+<h4 id="methods-count"><a href="#methods-count" class="headerlink" title="methods count"></a>methods count</h4><p><code>00 02</code>表示两个方法。为什么是两个方法，当然是<init>和inc了。且看是如何存储在字节码中的。</init></p>
+<h4 id="第一个方法"><a href="#第一个方法" class="headerlink" title="第一个方法"></a>第一个方法</h4><p>第一个方法在字节码中的存储是</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abed5328d1bdfd?w=1040&amp;h=294&amp;f=png&amp;s=64159" alt=""></p>
+<p>首先映入眼帘的是<code>00 01 00 07 00 08 00 01</code>，<code>00 01</code>表示ACC_PUBLIC，说明是public方法，<code>00 07</code>是常量池第7项索引，表示方法名<code>&lt;init&gt;</code>，<code>00 08</code>是常量池第8项索引，表示方法描述符<code>()V</code>。<code>00 01</code>表示attributes_count, 对应的结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">method_info &#123;</span><br><span class="line">        u2             access_flags;        // 1</span><br><span class="line">	    u2             name_index;          // 7</span><br><span class="line">	        u2             descriptor_index;    // 8</span><br><span class="line">		    u2             attributes_count;    // 1</span><br><span class="line">		        attribute_info attributes[attributes_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>那么剩下的就是属性信息了，对应的结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">attribute_info &#123;</span><br><span class="line">        u2 attribute_name_index;        // 9</span><br><span class="line">	    u4 attribute_length;            // 00 00 00 2f，即47</span><br><span class="line">	        u1 info[attribute_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>00 09</code>表示常量池中属性名称索引是第9项，常量池中第9项是Code，说明属性名称是Code。</p>
+<p><code>u1 info[attribute_length]</code>对应的字节码信息是：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abee270bd267cc?w=1204&amp;h=324&amp;f=png&amp;s=277225" alt=""></p>
+<p>这些字节码存储的信息是：</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abef12918f9c77?w=1232&amp;h=614&amp;f=png&amp;s=145471" alt=""></p>
+<p>其中字节码指令就是<code>2a b7 00 01 b1</code>，分析这些指令。</p>
+<ol>
+<li>读入2a，查表得0x2A对应的指令为aload_0，这个指令的含义是将第0个Slot中为reference类型的本地变量推送到操作数栈顶。</li>
+<li>读入b7，查表得0xB7对应的指令为invokespecial，这条指令的作用是以栈顶的reference类型的数据所指向的对象作为方法接收者，调用此对象的实例构造器方法、private方法或者它的父类的方法。这个方法有一个u2类型的参数说明具体调用哪一个方法，它指向常量池中的一个CONSTANT_Methodref_info类型常量，即此方法的方法符号引用。</li>
+<li>读入00 01，这是invokespecial的参数，查常量池得0x0001对应的常量为实例构造器＜init＞方法的符号引用。</li>
+<li>读入b1，查表得0xB1对应的指令为return，含义是返回此方法，并且返回值为void。这条指令执行后，当前方法结束。</li>
+</ol>
+<p><code>通过javap -p -v MyClass.class可以看到</code></p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abef5db8e5b625?w=800&amp;h=504&amp;f=png&amp;s=72156" alt=""></p>
+<p>剩下的字节码是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">000a</span><br><span class="line">0000 0006 0001 0000 0001 000b 0000 000c</span><br><span class="line">0001 0000 0005 000c 000d 0000</span><br></pre></td></tr></table></figure></p>
+<p>剩下的字节码表示attributes，这些attributes是什么呢？attributes一共有2个属性，LineNumberTable和LocalVariableTable。</p>
+<p>其中<code>000a 0000 0006 0001 0000 0001</code>代表LineNumberTable_attribute这个结构，这个结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LineNumberTable_attribute &#123;</span><br><span class="line">        u2 attribute_name_index;        // 00 0a，常量池中的第10项</span><br><span class="line">	    u4 attribute_length;            // 0000 0006,属性长度是6个字节长</span><br><span class="line">	        u2 line_number_table_length;    // 0001,只有1个line_number_table</span><br><span class="line">		    &#123;   u2 start_pc;                // 0000，字节码行号</span><br><span class="line">		            u2 line_number;             // 0001，Java源码行号</span><br><span class="line">			        &#125; line_number_table[line_number_table_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>LineNumberTable的作用在于，如果选择不生成LineNumberTable属性，对程序运行产生的最主要的影响就是当抛出异常时，堆栈中将不会显示出错的行号，并且在调试程序的时候，也无法按照源码行来设置断点。</p>
+<p>其中<code>000b 0000 000c 0001 0000 0005 000c 000d 0000</code>表示LocalVariableTable_attribute,这个结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">LocalVariableTable_attribute &#123;</span><br><span class="line">        u2 attribute_name_index;                // 000b常量池中第11项</span><br><span class="line">	    u4 attribute_length;        // 000 000c，属性长度是12个字节</span><br><span class="line">	        u2 local_variable_table_length; // 0001，只有1个local_variable_table</span><br><span class="line">		    &#123;   u2 start_pc;        // 0000</span><br><span class="line">		            u2 length;          // 0005</span><br><span class="line">			            u2 name_index;      // 000c，常量池中的第12项，this</span><br><span class="line">				            u2 descriptor_index;    // 000d</span><br><span class="line">					            u2 index;       // 0000</span><br><span class="line">						        &#125; local_variable_table[local_variable_table_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>LocalVariableTable属性用于描述栈帧中局部变量表中的变量与Java源码中定义的变量之间的关系。可以看到里边有个local_variable_table。它的含义如下。</p>
+<p><strong>start_pc和length</strong> 代表了这个局部变量的生命周期开始的字节码偏移量及其作用范围覆盖的长度，两者结合起来就是这个局部变量在字节码之中的作用域范围。</p>
+<p><strong>name_index和descriptor_index</strong><br>指向常量池中CONSTANT_Utf8_info型常量的索引，分别代表了局部变量的名称以及这个局部变量的描述符</p>
+<p><strong>index</strong><br>这个局部变量在栈帧局部变量表中Slot的位置。当这个变量数据类型是64位类型时（double和long），它占用的Slot为index和index+1两个</p>
+<h4 id="第二个方法"><a href="#第二个方法" class="headerlink" title="第二个方法"></a>第二个方法</h4><p>我们再来分析第2个方法，它的字节码一共是</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abf3e78c21e0f6?w=1096&amp;h=306&amp;f=png&amp;s=51386" alt=""></p>
+<p>简单分析入下：<br><code>0001 000e 0008 0001</code>表示的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">method_info &#123;</span><br><span class="line">        u2             access_flags; // 0001， ACC_PUBLIC, 表示public方法</span><br><span class="line">	    u2             name_index;  // 000e, 常量池索引，表示第14项，inc</span><br><span class="line">	        u2             descriptor_index; // 0008，常量池索引，表示第8项，()V</span><br><span class="line">		    u2             attributes_count; // 0001，1个attribute_info</span><br><span class="line">		        attribute_info attributes[attributes_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p><code>0009 0000 0039</code> 表示的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">attribute_info &#123;</span><br><span class="line">        u2 attribute_name_index; // 0009,常量索引，表示Code</span><br><span class="line">	    u4 attribute_length;    // 0000 0039, 十进制是57，表示info的长度</span><br><span class="line">	        u1 info[attribute_length]; // 长度为57，该表示该java方法的字节块的剩余部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>再来分析info[57]，是</p>
+<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abf480dc9cd996?w=1216&amp;h=338&amp;f=png&amp;s=235909" alt=""></p>
+<table>
+<thead>
+<tr>
+<th>字节码</th>
+<th>名字</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0003</td>
+<td>max_stack</td>
+<td>操作数栈（Operand Stacks）深度的最大值</td>
+</tr>
+<tr>
+<td>0001</td>
+<td>max_locals</td>
+<td>max_locals代表了局部变量表所需的存储空间</td>
+</tr>
+<tr>
+<td>0000 000b</td>
+<td>code_length</td>
+<td>代表字节指令码的长度</td>
+</tr>
+<tr>
+<td>2a59 b400 0204 60b5 0002 b1</td>
+<td>code</td>
+<td>code指令码</td>
+</tr>
+<tr>
+<td>00 00</td>
+<td>exception_table_length</td>
+<td>异常表长度</td>
+</tr>
+<tr>
+<td>无</td>
+<td>exception_table</td>
+<td></td>
+</tr>
+<tr>
+<td>00 02</td>
+<td>attributes_count</td>
+<td>属性数量</td>
+</tr>
+<tr>
+<td>00 0a00 0000 0a00 0200 0000 0500 0a00 06</td>
+<td>LineNumberTable</td>
+<td></td>
+</tr>
+<tr>
+<td>00 0b00 0000 0c00 0100 0000 0b00 0c00 0d00 00</td>
+<td>LocalVariableTable</td>
+</tr>
+</tbody>
+</table>
+<p>其中<code>00 0a00 0000 0a00 0200 0000 0500 0a00 06</code>对应的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">LineNumberTable_attribute &#123;</span><br><span class="line">        u2 attribute_name_index; // 00 0a</span><br><span class="line">	    u4 attribute_length;    //  00 00 00 0a</span><br><span class="line">	        u2 line_number_table_length; // 00 02</span><br><span class="line">		    </span><br><span class="line">		        // 这里line_number_table数组长是2,分别是[ &#123;00 00, 00 05&#125;,&#123;00 0a, 00 06&#125;]</span><br><span class="line">			    &#123;   u2 start_pc;</span><br><span class="line">			            u2 line_number; </span><br><span class="line">				        &#125; line_number_table[line_number_table_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>上边内容已经分析过它的含义，这里不再分析。</p>
+<p>其中<code>00 0b00 0000 0c00 0100 0000 0b00 0c00 0d00 00</code>对应的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">LocalVariableTable_attribute &#123;</span><br><span class="line">        u2 attribute_name_index;    // 00 0b，常量池索引</span><br><span class="line">	    u4 attribute_length; // 00 00 00 0c</span><br><span class="line">	        </span><br><span class="line">		    // 这里应该也是在描述this这个变量</span><br><span class="line">		        u2 local_variable_table_length; // 00 01</span><br><span class="line">			    &#123;   u2 start_pc; // 00 00</span><br><span class="line">			            u2 length; // 00 0b 字节码中的作用域范围</span><br><span class="line">				            u2 name_index; // 00 0c</span><br><span class="line">					            u2 descriptor_index; // 00 0d</span><br><span class="line">						            u2 index; // 00 00</span><br><span class="line">							        &#125; local_variable_table[local_variable_table_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>注意，注意，其中关键的code码指令<code>2a59 b400 0204 60b5 0002 b1</code>，我们没有分析。<br>|code码|指令|描述|<br>|—-|—-|——–|<br>|2a|aload_0|第0个Slot中为reference类型的本地变量（通常是this）推送到操作数栈顶|<br>|59|dup|复制栈顶。相当于把操作数栈顶元素pop出来，再把它push进去2次|<br>|b4 00 02|getfield|获取对象的字段，将其值压入栈顶|<br>|04|iconst_1|int型常量1进栈|<br>|60|iadd|加法|<br>|b5 00 02|putfield|给对象的字段赋值|<br>|b1|return|返回此方法，并且返回值为void|</p>
+<h3 id="最后边的字节码"><a href="#最后边的字节码" class="headerlink" title="最后边的字节码"></a>最后边的字节码</h3><figure class="highlight plain"><figcaption><span>0100 0f00 0000 0200 10```表示什么含义呢？</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">![](https://user-gold-cdn.xitu.io/2019/5/16/16abf69f9e3876e6?w=1026&amp;h=164&amp;f=png&amp;s=27349)</span><br><span class="line"></span><br><span class="line">**00 01** 表示attribute count为1</span><br><span class="line"></span><br><span class="line">**00 0f00 0000 0200 10** 表示attribute_info</span><br></pre></td></tr></table></figure>
+<p>attribute_info {<br>        u2 attribute_name_index;    // 00 0f，常量池中的SourceFile<br>        u4 attribute_length;        // 00 00 00 02，属性长度是2<br>            u1 info[attribute_length]; // 00 10，常量池第16项的MyClass.java<br>}<br><code>`</code><br>这是ClassFile最后的1个属性。</p>
+<p>至此，大概分析了一下。<br>感谢<a href="https://blog.csdn.net/qq_31156277/article/details/80108277" target="_blank" rel="noopener">https://blog.csdn.net/qq_31156277/article/details/80108277</a>，整个分析过程是靠这篇博客的讲解来的。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/java/" rel="tag"># java</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/04/07/编程语言的容器的学习/" rel="next" title="编程语言的容器的学习">
+                <i class="fa fa-chevron-left"></i> 编程语言的容器的学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+        <div id="gitment-container"></div>
+      
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sunhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">35</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.heqiangfly.com/" title="寒江蓑笠" target="_blank">寒江蓑笠</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#cafe-babe"><span class="nav-number">1.</span> <span class="nav-text">cafe babe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0000-0035"><span class="nav-number">2.</span> <span class="nav-text">0000 0035</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0015"><span class="nav-number">3.</span> <span class="nav-text">0015</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#0a-00-04-00-11"><span class="nav-number">4.</span> <span class="nav-text">0a 00 04 00 11</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#07-00-14"><span class="nav-number">4.1.</span> <span class="nav-text">07 00 14</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#0c-00-07-00-08"><span class="nav-number">4.2.</span> <span class="nav-text">0c 00 07 00 08</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#09-00-03-00-12"><span class="nav-number">5.</span> <span class="nav-text">09 00 03 00 12</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#常量池后边的00-21"><span class="nav-number">6.</span> <span class="nav-text">常量池后边的00 21</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#类索引、父类索引与接口索引集合"><span class="nav-number">7.</span> <span class="nav-text">类索引、父类索引与接口索引集合</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#field"><span class="nav-number">8.</span> <span class="nav-text">field</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#field-count"><span class="nav-number">8.1.</span> <span class="nav-text">field count</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#field-结构"><span class="nav-number">8.2.</span> <span class="nav-text">field 结构</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#methods"><span class="nav-number">9.</span> <span class="nav-text">methods</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#methods-count"><span class="nav-number">9.1.</span> <span class="nav-text">methods count</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第一个方法"><span class="nav-number">9.2.</span> <span class="nav-text">第一个方法</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#第二个方法"><span class="nav-number">9.3.</span> <span class="nav-text">第二个方法</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#最后边的字节码"><span class="nav-number">10.</span> <span class="nav-text">最后边的字节码</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Mist</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+<!-- LOCAL: You can save these files to your site and update links -->
+    
+        
+        <link rel="stylesheet" href="https://aimingoo.github.io/gitmint/style/default.css">
+        <script src="https://aimingoo.github.io/gitmint/dist/gitmint.browser.js"></script>
+    
+<!-- END LOCAL -->
+
+    
+
+    
+      <script type="text/javascript">
+      function renderGitment(){
+        var gitment = new Gitmint({
+            id: decodeURI(window.location.pathname), 
+            owner: 'sunhang',
+            repo: 'gitment-comments',
+            
+            lang: "" || navigator.language || navigator.systemLanguage || navigator.userLanguage,
+            
+            oauth: {
+            
+            
+                client_secret: 'b5c89c64dda977ef6bf6326d91407b0ee1998b61',
+            
+                client_id: '2427d0174bf6c6be392e'
+            }});
+        gitment.render('gitment-container');
+      }
+
+      
+      renderGitment();
+      
+      </script>
+    
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
