@@ -87,22 +87,22 @@
 <meta property="og:site_name" content="程序员孙航">
 <meta property="og:description" content="android输入法机制包含三部分：    输入法服务(InputMethodService)，简称IMS；   输入法系统服务（InputMethodManagerService），简称IMMS；   客户端app（即当前要输入内容的app）；  android中的四大组件，其中经常用的包含Activity和Service。它们就像是系统和app通信的接口一样。通过Activity中可以展示UI">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16abae2c5e463869?w=1328&h=714&f=png&s=325349">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/22/16ade89d12dd21c4?w=898&h=1442&f=png&s=110930">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/22/16adef1dffc2941c?w=876&h=490&f=png&s=28731">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/23/16ae30aa4c47e14d?w=832&h=492&f=png&s=30887">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/23/16ae30cfd030d403?w=824&h=564&f=png&s=34714">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/22/16adf01d4f599cf9?w=1316&h=48&f=png&s=23266">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/23/16ae2f49ac37a977?w=1762&h=636&f=png&s=171809">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/28/16893e0ffa641e8c?w=1598&h=1010&f=png&s=165680">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/28/16893bc3b5f6b542?w=1488&h=906&f=png&s=108778">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/28/168937322503effe?w=1226&h=658&f=png&s=202389">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/1/28/16893cb973791314?w=3133&h=1660&f=jpeg&s=1340298">
-<meta property="og:updated_time" content="2019-05-23T10:59:19.726Z">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime01.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime02.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime03.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime04.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime05.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime06.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime07.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime08.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime09.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime10.png">
+<meta property="og:image" content="http://yoursite.com/images/my/ime/ime11.png">
+<meta property="og:updated_time" content="2019-06-09T14:48:43.319Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="android输入法机制的学习总结">
 <meta name="twitter:description" content="android输入法机制包含三部分：    输入法服务(InputMethodService)，简称IMS；   输入法系统服务（InputMethodManagerService），简称IMMS；   客户端app（即当前要输入内容的app）；  android中的四大组件，其中经常用的包含Activity和Service。它们就像是系统和app通信的接口一样。通过Activity中可以展示UI">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16abae2c5e463869?w=1328&h=714&f=png&s=325349">
+<meta name="twitter:image" content="http://yoursite.com/images/my/ime/ime01.png">
 
 
 
@@ -357,7 +357,7 @@
 </ol>
 <h1 id="整体概括"><a href="#整体概括" class="headerlink" title="整体概括"></a>整体概括</h1><p>输入法服务的启动以及和第三方app的关系的搭建，离不开IMMS（InputMethodManagerService）和其它系统服务。而启动、关系搭建、通信过程，离不开binder。</p>
 <p>先把图奉上</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16abae2c5e463869?w=1328&amp;h=714&amp;f=png&amp;s=325349" alt=""></p>
+<p><img src="/images/my/ime/ime01.png" alt=""></p>
 <p>图里边用红色数字标注的地方是用binder进行通信的，而蓝色标注的A，B处也是用binder通信，蓝色部分标注的是和普通app的按键触屏通信机制一样，在这里先不分析了。</p>
 <p>首先简洁的一笔带过IMMS的启动，它的启动是在SystemServer运行起来时，会调用代码startOtherServices，代码如下。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// Start services.</span><br><span class="line">try &#123;</span><br><span class="line">    traceBeginAndSlog(&quot;StartServices&quot;);</span><br><span class="line">    startBootstrapServices();</span><br><span class="line">    startCoreServices();</span><br><span class="line">    startOtherServices();</span><br><span class="line">    SystemServerInitThreadPool.shutdown();</span><br><span class="line">&#125; catch (Throwable ex) &#123;</span><br><span class="line">    throw ex;</span><br><span class="line">&#125; finally &#123;</span><br><span class="line">    traceEnd();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -374,7 +374,7 @@
 <p>注意，注意！第三方app这里也调用了startInputOrWindowGainedFocus方法，它和IMMS中的startInputOrWindowGainedFocus是通过binder机制通信的。</p>
 <p>InputMethodManager的startInputInner方法会在编辑框获取焦点时被调用。</p>
 <h1 id="输入法服务如何展现UI键盘"><a href="#输入法服务如何展现UI键盘" class="headerlink" title="输入法服务如何展现UI键盘"></a>输入法服务如何展现UI键盘</h1><p>先上个图，展示输入法服务的类继承关系。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/22/16ade89d12dd21c4?w=898&amp;h=1442&amp;f=png&amp;s=110930" alt=""></p>
+<p><img src="/images/my/ime/ime02.png" alt=""></p>
 <p>在去了解AbstractInputMethodService、InputMethodService前，先抛出一个认知。</p>
 <p>通常我们要展示一个界面时，除了用activity之外，我们也可以获取WindowManager，然后调用它的addView。也可以通过popupwindow、dialog展示界面。</p>
 <p>输入法的界面就是靠最后一种方式（dialog）展示出来的，而调用dialog的地方，必然是在AbstractInputMethodService、InputMethodService这2个类中某一个地方。</p>
@@ -390,11 +390,11 @@
 <p>这里说的净是InputMethodService内部的东西，AbstractInputMethodService到底干了什么？以后会分析。</p>
 <h1 id="第三方app和输入法service如何通信"><a href="#第三方app和输入法service如何通信" class="headerlink" title="第三方app和输入法service如何通信"></a>第三方app和输入法service如何通信</h1><p>第三方app可以控制输入法弹出和收起等。我们都知道进程间通信靠binder。这里也不例外。but！！！还记得这个输入法Service是在IMMS中bind的吧(不记得了就查IMMS中的这个方法bindCurrentInputMethodService)，而不是在第三方app中bind的。所以这个输入法service所对应的binder对象应该是存在于IMMS，而现在是要第三方app通过持有的binder向输入法service通信，该怎么办？</p>
 <p>最初始的binder关联是这样的。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/22/16adef1dffc2941c?w=876&amp;h=490&amp;f=png&amp;s=28731" alt=""></p>
+<p><img src="/images/my/ime/ime03.png" alt=""></p>
 <p>紧接着第三方app通过IMMS和IMS进行通信，于是就变成了这样。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/23/16ae30aa4c47e14d?w=832&amp;h=492&amp;f=png&amp;s=30887" alt=""></p>
+<p><img src="/images/my/ime/ime04.png" alt=""></p>
 <p>这样就可以实现，客户端app去通知输入法Service弹出键盘，在通知时，把自己的一个binder作为参数最终传给了IMS，于是就变成了这样。IMS可以通过这个binder向客户端app通信。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/23/16ae30cfd030d403?w=824&amp;h=564&amp;f=png&amp;s=34714" alt=""></p>
+<p><img src="/images/my/ime/ime05.png" alt=""></p>
 <p>此时大家会发出质疑，“是这样吗？没代码你说个河蟹啊。上代码！”</p>
 <h2 id="代码分析"><a href="#代码分析" class="headerlink" title="代码分析"></a>代码分析</h2><h3 id="第三方app持有IMMS的binder"><a href="#第三方app持有IMMS的binder" class="headerlink" title="第三方app持有IMMS的binder"></a>第三方app持有IMMS的binder</h3><p>第三方app是如何持有IMMS的binder的呢？第三方app运行起来后，会持有一个InputMethodManager对象（简称IMM），平时调用<code>context.getSystemService(Context.INPUT_METHOD_SERVICE)</code>就是获取的这个IMM，IMM的构造方式是</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">InputMethodManager(Looper looper) throws ServiceNotFoundException &#123;</span><br><span class="line">    this(IInputMethodManager.Stub.asInterface(</span><br><span class="line">            ServiceManager.getServiceOrThrow(Context.INPUT_METHOD_SERVICE)), looper);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -403,7 +403,7 @@
 <p>IInputMethodManager对应的aidl文件是IInputMethodManager.aidl：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">interface IInputMethodManager &#123;</span><br><span class="line">    void addClient(in IInputMethodClient client,</span><br><span class="line">            in IInputContext inputContext, int uid, int pid);</span><br><span class="line">    boolean showSoftInput(in IInputMethodClient client, int flags,</span><br><span class="line">            in ResultReceiver resultReceiver);</span><br><span class="line">    boolean hideSoftInput(in IInputMethodClient client, int flags,</span><br><span class="line">            in ResultReceiver resultReceiver);</span><br><span class="line">    InputBindResult startInputOrWindowGainedFocus(int startInputReason,</span><br><span class="line">            in IInputMethodClient client, in IBinder windowToken, int controlFlags,int softInputMode,int windowFlags, in EditorInfo attribute, IInputContext inputContext,int missingMethodFlags,int unverifiedTargetSdkVersion);</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h3 id="IMMS持有输入法Service的binder"><a href="#IMMS持有输入法Service的binder" class="headerlink" title="IMMS持有输入法Service的binder"></a>IMMS持有输入法Service的binder</h3><p>IMMS在调用bindCurrentInputMethodService时，传入了一个ServiceConnection（其实就是IMMS自己实现了这个接口）。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/22/16adf01d4f599cf9?w=1316&amp;h=48&amp;f=png&amp;s=23266" alt=""></p>
+<p><img src="/images/my/ime/ime06.png" alt=""></p>
 <p>在onServiceConnected方法中获取到类型是IInputMethod的binder，并赋值给mCurMethod。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">@Override</span><br><span class="line">public void onServiceConnected(ComponentName name, IBinder service) &#123;</span><br><span class="line">    synchronized (mMethodMap) &#123;</span><br><span class="line">        if (mCurIntent != null &amp;&amp; name.equals(mCurIntent.getComponent())) &#123;</span><br><span class="line">            mCurMethod = IInputMethod.Stub.asInterface(service);</span><br><span class="line">            if (mCurToken == null) &#123;</span><br><span class="line">                Slog.w(TAG, &quot;Service connected without a token!&quot;);</span><br><span class="line">                unbindCurrentMethodLocked(false);</span><br><span class="line">                return;</span><br><span class="line">            &#125;</span><br><span class="line">            executeOrSendMessage(mCurMethod, mCaller.obtainMessageOO(</span><br><span class="line">                    MSG_ATTACH_TOKEN, mCurMethod, mCurToken));</span><br><span class="line">            if (mCurClient != null) &#123;</span><br><span class="line">                clearClientSessionLocked(mCurClient);</span><br><span class="line">                requestClientSessionLocked(mCurClient);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>在输入法Service这一端，上边提到到AbstractInputMethodService开始发挥自己的功能了，它实现了onBind方法，返回IInputMethodWrapper。IInputMethodWrapper继承了一个Stub，实现了IInputMethod接口。</p>
@@ -418,7 +418,7 @@
 <h3 id="app和输入法关联"><a href="#app和输入法关联" class="headerlink" title="app和输入法关联"></a>app和输入法关联</h3><p>app向IMMS发起可输入请求，是靠调用IInputMethodManager的startInputOrWindowGainedFocus，IMMS收到消息后，向输入法service发起请求，是靠调用IInputMethod的startInput。</p>
 <p>注意！注意！这两个aidl的startInput都有个参数IInputContext，它也是个binder。这个参数最终传给了输入法Service。具体代码如下。</p>
 <p>第三方app端，InputMethodManager的方法startInputInner中有一段代码是</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/23/16ae2f49ac37a977?w=1762&amp;h=636&amp;f=png&amp;s=171809" alt=""><br>这个ControlledInputConnectionWrapper既是IInputContext的binder。</p>
+<p><img src="/images/my/ime/ime07.png" alt=""><br>这个ControlledInputConnectionWrapper既是IInputContext的binder。</p>
 <p>IMMS收到消息后如何发送消息startInput给IMS的，IMMS这里边逻辑太多，这里不再细说。</p>
 <p>IMS端IInputMethodWrapper.java中，类型是IInputContext的inputContext作为参数传给了InputConnectionWrapper，InputConnectionWrapper对象赋值给了InputConnection。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">case DO_START_INPUT: &#123;</span><br><span class="line">    final SomeArgs args = (SomeArgs) msg.obj;</span><br><span class="line">    final int missingMethods = msg.arg1;</span><br><span class="line">    final boolean restarting = msg.arg2 != 0;</span><br><span class="line">    final IBinder startInputToken = (IBinder) args.arg1;</span><br><span class="line">    final IInputContext inputContext = (IInputContext) args.arg2;</span><br><span class="line">    final EditorInfo info = (EditorInfo) args.arg3;</span><br><span class="line">    final InputConnection ic = inputContext != null</span><br><span class="line">            ? new InputConnectionWrapper(mTarget, inputContext, missingMethods) : null;</span><br><span class="line">    info.makeCompatible(mTargetSdkVersion);</span><br><span class="line">    inputMethod.dispatchStartInputWithToken(ic, info, restarting /* restarting */,</span><br><span class="line">            startInputToken);</span><br><span class="line">    args.recycle();</span><br><span class="line">    return;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
@@ -439,9 +439,9 @@
 <li>InputContextCallback;</li>
 </ol>
 <p>这些类的关系是什么呢，于是根据代码画了一张UML图</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/28/16893e0ffa641e8c?w=1598&amp;h=1010&amp;f=png&amp;s=165680" alt=""></p>
+<p><img src="/images/my/ime/ime08.png" alt=""></p>
 <p>概括说，service通过onBind()返回一个继承了Stub的IInputMethodWrapper对象，IInputMethodWrapper内部弱引用了一个InputMethodImpl对象。那么InputConnectionWrapper对象是如何被最终传递给service的呢。于是我画了一个时序图，如下。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/28/16893bc3b5f6b542?w=1488&amp;h=906&amp;f=png&amp;s=108778" alt=""></p>
+<p><img src="/images/my/ime/ime09.png" alt=""></p>
 <p>远程IPC调用IInputMethodWrapper的startInput方法，把IInputContext引用的对象传递过来，通过时序图可以看到InputMethodService是如何得到InputConnectionWrapper对象的，从而间接地可以得到IInputContext引用的对象（InputConnectionWrapper内聚了IInputContext）。这就赋予了servie远程和第三方app客户端通信的能力。这个IInputContext提供了什么接口，service就可以和客户端做什么通信。比如它有个<code>void commitText(CharSequence text, int newCursorPosition);</code>接口，可以使得service提交文字到客户端相应的EditText中。</p>
 <p><strong>注意</strong>，这里的IInputMethodWrapper是继承了IInputMethod.Stub,所以它 is-a Binder，实现了aidl定义的接口<strong>IInputMethod</strong>，而不是<strong>InputMethod</strong>。 这个容易迷惑人，<strong>InputMethod</strong>不是aidl定义的。</p>
 <h2 id="客户端"><a href="#客户端" class="headerlink" title="客户端"></a>客户端</h2><ol>
@@ -449,10 +449,10 @@
 <li>ControlledInputConnectionWrapper；</li>
 </ol>
 <p>IInputConnectionWrapper相关的类的关系如下</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/28/168937322503effe?w=1226&amp;h=658&amp;f=png&amp;s=202389" alt=""></p>
+<p><img src="/images/my/ime/ime10.png" alt=""></p>
 <p>在客户端的InputMethodManager的startInputInner方法中，创建了ControlledInputConnectionWrapper对象，并把它作为参数调用IInputMethodManager的startInputOrWindowGainedFocus。IInputMethodManager正是IMMS对应的binder，这样就通过IMMS把ControlledInputConnectionWrapper对应的binder传递给了IMS端。</p>
 <p>不难想象，这里的ControlledInputConnectionWrapper所对应的service端的正是InputConnectionWrapper里边的IInputContext。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/1/28/16893cb973791314?w=3133&amp;h=1660&amp;f=jpeg&amp;s=1340298" alt=""></p>
+<p><img src="/images/my/ime/ime11.png" alt=""></p>
 <h2 id="系统服务端"><a href="#系统服务端" class="headerlink" title="系统服务端"></a>系统服务端</h2><p>InputMethodManagerService</p>
 <p>IMS端和客户端共用：InputConnection</p>
 <h2 id="需要用到的aidl"><a href="#需要用到的aidl" class="headerlink" title="需要用到的aidl"></a>需要用到的aidl</h2><ol>
