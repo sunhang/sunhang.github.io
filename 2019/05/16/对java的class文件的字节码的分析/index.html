@@ -87,26 +87,26 @@
 <meta property="og:site_name" content="程序员孙航">
 <meta property="og:description" content="最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。 先写了一个简单的java类MyClass，代码如下：1234567public class MyClass &amp;#123;    private int i;    public void inc() &amp;#123;        i++;    &amp;#125;&amp;#125; 然后分析它的class文件。找到">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab96ce54453722?w=1364&h=1074&f=png&s=145346">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab96f366ada8f8?w=1364&h=1074&f=png&s=232716">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab982c249bc5aa?w=964&h=496&f=png&s=121539">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cbb02dccc29?w=1270&h=942&f=png&s=233211">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cd41c80e7bb?w=1050&h=716&f=png&s=135184">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16aba9498f0c488b?w=1014&h=724&f=png&s=912713">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16aba9967ce57a8b?w=1440&h=938&f=png&s=1595213">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abec3f92e5391e?w=1008&h=196&f=png&s=47402">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abed5328d1bdfd?w=1040&h=294&f=png&s=64159">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abee270bd267cc?w=1204&h=324&f=png&s=277225">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abef12918f9c77?w=1232&h=614&f=png&s=145471">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abef5db8e5b625?w=800&h=504&f=png&s=72156">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf3e78c21e0f6?w=1096&h=306&f=png&s=51386">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf480dc9cd996?w=1216&h=338&f=png&s=235909">
-<meta property="og:image" content="https://user-gold-cdn.xitu.io/2019/5/16/16abf69f9e3876e6?w=1026&h=164&f=png&s=27349">
-<meta property="og:updated_time" content="2019-05-16T08:44:57.675Z">
+<meta property="og:image" content="http://yoursite.com/images/my/java/00.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/01.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/02.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/03.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/04.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/05.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/06.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/07.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/08.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/09.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/10.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/11.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/12.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/13.png">
+<meta property="og:image" content="http://yoursite.com/images/my/java/14.png">
+<meta property="og:updated_time" content="2019-06-09T15:17:42.383Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="对java的class文件的字节码的分析">
 <meta name="twitter:description" content="最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。 先写了一个简单的java类MyClass，代码如下：1234567public class MyClass &amp;#123;    private int i;    public void inc() &amp;#123;        i++;    &amp;#125;&amp;#125; 然后分析它的class文件。找到">
-<meta name="twitter:image" content="https://user-gold-cdn.xitu.io/2019/5/15/16ab96ce54453722?w=1364&h=1074&f=png&s=145346">
+<meta name="twitter:image" content="http://yoursite.com/images/my/java/00.png">
 
 
 
@@ -349,19 +349,19 @@
         <p>最近有时会聊到java类的字节码，做了这么多年android开发，还真不了解它，于是想探索一下。</p>
 <p>先写了一个简单的java类MyClass，代码如下：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyClass</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">int</span> i;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">inc</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>然后分析它的class文件。找到生成的MyClass.class之后，用<code>vim -b MyClass.class</code>打开。打开后，是这样的，一脸懵逼。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab96ce54453722?w=1364&amp;h=1074&amp;f=png&amp;s=145346" alt=""></p>
+<p><img src="/images/my/java/00.png" alt=""></p>
 <p>不要紧，在vim中输入命令<code>:%! xxd</code>，展现这样的内容：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab96f366ada8f8?w=1364&amp;h=1074&amp;f=png&amp;s=232716" alt=""></p>
+<p><img src="/images/my/java/01.png" alt=""></p>
 <p>把字节码取出来，逐个分析。</p>
 <h3 id="cafe-babe"><a href="#cafe-babe" class="headerlink" title="cafe babe"></a>cafe babe</h3><p>每个Class文件的头四个字节称为魔数，它的唯一作用是用来确定该文件是否为一个能被虚拟机接受的Class文件</p>
 <h3 id="0000-0035"><a href="#0000-0035" class="headerlink" title="0000 0035"></a>0000 0035</h3><p>对应java class的版本号。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">u2 minor_version;//次版本号</span><br><span class="line">u2 major_version;//主版本号</span><br></pre></td></tr></table></figure></p>
 <p>次版本号在前，主版本号在后。minor_version是0，major_version是16进制的35。</p>
 <h3 id="0015"><a href="#0015" class="headerlink" title="0015"></a>0015</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">u2  constant_pool_count;//常量池容量计数</span><br></pre></td></tr></table></figure>
 <p>换算成10进制，常量的个数是21，这就代表常量池中有20项常量，索引值范围为1～20。（计数从1开始，其他计数从0开始，因为0有其他作用）</p>
-<p>选中部分既是常量池。<br><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab982c249bc5aa?w=964&amp;h=496&amp;f=png&amp;s=121539" alt=""></p>
-<p>分析常量池得出以下几项<br><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cbb02dccc29?w=1270&amp;h=942&amp;f=png&amp;s=233211" alt=""></p>
+<p>选中部分既是常量池。<br><img src="/images/my/java/02.png" alt=""></p>
+<p>分析常量池得出以下几项<br><img src="/images/my/java/03.png" alt=""></p>
 <p>如果用<code>javap -p -v MyClass.class</code>看，则是</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16ab9cd41c80e7bb?w=1050&amp;h=716&amp;f=png&amp;s=135184" alt=""></p>
+<p><img src="/images/my/java/04.png" alt=""></p>
 <p>接下来分析一下每一项的含义</p>
 <h3 id="0a-00-04-00-11"><a href="#0a-00-04-00-11" class="headerlink" title="0a 00 04 00 11"></a>0a 00 04 00 11</h3><p>该常量类型是<code>CONSTANT_Methodref_info</code><br>它的结构体是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">CONSTANT_Methodref_info &#123;</span><br><span class="line">    u1 tag;</span><br><span class="line">    u2 class_index;</span><br><span class="line">    u2 name_and_type_index;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <table>
@@ -396,29 +396,29 @@
 <p>在这里，两个index分别是7和8，于是我们又转向第7项和第8项，第7项和第8项可以看出来，他们的值分别是<code>01 00 06 3c 69 6e 69 74 3e</code>和<code>01 00 03 28 29 56</code>。它们又都是CONSTANT_Utf8_info结构，字符串分别是<code>&lt;init&gt;</code>和<code>()V</code>。</p>
 <p>方法名称<code>&lt;init&gt;</code>和方法描述符<code>()V</code>指的是什么呢？指的是一个实例初始方法，没有参数，返回类型也一定是 void。</p>
 <p>回过头来我理一下它们的关联，用图来表示如下。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16aba9498f0c488b?w=1014&amp;h=724&amp;f=png&amp;s=912713" alt=""><br>所以#1 Methodref表示的含义是<code>java/lang/Object.&quot;&lt;init&gt;&quot;:()V</code></p>
+<p><img src="/images/my/java/05.png" alt=""><br>所以#1 Methodref表示的含义是<code>java/lang/Object.&quot;&lt;init&gt;&quot;:()V</code></p>
 <h3 id="09-00-03-00-12"><a href="#09-00-03-00-12" class="headerlink" title="09 00 03 00 12"></a>09 00 03 00 12</h3><p>同样道理，分析第2项是。用图来表示如下。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/15/16aba9967ce57a8b?w=1440&amp;h=938&amp;f=png&amp;s=1595213" alt=""><br>所以#2 Fieldref表示的含义是<code>MyClass.i:I</code>，MyClass类的字段i，类型是整型。</p>
+<p><img src="/images/my/java/06.png" alt=""><br>所以#2 Fieldref表示的含义是<code>MyClass.i:I</code>，MyClass类的字段i，类型是整型。</p>
 <p>至于别的常量，后边再分析。</p>
 <h3 id="常量池后边的00-21"><a href="#常量池后边的00-21" class="headerlink" title="常量池后边的00 21"></a>常量池后边的00 21</h3><p>MyClass是一个普通Java类，不是接口、枚举或者注解，被public关键字修饰但没有被声明为final和abstract，并且它使用了JDK 1.2之后的编译器进行编译，因此它的ACC_PUBLIC、ACC_SUPER标志应当为真，而ACC_FINAL、ACC_INTERFACE、ACC_ABSTRACT、ACC_SYNTHETIC、ACC_ANNOTATION、CC_ENUM这6个标志应当为假，因此它的access_flags的值应为：0x0001|0x0020=0x0021。</p>
 <h3 id="类索引、父类索引与接口索引集合"><a href="#类索引、父类索引与接口索引集合" class="headerlink" title="类索引、父类索引与接口索引集合"></a>类索引、父类索引与接口索引集合</h3><p><code>00 21</code>之后就是<code>00 03 00 04</code>，<code>00 03</code>代表上边常量池中的第3项MyClass，这是类索引，<code>00 04</code>代表上边常量池中第4项java/lang/Object，这是父类索引。</p>
 <p>紧接着是<code>00 00</code>表示接口索引的个数。因为MyClass没有实现接口，所以个数是0。</p>
 <h3 id="field"><a href="#field" class="headerlink" title="field"></a>field</h3><h4 id="field-count"><a href="#field-count" class="headerlink" title="field count"></a>field count</h4><p>紧接着是字段个数 <code>00 01</code>，表示有一个字段。那当然是i了，接下来看字段i在字节码中是如何表示的。</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abec3f92e5391e?w=1008&amp;h=196&amp;f=png&amp;s=47402" alt=""></p>
+<p><img src="/images/my/java/07.png" alt=""></p>
 <h4 id="field-结构"><a href="#field-结构" class="headerlink" title="field 结构"></a>field 结构</h4><p>这8个字节表示的结构是：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">field_info &#123;</span><br><span class="line">    u2             access_flags;            // 2</span><br><span class="line">    u2             name_index;              // 5</span><br><span class="line">    u2             descriptor_index;        // 6</span><br><span class="line">    u2             attributes_count;        // 0</span><br><span class="line">    attribute_info attributes[attributes_count];        // null</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>access_flags是2,表示ACC_PRIVATE，私有成员。name_index是5，是常量池中的第5项i，descriptor_index是6，是常量池中的第6项，I，代表整型。</p>
 <p><strong>留下来个问题，attributes_count为什么是0，attribute_info在这里是什么含义？</strong></p>
 <h3 id="methods"><a href="#methods" class="headerlink" title="methods"></a>methods</h3><p>接下来的字节码存储的是java的方法</p>
 <h4 id="methods-count"><a href="#methods-count" class="headerlink" title="methods count"></a>methods count</h4><p><code>00 02</code>表示两个方法。为什么是两个方法，当然是<init>和inc了。且看是如何存储在字节码中的。</init></p>
 <h4 id="第一个方法"><a href="#第一个方法" class="headerlink" title="第一个方法"></a>第一个方法</h4><p>第一个方法在字节码中的存储是</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abed5328d1bdfd?w=1040&amp;h=294&amp;f=png&amp;s=64159" alt=""></p>
+<p><img src="/images/my/java/08.png" alt=""></p>
 <p>首先映入眼帘的是<code>00 01 00 07 00 08 00 01</code>，<code>00 01</code>表示ACC_PUBLIC，说明是public方法，<code>00 07</code>是常量池第7项索引，表示方法名<code>&lt;init&gt;</code>，<code>00 08</code>是常量池第8项索引，表示方法描述符<code>()V</code>。<code>00 01</code>表示attributes_count, 对应的结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">method_info &#123;</span><br><span class="line">    u2             access_flags;        // 1</span><br><span class="line">    u2             name_index;          // 7</span><br><span class="line">    u2             descriptor_index;    // 8</span><br><span class="line">    u2             attributes_count;    // 1</span><br><span class="line">    attribute_info attributes[attributes_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>那么剩下的就是属性信息了，对应的结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">attribute_info &#123;</span><br><span class="line">    u2 attribute_name_index;        // 9</span><br><span class="line">    u4 attribute_length;            // 00 00 00 2f，即47</span><br><span class="line">    u1 info[attribute_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><code>00 09</code>表示常量池中属性名称索引是第9项，常量池中第9项是Code，说明属性名称是Code。</p>
 <p><code>u1 info[attribute_length]</code>对应的字节码信息是：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abee270bd267cc?w=1204&amp;h=324&amp;f=png&amp;s=277225" alt=""></p>
+<p><img src="/images/my/java/09.png" alt=""></p>
 <p>这些字节码存储的信息是：</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abef12918f9c77?w=1232&amp;h=614&amp;f=png&amp;s=145471" alt=""></p>
+<p><img src="/images/my/java/10.png" alt=""></p>
 <p>其中字节码指令就是<code>2a b7 00 01 b1</code>，分析这些指令。</p>
 <ol>
 <li>读入2a，查表得0x2A对应的指令为aload_0，这个指令的含义是将第0个Slot中为reference类型的本地变量推送到操作数栈顶。</li>
@@ -427,7 +427,7 @@
 <li>读入b1，查表得0xB1对应的指令为return，含义是返回此方法，并且返回值为void。这条指令执行后，当前方法结束。</li>
 </ol>
 <p><code>通过javap -p -v MyClass.class可以看到</code></p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abef5db8e5b625?w=800&amp;h=504&amp;f=png&amp;s=72156" alt=""></p>
+<p><img src="/images/my/java/11.png" alt=""></p>
 <p>剩下的字节码是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">000a</span><br><span class="line">0000 0006 0001 0000 0001 000b 0000 000c</span><br><span class="line">0001 0000 0005 000c 000d 0000</span><br></pre></td></tr></table></figure></p>
 <p>剩下的字节码表示attributes，这些attributes是什么呢？attributes一共有2个属性，LineNumberTable和LocalVariableTable。</p>
 <p>其中<code>000a 0000 0006 0001 0000 0001</code>代表LineNumberTable_attribute这个结构，这个结构是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">LineNumberTable_attribute &#123;</span><br><span class="line">    u2 attribute_name_index;        // 00 0a，常量池中的第10项</span><br><span class="line">    u4 attribute_length;            // 0000 0006,属性长度是6个字节长</span><br><span class="line">    u2 line_number_table_length;    // 0001,只有1个line_number_table</span><br><span class="line">    &#123;   u2 start_pc;                // 0000，字节码行号</span><br><span class="line">        u2 line_number;             // 0001，Java源码行号</span><br><span class="line">    &#125; line_number_table[line_number_table_length];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
@@ -438,11 +438,11 @@
 <p><strong>name_index和descriptor_index</strong><br>指向常量池中CONSTANT_Utf8_info型常量的索引，分别代表了局部变量的名称以及这个局部变量的描述符</p>
 <p><strong>index</strong><br>这个局部变量在栈帧局部变量表中Slot的位置。当这个变量数据类型是64位类型时（double和long），它占用的Slot为index和index+1两个</p>
 <h4 id="第二个方法"><a href="#第二个方法" class="headerlink" title="第二个方法"></a>第二个方法</h4><p>我们再来分析第2个方法，它的字节码一共是</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abf3e78c21e0f6?w=1096&amp;h=306&amp;f=png&amp;s=51386" alt=""></p>
+<p><img src="/images/my/java/12.png" alt=""></p>
 <p>简单分析入下：<br><code>0001 000e 0008 0001</code>表示的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">method_info &#123;</span><br><span class="line">    u2             access_flags; // 0001， ACC_PUBLIC, 表示public方法</span><br><span class="line">    u2             name_index;  // 000e, 常量池索引，表示第14项，inc</span><br><span class="line">    u2             descriptor_index; // 0008，常量池索引，表示第8项，()V</span><br><span class="line">    u2             attributes_count; // 0001，1个attribute_info</span><br><span class="line">    attribute_info attributes[attributes_count];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p><code>0009 0000 0039</code> 表示的是<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">attribute_info &#123;</span><br><span class="line">    u2 attribute_name_index; // 0009,常量索引，表示Code</span><br><span class="line">    u4 attribute_length;    // 0000 0039, 十进制是57，表示info的长度</span><br><span class="line">    u1 info[attribute_length]; // 长度为57，该表示该java方法的字节块的剩余部分</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>再来分析info[57]，是</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abf480dc9cd996?w=1216&amp;h=338&amp;f=png&amp;s=235909" alt=""></p>
+<p><img src="/images/my/java/13.png" alt=""></p>
 <table>
 <thead>
 <tr>
@@ -549,7 +549,7 @@
 </tbody>
 </table>
 <h3 id="最后边的字节码"><a href="#最后边的字节码" class="headerlink" title="最后边的字节码"></a>最后边的字节码</h3><p><code>00 0100 0f00 0000 0200 10</code>表示什么含义呢？</p>
-<p><img src="https://user-gold-cdn.xitu.io/2019/5/16/16abf69f9e3876e6?w=1026&amp;h=164&amp;f=png&amp;s=27349" alt=""></p>
+<p><img src="/images/my/java/14.png" alt=""></p>
 <p><strong>00 01</strong> 表示attribute count为1</p>
 <p><strong>00 0f00 0000 0200 10</strong> 表示attribute_info</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">attribute_info &#123;</span><br><span class="line">    u2 attribute_name_index;    // 00 0f，常量池中的SourceFile</span><br><span class="line">    u4 attribute_length;        // 00 00 00 02，属性长度是2</span><br><span class="line">    u1 info[attribute_length]; // 00 10，常量池第16项的MyClass.java</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
