@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="kotlin," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="转载自http://sunhang09.blogspot.com/2018/04/blog-post.html 发现要学的东西实在太多，我对计算机世界的求知的欲望从来没有这么强烈过。 tensorflow，emacs机制，on lisp讲了什么，android的新领域新知识，android的测试驱动开发，robolectric，mockito，C++/C，android native，算法，lin">
+<meta name="description" content="有一个需求，获取app内容的高度，一般我会这样组织代码结构  获取手机屏幕高度 如果当前手机状态栏在显示，就减去状态栏高度 如果当前手机虚拟导航栏在显示，就减去导航栏高度 返回处理后的高度  我们先假定一些初始值（状态栏是否显示、状态栏高度、导航栏是否显示，导航栏高度等），代码大概是这样: 12345val statusBarHeight = 32 // we assume the value o">
+<meta name="keywords" content="kotlin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="要学的东西实在太多">
-<meta property="og:url" content="http://yoursite.com/2018/05/22/要学的东西实在太多/index.html">
+<meta property="og:title" content="kotlin中链式调用的简单思考">
+<meta property="og:url" content="http://yoursite.com/2019/10/25/kotlin中链式调用的简单思考/index.html">
 <meta property="og:site_name" content="程序员孙航">
-<meta property="og:description" content="转载自http://sunhang09.blogspot.com/2018/04/blog-post.html 发现要学的东西实在太多，我对计算机世界的求知的欲望从来没有这么强烈过。 tensorflow，emacs机制，on lisp讲了什么，android的新领域新知识，android的测试驱动开发，robolectric，mockito，C++/C，android native，算法，lin">
+<meta property="og:description" content="有一个需求，获取app内容的高度，一般我会这样组织代码结构  获取手机屏幕高度 如果当前手机状态栏在显示，就减去状态栏高度 如果当前手机虚拟导航栏在显示，就减去导航栏高度 返回处理后的高度  我们先假定一些初始值（状态栏是否显示、状态栏高度、导航栏是否显示，导航栏高度等），代码大概是这样: 12345val statusBarHeight = 32 // we assume the value o">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-05-22T06:30:29.954Z">
+<meta property="og:updated_time" content="2019-10-25T02:56:40.598Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="要学的东西实在太多">
-<meta name="twitter:description" content="转载自http://sunhang09.blogspot.com/2018/04/blog-post.html 发现要学的东西实在太多，我对计算机世界的求知的欲望从来没有这么强烈过。 tensorflow，emacs机制，on lisp讲了什么，android的新领域新知识，android的测试驱动开发，robolectric，mockito，C++/C，android native，算法，lin">
+<meta name="twitter:title" content="kotlin中链式调用的简单思考">
+<meta name="twitter:description" content="有一个需求，获取app内容的高度，一般我会这样组织代码结构  获取手机屏幕高度 如果当前手机状态栏在显示，就减去状态栏高度 如果当前手机虚拟导航栏在显示，就减去导航栏高度 返回处理后的高度  我们先假定一些初始值（状态栏是否显示、状态栏高度、导航栏是否显示，导航栏高度等），代码大概是这样: 12345val statusBarHeight = 32 // we assume the value o">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/05/22/要学的东西实在太多/"/>
+  <link rel="canonical" href="http://yoursite.com/2019/10/25/kotlin中链式调用的简单思考/"/>
 
 
 
 
 
-  <title>要学的东西实在太多 | 程序员孙航</title>
+  <title>kotlin中链式调用的简单思考 | 程序员孙航</title>
   
 
 
@@ -252,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/22/要学的东西实在太多/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/10/25/kotlin中链式调用的简单思考/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sunhang">
@@ -269,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">要学的东西实在太多</h1>
+          <h1 class="post-title" itemprop="name headline">kotlin中链式调用的简单思考</h1>
         
 
         <div class="post-meta">
@@ -281,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-22T14:11:42+08:00">
-                2018-05-22
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-10-25T10:41:00+08:00">
+                2019-10-25
               </time>
             
 
@@ -300,8 +301,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/05/22/要学的东西实在太多/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/05/22/要学的东西实在太多/" itemprop="commentsCount"></span>
+                <a href="/2019/10/25/kotlin中链式调用的简单思考/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2019/10/25/kotlin中链式调用的简单思考/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -329,12 +330,20 @@
       
 
       
-        <p>转载自<a href="http://sunhang09.blogspot.com/2018/04/blog-post.html" target="_blank" rel="noopener">http://sunhang09.blogspot.com/2018/04/blog-post.html</a></p>
-<p>发现要学的东西实在太多，我对计算机世界的求知的欲望从来没有这么强烈过。</p>
-<p>tensorflow，emacs机制，on lisp讲了什么，android的新领域新知识，android的测试驱动开发，robolectric，mockito，C++/C，android native，算法，linux，素描，油画。</p>
-<p>越是想做的多，越觉得时间不够，越是不能够浪费任何时间。</p>
-<p>我觉得我可以朝着大师的方向来迈步了。</p>
-<p>而且一个好的健康的身体实在是更重要了。</p>
+        <p>有一个需求，获取app内容的高度，一般我会这样组织代码结构</p>
+<ol>
+<li>获取手机屏幕高度</li>
+<li>如果当前手机状态栏在显示，就减去状态栏高度</li>
+<li>如果当前手机虚拟导航栏在显示，就减去导航栏高度</li>
+<li>返回处理后的高度</li>
+</ol>
+<p>我们先假定一些初始值（状态栏是否显示、状态栏高度、导航栏是否显示，导航栏高度等），代码大概是这样:</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> statusBarHeight = <span class="number">32</span> <span class="comment">// we assume the value of statusbar's height is 32</span></span><br><span class="line"><span class="keyword">val</span> navigationBarHeight = <span class="number">128</span> <span class="comment">// we assume the value of nav's height is 128</span></span><br><span class="line"><span class="keyword">val</span> screenHeight = <span class="number">1920</span></span><br><span class="line"><span class="keyword">val</span> statusBarVisible = <span class="literal">true</span></span><br><span class="line"><span class="keyword">val</span> navigationBarVisible = <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+<p>以及<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">methodWithImperativeStyle</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> contentHeight = screenHeight</span><br><span class="line">    <span class="keyword">if</span> (statusBarVisible) &#123;</span><br><span class="line">        contentHeight -= statusBarHeight</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (navigationBarVisible) &#123;</span><br><span class="line">        contentHeight -= navigationBarHeight</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"contentHeight: <span class="variable">$contentHeight</span>"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这种写法倾向于面向过程的编程思维，于是，我写了一个支持链式调用的方法，并且把新的获取app内容的高度的实现方式显示如下。</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="type">&lt;T&gt;</span> T.<span class="title">checkAndModify</span><span class="params">(condition: <span class="type">Boolean</span>, modify: (<span class="type">T</span>)</span></span> -&gt; T): T &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">if</span> (condition) &#123;</span><br><span class="line">        modify(<span class="keyword">this</span>)</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">this</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>以及<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">fun</span> <span class="title">methodWithChainedStyle</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> contentHeight = screenHeight.checkAndModify(statusBarVisible) &#123;</span><br><span class="line">        it - statusBarHeight</span><br><span class="line">    &#125;.checkAndModify(navigationBarVisible) &#123;</span><br><span class="line">        it - navigationBarHeight</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    println(<span class="string">"contentHeight: <span class="variable">$contentHeight</span>"</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>大家觉得怎么样？喜欢哪种方法呢？</p>
 
       
     </div>
@@ -350,6 +359,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+        </div>
+      
 
       
       
@@ -359,8 +374,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/22/一个新的开始/" rel="next" title="一个新的开始">
-                <i class="fa fa-chevron-left"></i> 一个新的开始
+              <a href="/2019/05/23/android输入法机制的学习总结/" rel="next" title="android输入法机制的学习总结">
+                <i class="fa fa-chevron-left"></i> android输入法机制的学习总结
               </a>
             
           </div>
@@ -368,10 +383,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/22/纪念我的戴妃手机/" rel="prev" title="纪念我的戴妃手机">
-                纪念我的戴妃手机 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
