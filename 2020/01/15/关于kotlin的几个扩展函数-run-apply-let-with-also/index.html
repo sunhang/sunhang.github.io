@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="kotlin," />
 
 
 
@@ -79,17 +79,18 @@
 
 
 
-<meta name="description" content="如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。 摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leade">
+<meta name="description" content="runrun：执行的意思。一个实例要去run了。比如说：12345val boar = people.run &amp;#123;    goHunting(); // 打猎    fight(); // 战斗    catchAWildBoar(); //抓到一只野猪&amp;#125; // run返回野猪 返回这个人运行后结果。即，打猎、战斗后，抓到了一只野猪。 applyapply：有道词典翻译的是申请、">
+<meta name="keywords" content="kotlin">
 <meta property="og:type" content="article">
-<meta property="og:title" content="今天我走在路上的思考">
-<meta property="og:url" content="http://yoursite.com/2018/10/10/今天我走在路上的思考/index.html">
+<meta property="og:title" content="关于kotlin的几个扩展函数(run, apply, let, with, also)">
+<meta property="og:url" content="http://yoursite.com/2020/01/15/关于kotlin的几个扩展函数-run-apply-let-with-also/index.html">
 <meta property="og:site_name" content="程序员孙航">
-<meta property="og:description" content="如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。 摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leade">
+<meta property="og:description" content="runrun：执行的意思。一个实例要去run了。比如说：12345val boar = people.run &amp;#123;    goHunting(); // 打猎    fight(); // 战斗    catchAWildBoar(); //抓到一只野猪&amp;#125; // run返回野猪 返回这个人运行后结果。即，打猎、战斗后，抓到了一只野猪。 applyapply：有道词典翻译的是申请、">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-10-10T02:57:26.033Z">
+<meta property="og:updated_time" content="2020-01-15T13:54:24.096Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="今天我走在路上的思考">
-<meta name="twitter:description" content="如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。 摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leade">
+<meta name="twitter:title" content="关于kotlin的几个扩展函数(run, apply, let, with, also)">
+<meta name="twitter:description" content="runrun：执行的意思。一个实例要去run了。比如说：12345val boar = people.run &amp;#123;    goHunting(); // 打猎    fight(); // 战斗    catchAWildBoar(); //抓到一只野猪&amp;#125; // run返回野猪 返回这个人运行后结果。即，打猎、战斗后，抓到了一只野猪。 applyapply：有道词典翻译的是申请、">
 
 
 
@@ -119,13 +120,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/10/10/今天我走在路上的思考/"/>
+  <link rel="canonical" href="http://yoursite.com/2020/01/15/关于kotlin的几个扩展函数-run-apply-let-with-also/"/>
 
 
 
 
 
-  <title>今天我走在路上的思考 | 程序员孙航</title>
+  <title>关于kotlin的几个扩展函数(run, apply, let, with, also) | 程序员孙航</title>
   
 
 
@@ -252,7 +253,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/10/10/今天我走在路上的思考/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/15/关于kotlin的几个扩展函数-run-apply-let-with-also/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="sunhang">
@@ -269,7 +270,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">今天我走在路上的思考</h1>
+          <h1 class="post-title" itemprop="name headline">关于kotlin的几个扩展函数(run, apply, let, with, also)</h1>
         
 
         <div class="post-meta">
@@ -281,8 +282,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-10-10T10:27:40+08:00">
-                2018-10-10
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-01-15T21:50:41+08:00">
+                2020-01-15
               </time>
             
 
@@ -292,28 +293,6 @@
           </span>
 
           
-            <span class="post-category" >
-            
-              <span class="post-meta-divider">|</span>
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">分类于</span>
-              
-              
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/生活感悟/" itemprop="url" rel="index">
-                    <span itemprop="name">生活感悟</span>
-                  </a>
-                </span>
-
-                
-                
-              
-            </span>
-          
 
           
             
@@ -322,8 +301,8 @@
                 <span class="post-meta-item-icon">
                   <i class="fa fa-comment-o"></i>
                 </span>
-                <a href="/2018/10/10/今天我走在路上的思考/#comments" itemprop="discussionUrl">
-                  <span class="post-comments-count gitment-comments-count" data-xid="/2018/10/10/今天我走在路上的思考/" itemprop="commentsCount"></span>
+                <a href="/2020/01/15/关于kotlin的几个扩展函数-run-apply-let-with-also/#comments" itemprop="discussionUrl">
+                  <span class="post-comments-count gitment-comments-count" data-xid="/2020/01/15/关于kotlin的几个扩展函数-run-apply-let-with-also/" itemprop="commentsCount"></span>
                 </a>
               </span>
             
@@ -351,13 +330,17 @@
       
 
       
-        <p>如今android开发已经太多了，毫无竞争力。android走了近10个年头，app的开发，早已经可以使用各种成熟的库来堆砌完成（比如，retrofit、room、android architecture组件库、rxjava、glide等等）。如果继续联网自己调用httpconnection，那效率就大打折扣。</p>
-<p>摆在自己面前的只有两条路，一个是做技术leader，一个是继续做技术。做技术leader我个人觉得目前条件还不成熟。继续做技术的话就不要考虑再在android应用层做重复工作了（1年的经验用了几年是没有前途的）。</p>
-<p>“白天生存，晚上充电”。这句话又摆在了眼前。</p>
-<p>我做了android 8年开发，很大时间是在做重复使用经验，因为个人性格还有别的原因，没有做到管理，这是最尴尬最糟糕的职业经历了。但是回顾过去8年，前3年是在网秦做了很多业务磨砺了自己的任性的性格，后来接近5年时间是在搜狗做技术，5年内从模块设计、技术积累等方面也成长了很多。总体上10分的话给自己打5分。</p>
-<p>接下来，我计划个人时间内折腾android操作系统（framework+linux），以及学习算法，学习算法是为了做AI而铺路。为什么要折腾framework呢，假如要做一个百万级DAU的app的话，每天会有搜集上报来的疑难杂症和framework层的调用栈有关，另外一个理由是android系统在不断升级完善，google会折腾出新花样我需要去了解探索它。那为什么要搞linux呢，后面再说。至于算法和AI，我有一些自己的点子从来没有实现过，用AI做画，拍摄一张照片，可以把该照片转化成一幅美术画（用户可以选择自己喜欢的风格的，比如水彩、素描、国画、油画等）。</p>
-<p>至于学习折腾linux，因为现在很多设备都是运行在linux上，首先就是android。我想了想，假如以后自己努力往户外扩展，地质勘探等方向发展的话，我就可以往机器人和设备制作方面发展，而这些都可能需要linux做基础。我有的时候想长期坐在办公室闷得慌，假如考虑职业跳转的话，可以考虑户外、地质考察等方向发展。</p>
-<p>这些都是我天马行空的想象，总之不能够再做android app层的开发了，这样迟早一天自己会被互联网行业淘汰的。</p>
+        <h1 id="run"><a href="#run" class="headerlink" title="run"></a>run</h1><p>run：执行的意思。一个实例要去run了。比如说：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> boar = people.run &#123;</span><br><span class="line">    goHunting(); <span class="comment">// 打猎</span></span><br><span class="line">    fight(); <span class="comment">// 战斗</span></span><br><span class="line">    catchAWildBoar(); <span class="comment">//抓到一只野猪</span></span><br><span class="line">&#125; <span class="comment">// run返回野猪</span></span><br></pre></td></tr></table></figure></p>
+<p>返回这个人运行后结果。即，打猎、战斗后，抓到了一只野猪。</p>
+<h1 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h1><p>apply：有道词典翻译的是申请、应用的意思。一个实例要去应用了。比如说：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> richboy = Girl().apply &#123;</span><br><span class="line">    getDressed() <span class="comment">// 穿衣服</span></span><br><span class="line">    makeUp() <span class="comment">// 化妆</span></span><br><span class="line">&#125;.run &#123; <span class="comment">// apply返回女孩这个实例</span></span><br><span class="line">    attendDancingParty() <span class="comment">// 参加一个舞会</span></span><br><span class="line">    catchARichBoy() <span class="comment">// 钓到金龟婿</span></span><br><span class="line">&#125; <span class="comment">// run返回金龟婿</span></span><br></pre></td></tr></table></figure></p>
+<p>这个女孩通过一系列应用（穿衣打扮），然后去运行了（参加舞会钓到金龟婿）。最后把金龟婿赋值给richboy。</p>
+<p>对于apply的应用场景，有时是为了编程图方便，流畅。比如说：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> girl = Girl().apply &#123; getDressed() &#125; <span class="comment">// 构造实例并且穿衣,把实例赋值给girl</span></span><br></pre></td></tr></table></figure></p>
+<h1 id="let"><a href="#let" class="headerlink" title="let"></a>let</h1><p>let: let在词典里解释是“允许，让；出租；假设；妨碍”，有种释放权力的意思。比如，let me past（让我过去）。<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">richBoy?.let &#123;</span><br><span class="line">    it.buyPlane() <span class="comment">// 买飞机</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个富有的男孩如果真存在，他就可以去买飞机。买飞机毕竟是一种释放，花钱的洒脱，欲望的释放。</p>
+<h1 id="with"><a href="#with" class="headerlink" title="with"></a>with</h1><p>字典里意思是“在一起；具有”<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> girl = Girl()</span><br><span class="line">with(girl) &#123;</span><br><span class="line">    pet = Husky() <span class="comment">// 宠物二哈</span></span><br><span class="line">    mobile = Iphone(<span class="string">"xs plus"</span>) <span class="comment">// iPhone</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个女孩拥有二哈，iphone手机</p>
+<h1 id="also"><a href="#also" class="headerlink" title="also"></a>also</h1><p>also是“也，而且”的意思<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">val</span> taxi = Taxi()</span><br><span class="line"><span class="keyword">val</span> richBoy = Girl().apply &#123;</span><br><span class="line">    getDressed() <span class="comment">// 穿衣服</span></span><br><span class="line">    makeUp() <span class="comment">// 化妆</span></span><br><span class="line">&#125;.also &#123;</span><br><span class="line">    taxi.drive(it) <span class="comment">// 计程车带她出门</span></span><br><span class="line">&#125;.run &#123;</span><br><span class="line">    attendDancingParty() <span class="comment">// 参加一个舞会</span></span><br><span class="line">    catchARichBoy() <span class="comment">// 钓到金龟婿</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>这个女孩应用一通（穿衣化妆），而且也让计程车带她出门，然后运行（参加舞会钓到金龟婿），把金龟婿赋值给richBoy</p>
 
       
     </div>
@@ -373,6 +356,12 @@
 
     <footer class="post-footer">
       
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+        </div>
+      
 
       
       
@@ -382,8 +371,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/09/14/jmp-buf是什么/" rel="next" title="jmp_buf是什么">
-                <i class="fa fa-chevron-left"></i> jmp_buf是什么
+              <a href="/2019/10/25/kotlin中链式调用的简单思考/" rel="next" title="kotlin中链式调用的简单思考">
+                <i class="fa fa-chevron-left"></i> kotlin中链式调用的简单思考
               </a>
             
           </div>
@@ -391,10 +380,6 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/10/11/今天走在上班的路上想到的几个点子/" rel="prev" title="今天走在上班的路上想到的几个点子">
-                今天走在上班的路上想到的几个点子 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -453,8 +438,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -528,6 +522,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#run"><span class="nav-number">1.</span> <span class="nav-text">run</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apply"><span class="nav-number">2.</span> <span class="nav-text">apply</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#let"><span class="nav-number">3.</span> <span class="nav-text">let</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#with"><span class="nav-number">4.</span> <span class="nav-text">with</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#also"><span class="nav-number">5.</span> <span class="nav-text">also</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
