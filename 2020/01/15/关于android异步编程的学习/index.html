@@ -56,6 +56,7 @@
 <p>举例说明调度器的创建<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">suspend <span class="function"><span class="keyword">fun</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">val</span> myDispatcher= Executors.newSingleThreadExecutor&#123; r -&gt; Thread(r, <span class="string">"MyThread"</span>) &#125;.asCoroutineDispatcher()</span><br><span class="line">    GlobalScope.launch(myDispatcher) &#123;</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;.join()</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>我们可以通过主动关闭线程池或者调用<code>myDispatcher.close()</code>来结束它的生命周期</p>
 <p>GlobleScope和CoroutineScope的区别是什么？<br>runblock和launch的区别是什么？</p>
+<p><strong>Flow</strong>是协程中的一个流式处理的类，具体可参考<a href="https://www.kotlincn.net/docs/reference/coroutines/flow.html" target="_blank" rel="noopener">https://www.kotlincn.net/docs/reference/coroutines/flow.html</a></p>
 <h2 id="协程异常处理"><a href="#协程异常处理" class="headerlink" title="协程异常处理"></a>协程异常处理</h2><h2 id="协程取消"><a href="#协程取消" class="headerlink" title="协程取消"></a>协程取消</h2><h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><ul>
 <li>CompletableFuture虽然早已被java8支持，但是只能在android N及更高版本才可以使用；</li>
 <li>使用thread做异步的业务逻辑处理，虽然操作的粒度很细，但是要照顾的细节太多，还要理清锁和同步互斥，开发效率并不会提高；</li>
@@ -68,5 +69,6 @@
 <li><a href="https://www.jianshu.com/p/2d2e21941461" target="_blank" rel="noopener">https://www.jianshu.com/p/2d2e21941461</a></li>
 <li><a href="https://www.jianshu.com/p/06703abc56b1" target="_blank" rel="noopener">https://www.jianshu.com/p/06703abc56b1</a></li>
 <li>协程<a href="https://www.bennyhuo.com/2019/04/11/coroutine-dispatchers/" target="_blank" rel="noopener">https://www.bennyhuo.com/2019/04/11/coroutine-dispatchers/</a></li>
+<li>这位对协程写的特别好<a href="https://www.bennyhuo.com/2019/04/01/basic-coroutines/" target="_blank" rel="noopener">https://www.bennyhuo.com/2019/04/01/basic-coroutines/</a></li>
 </ul>
 </div><script src="/js/jquery.min.js"></script><script src="/js/main.js"></script></body></html>
