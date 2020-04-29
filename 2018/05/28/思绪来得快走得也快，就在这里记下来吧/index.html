@@ -1,4 +1,325 @@
-<!DOCTYPE html><html lang="zh-Hans"><head><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta name="viewport" content="width=device-width, initial-scale=0.5"><link rel="stylesheet" href="/css/post.css"><link rel="icon" href="/img/favicon.png"><title>思绪来得快走得也快，就在这里记下来吧</title></head><body>　　<div class="inner"><h2>思绪来得快走得也快，就在这里记下来吧</h2><h2 id="20190115"><a href="#20190115" class="headerlink" title="20190115"></a>20190115</h2><p>今天思考了一下，我的下一步打算<br>SurfaceFlinger我要把它学习一遍、然后是binder机制各层学习一遍，同时研究下android的各种库中的崩溃研究一下。接下来就要转战服务器端开发，那么服务器端开发，python/go/java哪个好呢？</p>
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Hexo, NexT" />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="20190115今天思考了一下，我的下一步打算SurfaceFlinger我要把它学习一遍、然后是binder机制各层学习一遍，同时研究下android的各种库中的崩溃研究一下。接下来就要转战服务器端开发，那么服务器端开发，python/go/java哪个好呢？ 20181027 20:04这几篇一定要看完它https://www.bignerdranch.com/blog/kotlin-when">
+<meta property="og:type" content="article">
+<meta property="og:title" content="思绪来得快走得也快，就在这里记下来吧">
+<meta property="og:url" content="http://yoursite.com/2018/05/28/思绪来得快走得也快，就在这里记下来吧/index.html">
+<meta property="og:site_name" content="程序员孙航">
+<meta property="og:description" content="20190115今天思考了一下，我的下一步打算SurfaceFlinger我要把它学习一遍、然后是binder机制各层学习一遍，同时研究下android的各种库中的崩溃研究一下。接下来就要转战服务器端开发，那么服务器端开发，python/go/java哪个好呢？ 20181027 20:04这几篇一定要看完它https://www.bignerdranch.com/blog/kotlin-when">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-01-15T10:12:07.071Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="思绪来得快走得也快，就在这里记下来吧">
+<meta name="twitter:description" content="20190115今天思考了一下，我的下一步打算SurfaceFlinger我要把它学习一遍、然后是binder机制各层学习一遍，同时研究下android的各种库中的崩溃研究一下。接下来就要转战服务器端开发，那么服务器端开发，python/go/java哪个好呢？ 20181027 20:04这几篇一定要看完它https://www.bignerdranch.com/blog/kotlin-when">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/05/28/思绪来得快走得也快，就在这里记下来吧/"/>
+
+
+
+
+
+  <title>思绪来得快走得也快，就在这里记下来吧 | 程序员孙航</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员孙航</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乐在行走</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/28/思绪来得快走得也快，就在这里记下来吧/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sunhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员孙航">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">思绪来得快走得也快，就在这里记下来吧</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-28T11:04:49+08:00">
+                2018-05-28
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="20190115"><a href="#20190115" class="headerlink" title="20190115"></a>20190115</h2><p>今天思考了一下，我的下一步打算<br>SurfaceFlinger我要把它学习一遍、然后是binder机制各层学习一遍，同时研究下android的各种库中的崩溃研究一下。接下来就要转战服务器端开发，那么服务器端开发，python/go/java哪个好呢？</p>
 <h2 id="20181027-20-04"><a href="#20181027-20-04" class="headerlink" title="20181027 20:04"></a>20181027 20:04</h2><p>这几篇一定要看完它<br><a href="https://www.bignerdranch.com/blog/kotlin-when-to-use-lazy-or-lateinit/" target="_blank" rel="noopener">https://www.bignerdranch.com/blog/kotlin-when-to-use-lazy-or-lateinit/</a><br><a href="https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E5%AF%B9%E6%95%B0/270475?fr=aladdin" target="_blank" rel="noopener">https://baike.baidu.com/item/%E8%87%AA%E7%84%B6%E5%AF%B9%E6%95%B0/270475?fr=aladdin</a><br><a href="http://cuijiahua.com/resource.html" target="_blank" rel="noopener">http://cuijiahua.com/resource.html</a><br><a href="https://www.jianshu.com/p/f509c9a9cac0" target="_blank" rel="noopener">https://www.jianshu.com/p/f509c9a9cac0</a><br><a href="https://emacs.stackexchange.com/questions/35923/how-do-you-recompile-an-el-source-file-and-make-it-active-in-my-current-session" target="_blank" rel="noopener">https://emacs.stackexchange.com/questions/35923/how-do-you-recompile-an-el-source-file-and-make-it-active-in-my-current-session</a><br><a href="http://blog.51cto.com/androidigging/1426766" target="_blank" rel="noopener">http://blog.51cto.com/androidigging/1426766</a><br><a href="https://codelabs.developers.google.com/codelabs/developing-android-a11y-service/index.html?index=..%2F..%2Findex#6" target="_blank" rel="noopener">https://codelabs.developers.google.com/codelabs/developing-android-a11y-service/index.html?index=..%2F..%2Findex#6</a><br><a href="https://juejin.im/post/5a14158df265da432c237bfc" target="_blank" rel="noopener">https://juejin.im/post/5a14158df265da432c237bfc</a><br><a href="https://blog.csdn.net/feint123/article/details/77861740" target="_blank" rel="noopener">https://blog.csdn.net/feint123/article/details/77861740</a><br><a href="https://willowtreeapps.com/ideas/generating-code-via-annotations-in-kotlin" target="_blank" rel="noopener">https://willowtreeapps.com/ideas/generating-code-via-annotations-in-kotlin</a><br><a href="https://discuss.kotlinlang.org/t/how-to-pass-java-class-as-parameter-to-kotlin-annotation/2374/2" target="_blank" rel="noopener">https://discuss.kotlinlang.org/t/how-to-pass-java-class-as-parameter-to-kotlin-annotation/2374/2</a><br><a href="https://engineering.wework.com/custom-annotations-in-android-af43514f2f1b" target="_blank" rel="noopener">https://engineering.wework.com/custom-annotations-in-android-af43514f2f1b</a><br><a href="https://medium.com/@Tarek360/annotation-processor-to-avoid-boilerplate-af0b8820297d" target="_blank" rel="noopener">https://medium.com/@Tarek360/annotation-processor-to-avoid-boilerplate-af0b8820297d</a></p>
 <h2 id="20181027"><a href="#20181027" class="headerlink" title="20181027"></a>20181027</h2><p>我买的乐高瓦力，这两篇文章值得观看（关于颈部松懈的问题）<a href="http://www.joyj.com/i/241484.html" target="_blank" rel="noopener">http://www.joyj.com/i/241484.html</a>和<a href="https://www.smzdm.com/p/5357181/" target="_blank" rel="noopener">https://www.smzdm.com/p/5357181/</a></p>
 <h2 id="201801026"><a href="#201801026" class="headerlink" title="201801026"></a>201801026</h2><p>这篇文章绝对值得阅读和研究，<a href="https://juejin.im/post/5a291aca51882531926e9e3d" target="_blank" rel="noopener">https://juejin.im/post/5a291aca51882531926e9e3d</a><br>和<a href="https://juejin.im/post/5b6948086fb9a04fb87771fb" target="_blank" rel="noopener">https://juejin.im/post/5b6948086fb9a04fb87771fb</a></p>
@@ -27,4 +348,399 @@
 <h2 id="20180608"><a href="#20180608" class="headerlink" title="20180608"></a>20180608</h2><p>今天发现俩很好的命令，可以查看设备的宽高和密度<br><code>adb shell wm size</code>和<code>adb shell wm density</code></p>
 <h2 id="20180528"><a href="#20180528" class="headerlink" title="20180528"></a>20180528</h2><p>在写一个单元测试，自定义了robolectric的一个shadow类，在里边维护了两个状态。可以简写成<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">class MyShadow &#123;</span><br><span class="line">    boolean state0;</span><br><span class="line">    boolean state1;</span><br><span class="line">    // ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
 <p>如何维护两个状态呢？两个布尔值形成了4种状态，如果三个布尔值的话，会形成8种状态。假如这种1维的思维去思考一个类的设计，会觉得繁琐。有没有更好的办法，假如说两种布尔值之间是有联系的呢，会不会把一维的思维的升到二维的思维的去考虑，会不会简单一些？又该怎么去实施呢？</p>
-</div><script src="/js/jquery.min.js"></script><script src="/js/main.js"></script></body></html>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/05/24/对web开发的学习笔记/" rel="next" title="对web开发的学习笔记">
+                <i class="fa fa-chevron-left"></i> 对web开发的学习笔记
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/07/CPP和C学习笔记/" rel="prev" title="CPP和C学习笔记">
+                CPP和C学习笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sunhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.heqiangfly.com/" title="寒江蓑笠" target="_blank">寒江蓑笠</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#20190115"><span class="nav-number">1.</span> <span class="nav-text">20190115</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181027-20-04"><span class="nav-number">2.</span> <span class="nav-text">20181027 20:04</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181027"><span class="nav-number">3.</span> <span class="nav-text">20181027</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#201801026"><span class="nav-number">4.</span> <span class="nav-text">201801026</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181025"><span class="nav-number">5.</span> <span class="nav-text">20181025</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181019"><span class="nav-number">6.</span> <span class="nav-text">20181019</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181017"><span class="nav-number">7.</span> <span class="nav-text">20181017</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181015"><span class="nav-number">8.</span> <span class="nav-text">20181015</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181013"><span class="nav-number">9.</span> <span class="nav-text">20181013</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181012"><span class="nav-number">10.</span> <span class="nav-text">20181012</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20181011"><span class="nav-number">11.</span> <span class="nav-text">20181011</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20180929"><span class="nav-number">12.</span> <span class="nav-text">20180929</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20180901"><span class="nav-number">13.</span> <span class="nav-text">20180901</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20180817"><span class="nav-number">14.</span> <span class="nav-text">20180817</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20180608"><span class="nav-number">15.</span> <span class="nav-text">20180608</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#20180528"><span class="nav-number">16.</span> <span class="nav-text">20180528</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
