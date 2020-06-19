@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=5.1.4">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=5.1.4" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="kotlin,coroutine," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="context是一特定场景下的执行环境，我们会在context中配置资源和其它对象。针对浮动框场景下，举个例子：123456class FloatPanelContext &amp;#123;    private Context mContext;    private View mRootView;    // ...    // get set&amp;#125; CoroutineContext但是kot">
+<meta name="keywords" content="kotlin,coroutine">
+<meta property="og:type" content="article">
+<meta property="og:title" content="coroutine的context有趣的实现方式">
+<meta property="og:url" content="http://yoursite.com/2020/06/19/coroutine的context有趣的实现方式/index.html">
+<meta property="og:site_name" content="程序员孙航">
+<meta property="og:description" content="context是一特定场景下的执行环境，我们会在context中配置资源和其它对象。针对浮动框场景下，举个例子：123456class FloatPanelContext &amp;#123;    private Context mContext;    private View mRootView;    // ...    // get set&amp;#125; CoroutineContext但是kot">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2020-06-19T11:03:34.264Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="coroutine的context有趣的实现方式">
+<meta name="twitter:description" content="context是一特定场景下的执行环境，我们会在context中配置资源和其它对象。针对浮动框场景下，举个例子：123456class FloatPanelContext &amp;#123;    private Context mContext;    private View mRootView;    // ...    // get set&amp;#125; CoroutineContext但是kot">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Pisces',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2020/06/19/coroutine的context有趣的实现方式/"/>
+
+
+
+
+
+  <title>coroutine的context有趣的实现方式 | 程序员孙航</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">程序员孙航</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">乐在行走</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/06/19/coroutine的context有趣的实现方式/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="sunhang">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/avatar.gif">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="程序员孙航">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">coroutine的context有趣的实现方式</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2020-06-19T17:21:05+08:00">
+                2020-06-19
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>context是一特定场景下的执行环境，我们会在context中配置资源和其它对象。针对浮动框场景下，举个例子：<br><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">FloatPanelContext</span> </span>&#123;</span><br><span class="line">    <span class="keyword">private</span> Context mContext;</span><br><span class="line">    <span class="keyword">private</span> View mRootView;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// get set</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<h1 id="CoroutineContext"><a href="#CoroutineContext" class="headerlink" title="CoroutineContext"></a>CoroutineContext</h1><p>但是kotlin的coroutine的context的实现，有点独特<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">CoroutineContext</span> </span>&#123;</span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns the element with the given [key] from this context or `null`.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;E : Element&gt;</span> <span class="title">get</span><span class="params">(key: <span class="type">Key</span>&lt;<span class="type">E</span>&gt;)</span></span>: E?</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Accumulates entries of this context starting with [initial] value and applying [operation]</span></span><br><span class="line"><span class="comment">     * from left to right to current accumulator value and each element of this context.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;R&gt;</span> <span class="title">fold</span><span class="params">(initial: <span class="type">R</span>, operation: (<span class="type">R</span>, Element)</span></span> -&gt; R): R</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns a context containing elements from this context and elements from  other [context].</span></span><br><span class="line"><span class="comment">     * The elements from this context with the same key as in the other one are dropped.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">plus</span><span class="params">(context: <span class="type">CoroutineContext</span>)</span></span>: CoroutineContext =</span><br><span class="line">        <span class="keyword">if</span> (context === EmptyCoroutineContext) <span class="keyword">this</span> <span class="keyword">else</span> <span class="comment">// fast path -- avoid lambda creation</span></span><br><span class="line">            context.fold(<span class="keyword">this</span>) &#123; acc, element -&gt;</span><br><span class="line">                <span class="keyword">val</span> removed = acc.minusKey(element.key)</span><br><span class="line">                <span class="keyword">if</span> (removed === EmptyCoroutineContext) element <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="comment">// make sure interceptor is always last in the context (and thus is fast to get when present)</span></span><br><span class="line">                    <span class="keyword">val</span> interceptor = removed[ContinuationInterceptor]</span><br><span class="line">                    <span class="keyword">if</span> (interceptor == <span class="literal">null</span>) CombinedContext(removed, element) <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">val</span> left = removed.minusKey(ContinuationInterceptor)</span><br><span class="line">                        <span class="keyword">if</span> (left === EmptyCoroutineContext) CombinedContext(element, interceptor) <span class="keyword">else</span></span><br><span class="line">                            CombinedContext(CombinedContext(left, element), interceptor)</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns a context containing elements from this context, but without an element with</span></span><br><span class="line"><span class="comment">     * the specified [key].</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="function"><span class="keyword">fun</span> <span class="title">minusKey</span><span class="params">(key: <span class="type">Key</span>&lt;*&gt;)</span></span>: CoroutineContext</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Key for the elements of [CoroutineContext]. [E] is a type of element with this key.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Key</span>&lt;<span class="type">E : Element</span>&gt;</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * An element of the [CoroutineContext]. An element of the coroutine context is a singleton context by itself.</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Element</span> : <span class="type">CoroutineContext &#123;</span></span></span><br><span class="line">        <span class="comment">/**</span></span><br><span class="line"><span class="comment">         * A key of this coroutine context element.</span></span><br><span class="line"><span class="comment">         */</span></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">val</span> key: Key&lt;*&gt;</span><br><span class="line"></span><br><span class="line">        public override operator fun &lt;E : Element&gt; get(key: Key&lt;E&gt;): E? =</span><br><span class="line">            <span class="meta">@Suppress(<span class="meta-string">"UNCHECKED_CAST"</span>)</span></span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.key == key) <span class="keyword">this</span> <span class="keyword">as</span> E <span class="keyword">else</span> <span class="literal">null</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;R&gt;</span> <span class="title">fold</span><span class="params">(initial: <span class="type">R</span>, operation: (<span class="type">R</span>, Element)</span></span> -&gt; R): R =</span><br><span class="line">            operation(initial, <span class="keyword">this</span>)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">minusKey</span><span class="params">(key: <span class="type">Key</span>&lt;*&gt;)</span></span>: CoroutineContext =</span><br><span class="line">            <span class="keyword">if</span> (<span class="keyword">this</span>.key == key) EmptyCoroutineContext <span class="keyword">else</span> <span class="keyword">this</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>CoroutineContext是一个interface，里边有个嵌套的interface是Element，Element是继承自CoroutineContext，Element中有一个对应的Key。每个操作对象都是直接或间接地实现了Element，比如说Job，CoroutineDispatcher,ContinuationInterceptor。</p>
+<p>CoroutineContext定义了两个操作符重载函数，get和plus，get是操作符<code>[]</code>，plus是操作符<code>+</code>，还有个minusKey。要理解这些函数的意义，得先搞明白协程上下文的表示方法。</p>
+<h1 id="链表"><a href="#链表" class="headerlink" title="链表"></a>链表</h1><p>协程上下文其实是一个左向链表，至于链表，举个例子，通常是这样的<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>(<span class="keyword">var</span> next: Node)</span><br></pre></td></tr></table></figure></p>
+<p>但是这个左向链表，是这样的<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">data</span> <span class="class"><span class="keyword">class</span> <span class="title">Node</span></span>(<span class="keyword">var</span> left: Node)</span><br></pre></td></tr></table></figure></p>
+<h1 id="CombinedContext"><a href="#CombinedContext" class="headerlink" title="CombinedContext"></a>CombinedContext</h1><p>从结构上看没啥改变，只不过属性名不同。但是呢，它的意义不同，对于普通的链表，链表引用指向头，对于左向链表，链表引用指向尾。这个表示协程上下文的链表中，每个节点是<code>CombinedContext</code>，它的定义主要如下：<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="class"><span class="keyword">class</span> <span class="title">CombinedContext</span></span>(</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> left: CoroutineContext,</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">val</span> element: Element</span><br><span class="line">) : CoroutineContext, Serializable &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;E : Element&gt;</span> <span class="title">get</span><span class="params">(key: <span class="type">Key</span>&lt;<span class="type">E</span>&gt;)</span></span>: E? &#123;</span><br><span class="line">        <span class="keyword">var</span> cur = <span class="keyword">this</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            cur.element[key]?.let &#123; <span class="keyword">return</span> it &#125;</span><br><span class="line">            <span class="keyword">val</span> next = cur.left</span><br><span class="line">            <span class="keyword">if</span> (next <span class="keyword">is</span> CombinedContext) &#123;</span><br><span class="line">                cur = next</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">return</span> next[key]</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="type">&lt;R&gt;</span> <span class="title">fold</span><span class="params">(initial: <span class="type">R</span>, operation: (<span class="type">R</span>, Element)</span></span> -&gt; R): R =</span><br><span class="line">        operation(left.fold(initial, operation), element)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">override</span> <span class="function"><span class="keyword">fun</span> <span class="title">minusKey</span><span class="params">(key: <span class="type">Key</span>&lt;*&gt;)</span></span>: CoroutineContext &#123;</span><br><span class="line">        element[key]?.let &#123; <span class="keyword">return</span> left &#125;</span><br><span class="line">        <span class="keyword">val</span> newLeft = left.minusKey(key)</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">when</span> &#123;</span><br><span class="line">            newLeft === left -&gt; <span class="keyword">this</span></span><br><span class="line">            newLeft === EmptyCoroutineContext -&gt; element</span><br><span class="line">            <span class="keyword">else</span> -&gt; CombinedContext(newLeft, element)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="function"><span class="keyword">fun</span> <span class="title">size</span><span class="params">()</span></span>: <span class="built_in">Int</span> &#123;</span><br><span class="line">        <span class="keyword">var</span> cur = <span class="keyword">this</span></span><br><span class="line">        <span class="keyword">var</span> size = <span class="number">2</span></span><br><span class="line">        <span class="keyword">while</span> (<span class="literal">true</span>) &#123;</span><br><span class="line">            cur = cur.left <span class="keyword">as</span>? CombinedContext ?: <span class="keyword">return</span> size</span><br><span class="line">            size++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>在这个重载了操作符<code>[]</code>的get方法中，遍历链表，先在当前节点的中按照Key去寻找Element，若未找到，去从left节点中寻找。</p>
+<p>fold方法的作用是，把自己集成到参数initial上。</p>
+<p>minusKey方法的作用是，把这个链表上与参数key相同的Element去掉。如果是某一个节点的element的key相同，就把这个节点去掉。</p>
+<p>size即使去链表的长度。</p>
+<p>现在回到CoroutineContext中，再看它的重载了<code>+</code>操作符的plus方法，<br><figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">operator</span> <span class="function"><span class="keyword">fun</span> <span class="title">plus</span><span class="params">(context: <span class="type">CoroutineContext</span>)</span></span>: CoroutineContext =</span><br><span class="line">    <span class="keyword">if</span> (context === EmptyCoroutineContext) <span class="keyword">this</span> <span class="keyword">else</span> <span class="comment">// fast path -- avoid lambda creation</span></span><br><span class="line">        context.fold(<span class="keyword">this</span>) &#123; acc, element -&gt;</span><br><span class="line">            <span class="keyword">val</span> removed = acc.minusKey(element.key)</span><br><span class="line">            <span class="keyword">if</span> (removed === EmptyCoroutineContext) element <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="comment">// make sure interceptor is always last in the context (and thus is fast to get when present)</span></span><br><span class="line">                <span class="keyword">val</span> interceptor = removed[ContinuationInterceptor]</span><br><span class="line">                <span class="keyword">if</span> (interceptor == <span class="literal">null</span>) CombinedContext(removed, element) <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">val</span> left = removed.minusKey(ContinuationInterceptor)</span><br><span class="line">                    <span class="keyword">if</span> (left === EmptyCoroutineContext) CombinedContext(element, interceptor) <span class="keyword">else</span></span><br><span class="line">                        CombinedContext(CombinedContext(left, element), interceptor)</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure></p>
+<p>把参数context加到本链表中，用的是fold方法，操作方式是那一个lambda表达式，这个lambda表达式主要做了一件事是从链表中取出来Key是ContinuationInterceptor的节点，并放到链表的尾部，因为它是左向链表，放到尾部可以直接取出来用。为什么放到尾部，还不知道，也可能是约定好的。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>协程的上下文并不是通常定义的一个类，而是具有链表结构的列表，每一个节点是Element，Element继承自CoroutineContext;</li>
+<li>CoroutineContext重载了<code>+</code>和<code>[]</code>，<code>+</code>可以把新的Element加到链表上,<code>[]</code>的参数是Key，这又可以使得整个链表具有了map的属性；</li>
+<li>CombinedContext是上下文链表的节点，它重写了一些方法，这些方法中的逻辑实现，采用了遍历和递归的方式，遍历是对链表的遍历，递归是通过调用操作符<code>[]</code>进行递归查找。</li>
+</ol>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/kotlin/" rel="tag"># kotlin</a>
+          
+            <a href="/tags/coroutine/" rel="tag"># coroutine</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2020/01/15/关于android异步编程的学习/" rel="next" title="关于android异步编程的学习">
+                <i class="fa fa-chevron-left"></i> 关于android异步编程的学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <p class="site-author-name" itemprop="name">sunhang</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">40</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-categories">
+                
+                  <span class="site-state-item-count">7</span>
+                  <span class="site-state-item-name">分类</span>
+                
+              </div>
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+
+          
+          
+
+          
+          
+            <div class="links-of-blogroll motion-element links-of-blogroll-block">
+              <div class="links-of-blogroll-title">
+                <i class="fa  fa-fw fa-link"></i>
+                Links
+              </div>
+              <ul class="links-of-blogroll-list">
+                
+                  <li class="links-of-blogroll-item">
+                    <a href="http://www.heqiangfly.com/" title="寒江蓑笠" target="_blank">寒江蓑笠</a>
+                  </li>
+                
+              </ul>
+            </div>
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#CoroutineContext"><span class="nav-number">1.</span> <span class="nav-text">CoroutineContext</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#链表"><span class="nav-number">2.</span> <span class="nav-text">链表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#CombinedContext"><span class="nav-number">3.</span> <span class="nav-text">CombinedContext</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">4.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">sunhang</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Pisces</a> v5.1.4</div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

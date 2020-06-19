@@ -91,7 +91,7 @@
 <meta property="og:image" content="http://yoursite.com/images/async_code/ui0.png">
 <meta property="og:image" content="http://yoursite.com/images/async_code/ui1.png">
 <meta property="og:image" content="http://yoursite.com/images/async_code/xiecheng.png">
-<meta property="og:updated_time" content="2020-02-23T13:45:46.484Z">
+<meta property="og:updated_time" content="2020-05-31T11:48:19.797Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="关于android异步编程的学习">
 <meta name="twitter:description" content="目的android中，对异步编程进行对比，进而选择最合适的实现方式 模拟需求分别从宜家、家乐福获取商品桌子的信息，获取到后两者进行比较，挑选出最合意的桌子。依赖关系如下图所示。  UI效果图如下所示：        大概业务逻辑是这样：  在UI上分别显示：”正在请求宜家数据…”，”正在请求家乐福数据…”，”等待任务1和任务2…”; 开启异步任务，并发请求宜家数据和家乐福数据; 当宜家数据请求成功">
@@ -403,7 +403,7 @@
 <li>CompletableFuture虽然早已被java8支持，但是只能在android N及更高版本才可以使用；</li>
 <li>使用thread做异步的业务逻辑处理，虽然操作的粒度很细，但是要照顾的细节太多，还要理清锁和同步互斥，开发效率并不会提高；</li>
 <li>若使用线程池，对于任务的依赖关系只能用简单的future的get来处理，实现任务依赖的能力过于单薄；</li>
-<li>rxjava的代码量相对就少很多，对依赖关系处理能力强，可以轻松进行线程切换，若条件允许，建议使用rxjava；</li>
+<li>rxjava的代码量相对就少很多，可以轻松进行线程切换，若条件允许，建议使用rxjava；</li>
 <li>kotlin通过扩展包的方式支持了协程，可是在android上java还不支持协程。在纯kotlin项目中，相对rxjava，协程更轻量级，异步任务处理能力也挺强；</li>
 <li>但是若是在java+kotlin混合项目中，协程则不能充分应用到项目工程所有地方(仅在kotlin代码中使用)。此时为了工程保持接口统一，也可能需要放弃使用协程了。</li>
 </ul>
@@ -452,6 +452,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2020/06/19/coroutine的context有趣的实现方式/" rel="prev" title="coroutine的context有趣的实现方式">
+                coroutine的context有趣的实现方式 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -528,7 +532,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">39</span>
+                  <span class="site-state-item-count">40</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -550,7 +554,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">21</span>
+                  <span class="site-state-item-count">22</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
